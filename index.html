@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DK-VFX | 3D & VFX Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #06060e;
+      --bg2:       #0d0d1a;
+      --cyan:      #00f5ff;
+      --purple:    #7b2fff;
+      --pink:      #ff2d78;
+      --text:      #e8e8f0;
+      --muted:     #6b6b8a;
+      --card-border: rgba(0,245,255,0.12);
+      --glow-cyan: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
+      --font: 'Space Grotesk', sans-serif;
+      --mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CURSOR ─── */
+    #cur, #cur-r {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #cur {
+      width: 10px; height: 10px;
+      background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+      transition: transform .08s;
+    }
+    #cur-r {
+      width: 34px; height: 34px;
+      border: 1px solid rgba(0,245,255,.45);
+      z-index: 9998;
+      transition: width .2s, height .2s, opacity .2s;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.4rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s, backdrop-filter .4s;
+    }
+    nav.scrolled {
+      background: rgba(6,6,14,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,245,255,.07);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-weight: 700; font-size: 1.2rem;
+      color: var(--cyan); text-decoration: none;
+      text-shadow: 0 0 20px rgba(0,245,255,.5);
+      letter-spacing: .06em;
+    }
+    .nav-logo span { color: var(--purple); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: .82rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      padding: .45rem 1.4rem;
+      border: 1px solid var(--cyan); border-radius: 4px;
+      color: var(--cyan) !important;
+      transition: background .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover {
+      background: rgba(0,245,255,.08) !important;
+      box-shadow: var(--glow-cyan) !important;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO — Apechain style
+    ═══════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      width: 100%; height: 100vh;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+
+    /* ── Slides (crossfade background) ── */
+    .hero-slides {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s cubic-bezier(.4,0,.2,1);
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform-origin: center;
+      animation: kenBurns 10s ease-in-out infinite alternate;
+    }
+    @keyframes kenBurns {
+      from { transform: scale(1);   }
+      to   { transform: scale(1.08) translate(1%, -1%); }
+    }
+
+    /* ── Multi-layer overlay ── */
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to right, rgba(6,6,14,.82) 30%, rgba(6,6,14,.1) 100%),
+        linear-gradient(to top,   rgba(6,6,14,1)   0%,  rgba(6,6,14,0)  55%),
+        linear-gradient(to bottom,rgba(6,6,14,.6)  0%,  rgba(6,6,14,0)  25%);
+    }
+
+    /* ── Noise/grain texture ── */
+    .hero-noise {
+      position: absolute; inset: 0; z-index: 2;
+      opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── Particle canvas ── */
+    #hero-canvas {
+      position: absolute; inset: 0; z-index: 3;
+      width: 100%; height: 100%;
+      opacity: .5;
+    }
+
+    /* ── Scan-line vignette ── */
+    .hero-scan {
+      position: absolute; inset: 0; z-index: 4;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,.06) 3px, rgba(0,0,0,.06) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ── Main text content ── */
+    .hero-body {
+      position: relative; z-index: 10;
+      flex: 1;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 3.5rem;
+      max-width: 700px;
+    }
+
+    /* Badge */
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: slideUp .7s ease .3s forwards;
+    }
+    .eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .4; transform: scale(.7); }
+    }
+    .eyebrow-label {
+      font-family: var(--mono); font-size: .68rem; font-weight: 700;
+      color: var(--cyan); letter-spacing: .22em; text-transform: uppercase;
+    }
+    .eyebrow-sep { width: 30px; height: 1px; background: rgba(0,245,255,.35); }
+
+    /* Title */
+    .hero-title {
+      font-size: clamp(4.5rem, 11vw, 9.5rem);
+      font-weight: 700;
+      line-height: .92;
+      letter-spacing: -.03em;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: slideUp .8s ease .5s forwards;
+    }
+    .hero-title .t1 {
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 40px rgba(0,0,0,.8);
+    }
+    .hero-title .t2 {
+      display: block;
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 60%, var(--pink) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 35px rgba(0,245,255,.35));
+    }
+
+    /* Subtitle */
+    .hero-sub {
+      font-size: 1rem; color: rgba(232,232,240,.6);
+      letter-spacing: .08em; margin-bottom: 2.5rem;
+      font-weight: 400; line-height: 1.8;
+      opacity: 0;
+      animation: slideUp .8s ease .7s forwards;
+    }
+    .hero-sub strong { color: var(--text); }
+
+    /* CTA */
+    .hero-cta {
+      display: flex; gap: .9rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: slideUp .8s ease .9s forwards;
+    }
+    .btn-p {
+      padding: .9rem 2.2rem;
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      color: #000; font-family: var(--font); font-weight: 700;
+      font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+      border: none; border-radius: 5px; cursor: none; text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 40px rgba(0,245,255,.2), 0 0 80px rgba(123,47,255,.1);
+      transition: opacity .2s, transform .2s, box-shadow .3s;
+    }
+    .btn-p:hover {
+      opacity: .88; transform: translateY(-3px);
+      box-shadow: 0 0 60px rgba(0,245,255,.4), 0 0 100px rgba(123,47,255,.2);
+    }
+    .btn-s {
+      padding: .9rem 2.2rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--text); font-family: var(--font); font-weight: 600;
+      font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 5px; cursor: none; text-decoration: none; display: inline-block;
+      backdrop-filter: blur(8px);
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-s:hover { border-color: rgba(0,245,255,.4); color: var(--cyan); transform: translateY(-3px); }
+
+    /* ── Artwork info (bottom-left) ── */
+    .hero-artwork {
+      position: absolute; bottom: 6rem; left: 3.5rem; z-index: 10;
+      opacity: 0;
+      animation: slideUp .8s ease 1.1s forwards;
+    }
+    .artwork-cat {
+      font-family: var(--mono); font-size: .62rem; color: var(--cyan);
+      letter-spacing: .2em; text-transform: uppercase; margin-bottom: .3rem;
+    }
+    .artwork-name {
+      font-size: 1.4rem; font-weight: 700; color: #fff;
+      transition: opacity .4s, transform .4s;
+    }
+    .artwork-name.fading { opacity: 0; transform: translateY(8px); }
+
+    /* ── Slide counter (bottom-right) ── */
+    .hero-counter {
+      position: absolute; bottom: 6.2rem; right: 3.5rem; z-index: 10;
+      display: flex; align-items: center; gap: 1rem;
+      opacity: 0; animation: fadeIn .8s ease 1.2s forwards;
+    }
+    .counter-cur {
+      font-family: var(--mono); font-size: 2rem; font-weight: 700;
+      color: var(--cyan); line-height: 1;
+    }
+    .counter-sep { width: 1px; height: 28px; background: rgba(255,255,255,.2); }
+    .counter-tot {
+      font-family: var(--mono); font-size: .9rem; color: var(--muted);
+    }
+
+    /* ── Slide dots ── */
+    .hero-dots {
+      position: absolute; right: 3.5rem; top: 50%;
+      transform: translateY(-50%); z-index: 10;
+      display: flex; flex-direction: column; gap: .55rem;
+      opacity: 0; animation: fadeIn .8s ease 1.3s forwards;
+    }
+    .dot {
+      width: 3px; height: 20px; border-radius: 2px;
+      background: rgba(255,255,255,.2);
+      cursor: none; transition: background .3s, height .3s;
+    }
+    .dot.active { background: var(--cyan); height: 32px; box-shadow: 0 0 10px var(--cyan); }
+
+    /* ── Scroll hint ── */
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%); z-index: 10;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      opacity: 0; animation: fadeIn 1s ease 1.5s forwards;
+    }
+    .scroll-bar {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+      animation: scrollAnim 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollAnim {
+      0%,100% { opacity: .3; transform: scaleY(1); }
+      50%      { opacity: 1;  transform: scaleY(1.3); }
+    }
+    .scroll-txt {
+      font-family: var(--mono); font-size: .55rem;
+      color: var(--muted); letter-spacing: .22em; text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════
+       INFINITE TICKER — The Apechain Signature
+    ══════════════════════════════════════════ */
+    .hero-ticker {
+      position: relative; z-index: 10;
+      border-top: 1px solid rgba(0,245,255,.1);
+      border-bottom: 1px solid rgba(0,245,255,.04);
+      background: rgba(6,6,14,.7);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      height: 46px;
+      flex-shrink: 0;
+    }
+    .ticker-fade-l {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 80px; z-index: 2;
+      background: linear-gradient(to right, rgba(6,6,14,1), transparent);
+    }
+    .ticker-fade-r {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 80px; z-index: 2;
+      background: linear-gradient(to left, rgba(6,6,14,1), transparent);
+    }
+    .ticker-track {
+      display: flex; align-items: center;
+      height: 100%;
+      white-space: nowrap;
+      animation: ticker 28s linear infinite;
+      will-change: transform;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      font-family: var(--mono); font-size: .7rem; font-weight: 700;
+      color: rgba(232,232,240,.5); letter-spacing: .18em;
+      text-transform: uppercase; padding: 0 1.5rem;
+      transition: color .2s;
+    }
+    .ticker-item:hover { color: var(--cyan); }
+    .ticker-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      flex-shrink: 0;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── SECTIONS ─── */
+    section:not(#hero) { padding: 7rem 3.5rem; }
+
+    .section-label {
+      font-family: var(--mono); font-size: .68rem; color: var(--cyan);
+      letter-spacing: .25em; text-transform: uppercase;
+      margin-bottom: .7rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .section-label::before {
+      content: ''; display: inline-block;
+      width: 22px; height: 1px;
+      background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+    }
+    .section-title {
+      font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700;
+      line-height: 1.1; margin-bottom: 1rem; letter-spacing: -.02em;
+    }
+    .section-title .accent {
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-desc { color: var(--muted); font-size: .95rem; max-width: 500px; line-height: 1.75; }
+
+    /* ─── SHOWREEL ─── */
+    #showreel {
+      background: var(--bg2);
+      border-top: 1px solid rgba(0,245,255,.06);
+      border-bottom: 1px solid rgba(0,245,255,.06);
+    }
+    .showreel-inner { max-width: 1200px; margin: 0 auto; }
+    .showreel-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
+    }
+    .reel-wrap {
+      border-radius: 14px; overflow: hidden;
+      background: #000; aspect-ratio: 16/9;
+      border: 1px solid rgba(0,245,255,.15);
+      box-shadow: 0 0 80px rgba(0,245,255,.07);
+      position: relative; cursor: none;
+    }
+    .reel-ph {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,#0d0d1a,#12092a 50%,#0a1520);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 1.5rem;
+    }
+    .play-btn {
+      width: 78px; height: 78px; border-radius: 50%;
+      border: 2px solid var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--glow-cyan);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .play-btn svg { margin-left: 5px; fill: var(--cyan); filter: drop-shadow(0 0 8px var(--cyan)); }
+    @keyframes glowPulse {
+      0%,100% { box-shadow: var(--glow-cyan); }
+      50%      { box-shadow: 0 0 50px rgba(0,245,255,.6), 0 0 100px rgba(0,245,255,.2); }
+    }
+    .reel-ph p { color: var(--muted); font-family: var(--mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+    .reel-wrap::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+    }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--bg); }
+    .projects-inner { max-width: 1200px; margin: 0 auto; }
+    .projects-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.4rem;
+    }
+    .project-card {
+      border-radius: 12px; border: 1px solid rgba(0,245,255,.1);
+      background: rgba(255,255,255,.025); overflow: hidden;
+      cursor: none; transition: border-color .3s, box-shadow .3s, transform .3s;
+      opacity: 0; transform: translateY(30px);
+    }
+    .project-card.visible {
+      opacity: 1; transform: translateY(0);
+      transition: opacity .6s ease, transform .6s ease, border-color .3s, box-shadow .3s;
+    }
+    .project-card:hover {
+      border-color: rgba(0,245,255,.35);
+      box-shadow: 0 0 40px rgba(0,245,255,.08);
+      transform: translateY(-4px) !important;
+    }
+    .card-thumb {
+      aspect-ratio: 16/10; position: relative; overflow: hidden;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .project-card:hover .card-thumb img { transform: scale(1.05); }
+    .card-thumb-fallback {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 3.5rem; font-weight: 700;
+      color: rgba(255,255,255,.05);
+    }
+    .p1f { background: linear-gradient(135deg,#0a0a1a,#1a0535,#051525); }
+    .p2f { background: linear-gradient(135deg,#0a1520,#001a10,#0d0820); }
+    .p3f { background: linear-gradient(135deg,#1a0510,#0a0035,#150a20); }
+    .p4f { background: linear-gradient(135deg,#050a1a,#0d0535,#001020); }
+    .p5f { background: linear-gradient(135deg,#10000a,#1a0505,#200d10); }
+    .p6f { background: linear-gradient(135deg,#050d0a,#001518,#0a0d15); }
+    .card-tag {
+      position: absolute; top: .9rem; right: .9rem;
+      padding: .22rem .6rem; border-radius: 100px;
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .tag-3d    { background: rgba(0,245,255,.1); color: var(--cyan); border: 1px solid rgba(0,245,255,.3); }
+    .tag-vfx   { background: rgba(123,47,255,.1); color: var(--purple); border: 1px solid rgba(123,47,255,.3); }
+    .tag-motion{ background: rgba(255,45,120,.1); color: var(--pink); border: 1px solid rgba(255,45,120,.3); }
+    .card-body { padding: 1.2rem 1.4rem 1.4rem; }
+    .card-num  { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .15em; margin-bottom: .35rem; }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: .45rem; }
+    .card-desc { font-size: .83rem; color: var(--muted); line-height: 1.65; margin-bottom: .9rem; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-tools { display: flex; gap: .35rem; flex-wrap: wrap; }
+    .tool-chip {
+      padding: .18rem .48rem; border-radius: 4px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      font-size: .65rem; color: var(--muted); font-family: var(--mono);
+    }
+    .card-arrow {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid rgba(0,245,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: .85rem; flex-shrink: 0;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .project-card:hover .card-arrow {
+      background: rgba(0,245,255,.1);
+      box-shadow: var(--glow-cyan); transform: rotate(45deg);
+    }
+
+    /* Stats */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.08); border-radius: 12px;
+      overflow: hidden; margin-top: 5rem;
+    }
+    .stat-item {
+      padding: 1.8rem; background: var(--bg2);
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: .35rem; transition: background .2s;
+    }
+    .stat-item:hover { background: rgba(0,245,255,.04); }
+    .stat-num {
+      font-size: 2.4rem; font-weight: 700; font-family: var(--mono);
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: .78rem; color: var(--muted); letter-spacing: .05em; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid rgba(0,245,255,.06);
+      padding: 2.8rem 3.5rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--cyan); text-shadow: 0 0 15px rgba(0,245,255,.4); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { text-decoration: none; color: var(--muted); font-size: .83rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-body { padding: 0 1.5rem; }
+      .hero-artwork { left: 1.5rem; }
+      .hero-counter { right: 1.5rem; }
+      .hero-dots { display: none; }
+      section:not(#hero) { padding: 5rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .stats-bar { grid-template-columns: repeat(2,1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .showreel-header, .projects-header { flex-direction: column; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">DK<span>-VFX</span></a>
+  <ul class="nav-links">
+    <li><a href="#showreel">Showreel</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+
+  <!-- Background slide deck -->
+  <div class="hero-slides" id="slides">
+    <!-- Slides injected by JS; fallback gradient shown until images load -->
+  </div>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-noise"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-scan"></div>
+
+  <!-- Main content -->
+  <div class="hero-body">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <div class="eyebrow-sep"></div>
+      <span class="eyebrow-label">Available for Projects</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="t1">3D &amp; VFX</span>
+      <span class="t2">DK-VFX</span>
+    </h1>
+
+    <p class="hero-sub">
+      <strong>Cinematic 3D art</strong> &amp; visual effects —<br>
+      characters, environments, compositing &amp; motion.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#showreel" class="btn-p">Watch Showreel</a>
+      <a href="#projects" class="btn-s">View Projects</a>
+    </div>
+  </div>
+
+  <!-- Current artwork label -->
+  <div class="hero-artwork">
+    <div class="artwork-cat" id="art-cat">CHARACTER</div>
+    <div class="artwork-name" id="art-name">Pirate</div>
+  </div>
+
+  <!-- Slide counter -->
+  <div class="hero-counter">
+    <span class="counter-cur" id="cnt-cur">01</span>
+    <div class="counter-sep"></div>
+    <span class="counter-tot" id="cnt-tot">07</span>
+  </div>
+
+  <!-- Slide dots -->
+  <div class="hero-dots" id="dots"></div>
+
+  <!-- Scroll hint -->
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span class="scroll-txt">Scroll</span>
+  </div>
+
+  <!-- ∞ Ticker -->
+  <div class="hero-ticker">
+    <div class="ticker-fade-l"></div>
+    <div class="ticker-fade-r"></div>
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+
+</section>
+
+<!-- ═══ SHOWREEL ═══ -->
+<section id="showreel">
+  <div class="showreel-inner">
+    <div class="showreel-header">
+      <div>
+        <div class="section-label">Showreel</div>
+        <h2 class="section-title">The <span class="accent">Reel</span></h2>
+      </div>
+      <p class="section-desc">A curated collection of 3D renders, VFX breakdowns, and motion pieces — built frame by frame.</p>
+    </div>
+    <div class="reel-wrap">
+      <div class="reel-ph">
+        <div class="play-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Showreel 2025 &nbsp;·&nbsp; Coming Soon</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="projects-header">
+      <div>
+        <div class="section-label">Work</div>
+        <h2 class="section-title">Selected <span class="accent">Projects</span></h2>
+      </div>
+      <p class="section-desc">From stylized renders to live-action VFX compositing — each project is a new world.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="card-thumb p1f">
+          <img src="https://drive.google.com/thumbnail?id=1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy&sz=w800" alt="Pirate" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">01</div>
+          <span class="card-tag tag-3d">3D</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 01</div>
+          <div class="card-title">Pirate — Stylized Character</div>
+          <div class="card-desc">High-detail stylized character with hand-painted textures and expressive silhouette design.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Substance</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-thumb p2f">
+          <img src="https://drive.google.com/thumbnail?id=1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f&sz=w800" alt="Reaper Skin" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">02</div>
+          <span class="card-tag tag-3d">3D</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 02</div>
+          <div class="card-title">SSR Reaper — Character Skin</div>
+          <div class="card-desc">SSR-grade character skin with cinematic lighting and PBR material refinement.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-thumb p3f">
+          <img src="https://drive.google.com/thumbnail?id=11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP&sz=w800" alt="Wallpaper Environment" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">03</div>
+          <span class="card-tag tag-3d">3D</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 03</div>
+          <div class="card-title">Stylized World — Wallpaper</div>
+          <div class="card-desc">Stylized fantasy environment with atmospheric lighting and painterly aesthetic.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">EEVEE</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-thumb p4f">
+          <img src="https://drive.google.com/thumbnail?id=1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ&sz=w800" alt="Pet Sanctuary" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">04</div>
+          <span class="card-tag tag-3d">Environment</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 04</div>
+          <div class="card-title">Pet Sanctuary — Full Environment</div>
+          <div class="card-desc">Full-scale stylized game environment with rich props, foliage, and cinematic composition.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Cycles</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-thumb p5f">
+          <img src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w800" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">05</div>
+          <span class="card-tag tag-vfx">PBR</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 05</div>
+          <div class="card-title">Klaichit — PBR Character</div>
+          <div class="card-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span><span class="tool-chip">ZBrush</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-thumb p6f">
+          <img src="https://drive.google.com/thumbnail?id=1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c&sz=w800" alt="House Environment" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">06</div>
+          <span class="card-tag tag-motion">Environment</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 06</div>
+          <div class="card-title">Exterior House — Stylized</div>
+          <div class="card-desc">Stylized exterior architecture with hand-crafted lighting, textures, and environment dressing.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Substance</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Projects Completed</div></div>
+      <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Software Tools</div></div>
+      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Frames Rendered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-logo">DK-VFX</div>
+    <ul class="footer-links">
+      <li><a href="#">ArtStation</a></li>
+      <li><a href="#">Behance</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Email</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 DK-VFX · ALL RIGHTS RESERVED</div>
+  </div>
+</footer>
+
+<script>
+/* ────────────────────────────────────────────────
+   SLIDE DATA — your actual Drive artwork
+──────────────────────────────────────────────── */
+const SLIDES = [
+  { id: '1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy', cat: 'STYLIZED CHARACTER', name: 'Pirate' },
+  { id: '1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f', cat: 'CHARACTER SKIN',     name: 'SSR Reaper' },
+  { id: '1RZbm849iRcGo1zJAleUvTyB_AZh9UrjU', cat: 'CHARACTER SKIN',     name: 'SSR Punk' },
+  { id: '11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP', cat: 'STYLIZED ENVIRONMENT','name': 'World 01' },
+  { id: '1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ', cat: 'ENVIRONMENT',        name: 'Pet Sanctuary' },
+  { id: '1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA', cat: 'PBR REALISTIC',      name: 'Klaichit' },
+  { id: '1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c', cat: 'ENVIRONMENT',        name: 'Exterior House' },
+];
+const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
+
+/* Build slides */
+const slidesEl = document.getElementById('slides');
+const dotsEl   = document.getElementById('dots');
+document.getElementById('cnt-tot').textContent = String(SLIDES.length).padStart(2,'0');
+
+SLIDES.forEach((s, i) => {
+  /* slide */
+  const div = document.createElement('div');
+  div.className = 'slide' + (i === 0 ? ' active' : '');
+  const img = document.createElement('img');
+  img.src = IMG(s.id);
+  img.alt = s.name;
+  img.draggable = false;
+  /* fallback colour if image fails */
+  img.onerror = () => { div.style.background = `hsl(${240 + i*30},30%,8%)`; };
+  div.appendChild(img);
+  slidesEl.appendChild(div);
+
+  /* dot */
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(dot);
+});
+
+/* Carousel logic */
+let cur = 0, timer;
+function goTo(n) {
+  const slides = slidesEl.querySelectorAll('.slide');
+  const dots   = dotsEl.querySelectorAll('.dot');
+  slides[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = (n + SLIDES.length) % SLIDES.length;
+  slides[cur].classList.add('active');
+  dots[cur].classList.add('active');
+  document.getElementById('cnt-cur').textContent = String(cur+1).padStart(2,'0');
+
+  /* update label with fade */
+  const nameEl = document.getElementById('art-name');
+  const catEl  = document.getElementById('art-cat');
+  nameEl.classList.add('fading');
+  setTimeout(() => {
+    nameEl.textContent = SLIDES[cur].name;
+    catEl.textContent  = SLIDES[cur].cat;
+    nameEl.classList.remove('fading');
+  }, 380);
+}
+function autoPlay() { timer = setInterval(() => goTo(cur + 1), 5500); }
+function resetTimer() { clearInterval(timer); autoPlay(); }
+autoPlay();
+
+/* Click slide area to advance */
+slidesEl.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
+
+/* ────────────────────────────────────────────────
+   INFINITE TICKER
+──────────────────────────────────────────────── */
+const ITEMS = [
+  '3D RENDERING','VFX COMPOSITING','CHARACTER DESIGN',
+  'ENVIRONMENT ART','MOTION DESIGN','LIGHTING','TEXTURING',
+  'PBR MATERIALS','RIGGING','FLUID SIMULATION','COMPOSITING',
+  'STYLIZED ART','CINEMATIC VFX',
+];
+const tickerEl = document.getElementById('ticker');
+/* duplicate for seamless loop */
+const full = [...ITEMS, ...ITEMS];
+full.forEach((item, i) => {
+  const span = document.createElement('span');
+  span.className = 'ticker-item';
+  span.textContent = item;
+  tickerEl.appendChild(span);
+  if (i < full.length - 1) {
+    const dot = document.createElement('div');
+    dot.className = 'ticker-dot';
+    tickerEl.appendChild(dot);
+  }
+});
+
+/* ────────────────────────────────────────────────
+   PARTICLE CANVAS
+──────────────────────────────────────────────── */
+const canvas = document.getElementById('hero-canvas');
+const ctx    = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width  = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', () => { resize(); init(); });
+
+class Particle {
+  constructor(init) {
+    this.x  = Math.random() * W;
+    this.y  = init ? Math.random() * H : H + 10;
+    this.vx = (Math.random() - .5) * .35;
+    this.vy = -(Math.random() * .45 + .15);
+    this.r  = Math.random() * 1.4 + .4;
+    this.a  = Math.random() * .5 + .15;
+    this.hue = Math.random() > .55 ? 186 : 270;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.y < -10) Object.assign(this, new Particle(false));
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fillStyle = `hsla(${this.hue},100%,72%,${this.a})`;
+    ctx.fill();
+  }
+}
+function init() { particles = Array.from({length: 90}, (_, i) => new Particle(true)); }
+init();
+
+function drawLines() {
+  const d = 90;
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i+1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < d) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,245,255,${(1-dist/d)*.1})`;
+        ctx.lineWidth = .5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+function loop() {
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(loop);
+}
+loop();
+
+/* ────────────────────────────────────────────────
+   CUSTOM CURSOR
+──────────────────────────────────────────────── */
+const cur$ = document.getElementById('cur');
+const ring  = document.getElementById('cur-r');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function animCursor() {
+  cur$.style.left = mx+'px'; cur$.style.top = my+'px';
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ────────────────────────────────────────────────
+   NAV scroll
+──────────────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 50);
+});
+
+/* ────────────────────────────────────────────────
+   Card scroll reveal
+──────────────────────────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = [...document.querySelectorAll('.project-card')].indexOf(e.target);
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.project-card').forEach(c => obs.observe(c));
+
+/* ────────────────────────────────────────────────
+   Smooth anchor scroll
+──────────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+</html>
