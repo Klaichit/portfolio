@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:     #06060e;
+      --bg2:    #0d0d1a;
+      --cyan:   #00f5ff;
+      --purple: #7b2fff;
+      --pink:   #ff2d78;
+      --text:   #e8e8f0;
+      --muted:  #6b6b8a;
+      --glow-cyan: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
+      --font: 'Space Grotesk', sans-serif;
+      --mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.2rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,6,14,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,245,255,.07);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-weight: 700; font-size: 1.1rem;
+      color: var(--cyan); text-decoration: none;
+      text-shadow: 0 0 20px rgba(0,245,255,.5);
+    }
+    .nav-logo span { color: var(--purple); }
+    .nav-back {
+      font-family: var(--mono); font-size: .72rem; color: var(--muted);
+      text-decoration: none; letter-spacing: .12em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* ─── HERO STRIP ─── */
+    .resume-hero {
+      padding: 10rem 3.5rem 5rem;
+      border-bottom: 1px solid rgba(0,245,255,.06);
+      display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .resume-avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      border: 2px solid rgba(0,245,255,.4);
+      padding: 3px; flex-shrink: 0;
+      box-shadow: var(--glow-cyan);
+    }
+    .resume-avatar img {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; object-position: top;
+    }
+    .resume-intro h1 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1;
+      margin-bottom: .4rem;
+    }
+    .resume-intro h1 span {
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .resume-intro .role {
+      font-family: var(--mono); font-size: .78rem; color: var(--cyan);
+      letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .resume-intro .bio {
+      color: var(--muted); font-size: .95rem; line-height: 1.75; max-width: 520px;
+    }
+    .resume-links {
+      display: flex; gap: .7rem; margin-top: 1.4rem; flex-wrap: wrap;
+    }
+    .resume-links a {
+      padding: .4rem 1.1rem;
+      border: 1px solid rgba(0,245,255,.25); border-radius: 4px;
+      font-family: var(--mono); font-size: .65rem; color: var(--cyan);
+      text-decoration: none; letter-spacing: .1em; text-transform: uppercase;
+      transition: background .2s, box-shadow .2s;
+    }
+    .resume-links a:hover {
+      background: rgba(0,245,255,.08);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* ─── LAYOUT ─── */
+    .resume-body {
+      max-width: 1000px; margin: 0 auto;
+      padding: 5rem 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+    }
+
+    /* ─── SECTION ─── */
+    .r-section { margin-bottom: 3.5rem; }
+    .r-label {
+      font-family: var(--mono); font-size: .65rem; color: var(--cyan);
+      letter-spacing: .25em; text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .r-label::before {
+      content: ''; display: inline-block;
+      width: 18px; height: 1px;
+      background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+    }
+
+    /* ─── EXPERIENCE / EDUCATION ─── */
+    .timeline { display: flex; flex-direction: column; gap: 1.8rem; }
+    .tl-item {
+      padding: 1.4rem 1.6rem;
+      border: 1px solid rgba(0,245,255,.08);
+      border-radius: 10px;
+      background: rgba(255,255,255,.02);
+      position: relative;
+      transition: border-color .3s;
+    }
+    .tl-item:hover { border-color: rgba(0,245,255,.25); }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -1px; top: 1.4rem;
+      width: 2px; height: calc(100% - 2.8rem);
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+      border-radius: 2px;
+    }
+    .tl-role {
+      font-size: 1rem; font-weight: 600; margin-bottom: .25rem;
+    }
+    .tl-company {
+      font-family: var(--mono); font-size: .72rem; color: var(--cyan);
+      letter-spacing: .1em; margin-bottom: .5rem;
+    }
+    .tl-period {
+      font-size: .75rem; color: var(--muted); margin-bottom: .7rem;
+      font-family: var(--mono);
+    }
+    .tl-desc {
+      font-size: .85rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ─── SKILLS ─── */
+    .skill-group { margin-bottom: 1.6rem; }
+    .skill-group-name {
+      font-family: var(--mono); font-size: .62rem; color: var(--muted);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: .7rem;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .chip {
+      padding: .3rem .75rem; border-radius: 100px;
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .08em;
+      border: 1px solid rgba(0,245,255,.2);
+      background: rgba(0,245,255,.04);
+      color: var(--text);
+      transition: border-color .2s, color .2s;
+    }
+    .chip:hover { border-color: var(--cyan); color: var(--cyan); }
+    .chip.purple {
+      border-color: rgba(123,47,255,.3);
+      background: rgba(123,47,255,.05);
+    }
+    .chip.purple:hover { border-color: var(--purple); color: var(--purple); }
+    .chip.pink {
+      border-color: rgba(255,45,120,.3);
+      background: rgba(255,45,120,.05);
+    }
+    .chip.pink:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* ─── STAT PILLS (sidebar) ─── */
+    .stat-pills { display: flex; flex-direction: column; gap: .7rem; }
+    .stat-pill {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 1.2rem;
+      border: 1px solid rgba(0,245,255,.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,.02);
+    }
+    .stat-pill-label { font-size: .82rem; color: var(--muted); }
+    .stat-pill-val {
+      font-family: var(--mono); font-weight: 700;
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(0,245,255,.06);
+      padding: 2rem 3.5rem;
+      text-align: center;
+      font-family: var(--mono); font-size: .62rem; color: var(--muted);
+      letter-spacing: .1em;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .resume-hero { padding: 8rem 1.5rem 3rem; }
+      .resume-body { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</nav>
+
+<!-- HERO STRIP -->
+<div class="resume-hero">
+  <div class="resume-avatar">
+    <img src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w400" alt="Klaichit Kaeoman" />
+  </div>
+  <div class="resume-intro">
+    <p class="role">3D &amp; VFX Artist</p>
+    <h1>Klaichit <span>Kaeoman</span></h1>
+    <p class="bio">
+      5+ years crafting cinematic 3D art — from stylized characters to
+      photorealistic environments. Specialize in character design, VFX
+      compositing, and real-time rendering across games and film pipelines.
+    </p>
+    <div class="resume-links">
+      <a href="https://www.linkedin.com/in/klachit-kaeoman-53a364b6/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="index.html#projects">Portfolio</a>
+      <a href="mailto:">Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="resume-body">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- EXPERIENCE -->
+    <div class="r-section">
+      <div class="r-label">Experience</div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-role">3D Artist &amp; VFX Artist</div>
+          <div class="tl-company">Freelance</div>
+          <div class="tl-period">2019 — Present</div>
+          <div class="tl-desc">
+            Character modeling, environment art, VFX compositing, and motion
+            design for game and film clients. 50+ projects delivered across
+            stylized and photorealistic pipelines.
+          </div>
+        </div>
+
+        <!-- เพิ่ม experience ตรงนี้ -->
+
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="r-section">
+      <div class="r-label">Education</div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-role">— กรอกชื่อสถาบัน —</div>
+          <div class="tl-company">— สาขา —</div>
+          <div class="tl-period">— ปีที่จบ —</div>
+          <div class="tl-desc">— รายละเอียด —</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN (SIDEBAR) -->
+  <div>
+
+    <!-- STATS -->
+    <div class="r-section">
+      <div class="r-label">At a Glance</div>
+      <div class="stat-pills">
+        <div class="stat-pill">
+          <span class="stat-pill-label">Experience</span>
+          <span class="stat-pill-val">5+ Years</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Projects</span>
+          <span class="stat-pill-val">50+</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Software</span>
+          <span class="stat-pill-val">12+ Tools</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="r-section">
+      <div class="r-label">Skills</div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">3D &amp; Rendering</div>
+        <div class="skill-chips">
+          <span class="chip">Blender</span>
+          <span class="chip">Maya</span>
+          <span class="chip">ZBrush</span>
+          <span class="chip">Arnold</span>
+          <span class="chip">EEVEE</span>
+          <span class="chip">Cycles</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Texturing &amp; Materials</div>
+        <div class="skill-chips">
+          <span class="chip purple">Substance Painter</span>
+          <span class="chip purple">PBR Materials</span>
+          <span class="chip purple">Hand-painted</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">VFX &amp; Motion</div>
+        <div class="skill-chips">
+          <span class="chip pink">Compositing</span>
+          <span class="chip pink">Motion Design</span>
+          <span class="chip pink">Fluid Sim</span>
+          <span class="chip pink">Rigging</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>© 2025 KLAICHIT KAEOMAN · ALL RIGHTS RESERVED</footer>
+
+</body>
+</html>
