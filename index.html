@@ -510,10 +510,6 @@
       background: var(--purple); border-color: var(--purple);
       box-shadow: 0 0 18px rgba(123,47,255,.45), 0 0 40px rgba(123,47,255,.15);
     }
-    .filter-pill[data-filter="animation"].active {
-      background: var(--pink); border-color: var(--pink);
-      box-shadow: 0 0 18px rgba(255,45,120,.45), 0 0 40px rgba(255,45,120,.15);
-    }
     .pill-count {
       font-size: .58rem; opacity: .7;
       background: rgba(0,0,0,.2); border-radius: 100px;
@@ -807,7 +803,6 @@
       <div class="filter-divider"></div>
       <button class="filter-pill" data-filter="3d">3D <span class="pill-count" id="cnt-3d"></span></button>
       <button class="filter-pill" data-filter="vfx">VFX <span class="pill-count" id="cnt-vfx"></span></button>
-      <button class="filter-pill" data-filter="animation">Animation <span class="pill-count" id="cnt-animation"></span></button>
     </div>
 
     <div class="projects-grid">
@@ -846,7 +841,7 @@
         </div>
       </div>
 
-      <div class="project-card" data-cat="animation">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p3f">
           <img src="https://drive.google.com/thumbnail?id=11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP&sz=w800" alt="Wallpaper Environment" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">03</div>
@@ -863,7 +858,7 @@
         </div>
       </div>
 
-      <div class="project-card" data-cat="animation">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p4f">
           <img src="https://drive.google.com/thumbnail?id=1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ&sz=w800" alt="Pet Sanctuary" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">04</div>
@@ -943,61 +938,7 @@
         </div>
       </div>
 
-      <!-- Animation Card 10 -->
-      <div class="project-card" data-cat="animation">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#0a0020,#180535,#05001a);">
-          <img src="https://img.youtube.com/vi/hO2RcaHgHgY/hqdefault.jpg" alt="Nice To Z You" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">10</div>
-          <span class="card-tag tag-motion">Animation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 10</div>
-          <div class="card-title">Nice To Z You</div>
-          <div class="card-desc">3D character animation for stylized mobile game — rigging, skin deformation, and expressive motion.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Blender</span><span class="tool-chip">Unity</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Animation Card 11 -->
-      <div class="project-card" data-cat="animation">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#001020,#000a18,#060020);">
-          <img src="https://img.youtube.com/vi/g6-N_PliA7I/hqdefault.jpg" alt="Stitch Apple Arcade" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">11</div>
-          <span class="card-tag tag-motion">Animation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 11</div>
-          <div class="card-title">Stitch. — Apple Arcade</div>
-          <div class="card-desc">Game animation and 3D asset pipeline for Apple Arcade exclusive title at Jumbo Jumps.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Unity</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Animation Card 12 -->
-      <div class="project-card" data-cat="animation">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#05100a,#001a08,#0a1505);">
-          <img src="https://img.youtube.com/vi/JoIk0PbeYiA/hqdefault.jpg" alt="Evergleam Hill" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">12</div>
-          <span class="card-tag tag-motion">Animation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 12</div>
-          <div class="card-title">Evergleam Hill</div>
-          <div class="card-desc">Character and environment animation for stylized mobile RPG — characters, pets, and idle cycles.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Blender</span><span class="tool-chip">Unity</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VFX Card 13 -->
+      <!-- VFX Card 10 -->
       <div class="project-card" data-cat="vfx">
         <div class="card-thumb" style="background:linear-gradient(135deg,#080010,#12002a,#050018);">
           <img src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" loading="lazy" onerror="this.style.display='none'" />
@@ -1400,12 +1341,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   const cards  = document.querySelectorAll('.project-card');
 
   /* count per category */
-  const counts = { all: cards.length, '3d': 0, vfx: 0, animation: 0 };
+  const counts = { all: cards.length, '3d': 0, vfx: 0 };
   cards.forEach(c => { if (counts[c.dataset.cat] !== undefined) counts[c.dataset.cat]++; });
-  document.getElementById('cnt-all').textContent       = counts.all;
-  document.getElementById('cnt-3d').textContent        = counts['3d'];
-  document.getElementById('cnt-vfx').textContent       = counts.vfx;
-  document.getElementById('cnt-animation').textContent = counts.animation;
+  document.getElementById('cnt-all').textContent = counts.all;
+  document.getElementById('cnt-3d').textContent  = counts['3d'];
+  document.getElementById('cnt-vfx').textContent = counts.vfx;
 
   function applyFilter(cat) {
     cards.forEach(card => {
