@@ -485,6 +485,45 @@
       background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
     }
 
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      display: flex; align-items: center; gap: .5rem;
+      margin-bottom: 2.8rem; flex-wrap: wrap;
+    }
+    .filter-pill {
+      position: relative;
+      padding: .42rem 1.3rem; border-radius: 100px;
+      font-family: var(--mono); font-size: .65rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--muted); background: transparent;
+      cursor: none; transition: color .25s, border-color .25s, background .25s, box-shadow .25s;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .filter-pill:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+    .filter-pill.active {
+      color: var(--bg); background: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 18px rgba(0,245,255,.35), 0 0 40px rgba(0,245,255,.12);
+    }
+    .filter-pill[data-filter="vfx"].active {
+      background: var(--purple); border-color: var(--purple);
+      box-shadow: 0 0 18px rgba(123,47,255,.45), 0 0 40px rgba(123,47,255,.15);
+    }
+    .pill-count {
+      font-size: .58rem; opacity: .7;
+      background: rgba(0,0,0,.2); border-radius: 100px;
+      padding: .05rem .35rem;
+    }
+    .filter-divider { width: 1px; height: 16px; background: rgba(255,255,255,.1); margin: 0 .3rem; }
+
+    /* card filter transition */
+    .project-card.hide-card {
+      opacity: 0 !important; transform: scale(0.88) !important;
+      pointer-events: none;
+    }
+    .project-card.gone { display: none; }
+
     /* ─── PROJECTS ─── */
     #projects { background: var(--bg); }
     .projects-inner { max-width: 1200px; margin: 0 auto; }
@@ -758,9 +797,17 @@
       <p class="section-desc">From stylized renders to live-action VFX compositing — each project is a new world.</p>
     </div>
 
+    <!-- Filter Bar -->
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-pill active" data-filter="all">All <span class="pill-count" id="cnt-all"></span></button>
+      <div class="filter-divider"></div>
+      <button class="filter-pill" data-filter="3d">3D <span class="pill-count" id="cnt-3d"></span></button>
+      <button class="filter-pill" data-filter="vfx">VFX <span class="pill-count" id="cnt-vfx"></span></button>
+    </div>
+
     <div class="projects-grid">
 
-      <div class="project-card">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p1f">
           <img src="https://drive.google.com/thumbnail?id=1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy&sz=w800" alt="Pirate" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">01</div>
@@ -777,7 +824,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p2f">
           <img src="https://drive.google.com/thumbnail?id=1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f&sz=w800" alt="Reaper Skin" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">02</div>
@@ -794,7 +841,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p3f">
           <img src="https://drive.google.com/thumbnail?id=11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP&sz=w800" alt="Wallpaper Environment" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">03</div>
@@ -811,7 +858,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p4f">
           <img src="https://drive.google.com/thumbnail?id=1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ&sz=w800" alt="Pet Sanctuary" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">04</div>
@@ -828,7 +875,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" data-cat="3d">
         <div class="card-thumb p5f">
           <img src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w800" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">05</div>
@@ -845,7 +892,7 @@
         </div>
       </div>
 
-      <div class="project-card" id="card-exterior-house" style="cursor:none;" onclick="window.location='exterior-house.html'">
+      <div class="project-card" id="card-exterior-house" data-cat="3d" style="cursor:none;" onclick="window.location='exterior-house.html'">
         <div class="card-thumb p6f">
           <div class="mt-slide-wrap">
             <img class="mt-slide" id="eh-a" src="" alt="Exterior House" />
@@ -865,7 +912,7 @@
         </div>
       </div>
 
-      <div class="project-card" id="card-mystery-temple" style="cursor:none;" onclick="window.location='mystery-temple.html'">
+      <div class="project-card" id="card-mystery-temple" data-cat="3d" style="cursor:none;" onclick="window.location='mystery-temple.html'">
         <div class="card-thumb p7f">
           <div class="mt-slide-wrap">
             <img class="mt-slide" id="mt-a" src="" alt="Mystery Temple" />
@@ -887,6 +934,42 @@
               <a id="mystery-vimeo" href="#" target="_blank" rel="noopener" class="card-arrow" title="Watch on Vimeo" style="font-size:.65rem;width:auto;padding:0 .6rem;border-radius:4px;" onclick="event.stopPropagation()">▶ VDO</a>
               <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="card-arrow" title="ArtStation" onclick="event.stopPropagation()">↗</a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VFX Card 08 -->
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb" style="background:linear-gradient(135deg,#08001a,#1a0535,#001020);">
+          <img src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns VFX" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">08</div>
+          <span class="card-tag tag-vfx">VFX</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 08</div>
+          <div class="card-title">Father, Son &amp; Holy Guns — VFX</div>
+          <div class="card-desc">Real-time VFX — particle systems, custom shaders, and environmental effects for action game pipeline.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">HLSL</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VFX Card 09 -->
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb" style="background:linear-gradient(135deg,#050010,#150535,#020a1a);">
+          <img src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus VFX" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">09</div>
+          <span class="card-tag tag-vfx">VFX</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 09</div>
+          <div class="card-title">Regulus — The Advent VFX</div>
+          <div class="card-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">Shader Graph</span></div>
+            <div class="card-arrow">↗</div>
           </div>
         </div>
       </div>
@@ -1231,6 +1314,42 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
   });
 });
+
+/* ────────────────────────────────────────────────
+   PROJECT FILTER
+──────────────────────────────────────────────── */
+(function () {
+  const pills  = document.querySelectorAll('.filter-pill');
+  const cards  = document.querySelectorAll('.project-card');
+
+  /* count per category */
+  const counts = { all: cards.length, '3d': 0, vfx: 0 };
+  cards.forEach(c => { if (counts[c.dataset.cat] !== undefined) counts[c.dataset.cat]++; });
+  document.getElementById('cnt-all').textContent = counts.all;
+  document.getElementById('cnt-3d').textContent  = counts['3d'];
+  document.getElementById('cnt-vfx').textContent = counts.vfx;
+
+  function applyFilter(cat) {
+    cards.forEach(card => {
+      const match = cat === 'all' || card.dataset.cat === cat;
+      if (match) {
+        card.classList.remove('gone');
+        requestAnimationFrame(() => card.classList.remove('hide-card'));
+      } else {
+        card.classList.add('hide-card');
+        setTimeout(() => card.classList.add('gone'), 300);
+      }
+    });
+  }
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      applyFilter(pill.dataset.filter);
+    });
+  });
+})();
 </script>
 </body>
 </html>
