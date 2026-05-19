@@ -201,6 +201,52 @@
       background-clip: text;
     }
 
+    /* ─── PROJECTS ─── */
+    .projects-section {
+      max-width: 1000px; margin: 0 auto;
+      padding: 0 3.5rem 5rem;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .proj-card {
+      border: 1px solid rgba(0,245,255,.08);
+      border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,.02);
+      text-decoration: none; color: inherit;
+      display: block;
+      transition: border-color .3s, transform .3s;
+    }
+    .proj-card:hover { border-color: rgba(0,245,255,.3); transform: translateY(-3px); }
+    .proj-thumb {
+      aspect-ratio: 16/9; position: relative; overflow: hidden;
+      background: #0d0d1a;
+    }
+    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .proj-card:hover .proj-thumb img { transform: scale(1.05); }
+    .proj-thumb .play-icon {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.35);
+      opacity: 0; transition: opacity .3s;
+    }
+    .proj-card:hover .play-icon { opacity: 1; }
+    .play-icon svg { fill: white; filter: drop-shadow(0 0 10px rgba(0,245,255,.6)); }
+    .proj-body { padding: 1rem 1.2rem 1.2rem; }
+    .proj-tag {
+      font-family: var(--mono); font-size: .58rem; color: var(--cyan);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: .35rem;
+    }
+    .proj-name { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+    .proj-period { font-family: var(--mono); font-size: .65rem; color: var(--muted); margin-bottom: .5rem; }
+    .proj-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .projects-section { padding: 0 1.5rem 3rem; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid rgba(0,245,255,.06);
@@ -370,6 +416,104 @@
         </div>
       </div>
     </div>
+
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects-section">
+  <div class="r-label" style="margin-bottom:1.4rem;">Notable Projects</div>
+  <div class="projects-grid">
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=wgnG5x1SZ6M" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus The Advent" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Jumbo Jumps · VFX Artist</div>
+        <div class="proj-name">Regulus — The Advent</div>
+        <div class="proj-period">May 2024 — Present</div>
+        <div class="proj-desc">Unity VFX for an action RPG. Particle systems, real-time visual effects.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=Pp3EoksO-hI" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Jumbo Jumps · VFX Artist</div>
+        <div class="proj-name">Father, Son &amp; Holy Guns</div>
+        <div class="proj-period">Jan 2024 — Present</div>
+        <div class="proj-desc">End-to-end real-time VFX — particle systems, custom shaders, environmental effects.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=hO2RcaHgHgY" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/hO2RcaHgHgY/hqdefault.jpg" alt="Nice To Z You" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Jumbo Jumps · 3D Artist</div>
+        <div class="proj-name">Nice To Z You</div>
+        <div class="proj-period">Mar 2022 — Nov 2023</div>
+        <div class="proj-desc">3D character art for a stylized mobile game.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=JoIk0PbeYiA" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/JoIk0PbeYiA/hqdefault.jpg" alt="Evergleam Hill" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Jumbo Jumps · 3D Artist</div>
+        <div class="proj-name">Evergleam Hill</div>
+        <div class="proj-period">Jul 2018 — Mar 2020</div>
+        <div class="proj-desc">3D modeling of characters, pets, and environmental/architectural assets.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=Hty7wmRYebM" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">True Axion Interactive · 3D Artist</div>
+        <div class="proj-name">Invictus: Lost Soul</div>
+        <div class="proj-period">May 2017 — Aug 2018</div>
+        <div class="proj-desc">Environment assets and weaponry defining the game's dark aesthetic.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.youtube.com/watch?v=g6-N_PliA7I" target="_blank" rel="noopener">
+      <div class="proj-thumb">
+        <img src="https://img.youtube.com/vi/g6-N_PliA7I/hqdefault.jpg" alt="Bohemia Interactive" />
+        <div class="play-icon"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Bohemia Interactive · 3D Artist</div>
+        <div class="proj-name">Arma / DayZ</div>
+        <div class="proj-period">Mar 2014 — Oct 2015</div>
+        <div class="proj-desc">Environment design and visual supervision for AAA titles.</div>
+      </div>
+    </a>
+
+    <a class="proj-card" href="https://www.meta.com/experiences/luna-episode-1-left-behind/6034707799936831/" target="_blank" rel="noopener">
+      <div class="proj-thumb" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d0d1a,#1a0535);">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(0,245,255,0.4)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Meta Quest · VR</div>
+        <div class="proj-name">Luna: Episode 1 — Left Behind</div>
+        <div class="proj-period">Meta Quest Store</div>
+        <div class="proj-desc">VR experience available on Meta Quest platform.</div>
+      </div>
+    </a>
 
   </div>
 </div>
