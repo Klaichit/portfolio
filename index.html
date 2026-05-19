@@ -853,21 +853,28 @@
         </div>
       </div>
 
-      <a href="https://www.artstation.com/artwork/4beaVq" target="_blank" rel="noopener" class="project-card" style="text-decoration:none;">
+      <div class="project-card" id="card-mystery-temple">
         <div class="card-thumb p7f">
+          <img id="mystery-thumb" src="" alt="Mystery Temple" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">07</div>
           <span class="card-tag tag-3d">3D</span>
         </div>
         <div class="card-body">
           <div class="card-num">Project 07</div>
           <div class="card-title">Mystery Temple — Environment</div>
-          <div class="card-desc">Stylized ancient temple environment with atmospheric lighting and detailed prop work.</div>
+          <div class="card-desc">Stylized ancient temple environment with atmospheric lighting and modular architecture.</div>
           <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Substance</span></div>
-            <div class="card-arrow">↗</div>
+            <div class="card-tools">
+              <span class="tool-chip">Blender</span>
+              <span class="tool-chip">Substance</span>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <a id="mystery-vimeo" href="#" target="_blank" rel="noopener" class="card-arrow" title="Watch on Vimeo" style="font-size:.65rem;width:auto;padding:0 .6rem;border-radius:4px;" onclick="event.stopPropagation()">▶ VDO</a>
+              <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="card-arrow" title="ArtStation" onclick="event.stopPropagation()">↗</a>
+            </div>
           </div>
         </div>
-      </a>
+      </div>
 
     </div>
       <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Projects Completed</div></div>
@@ -916,6 +923,39 @@ const HERO_IMAGES = {
 
 const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
 const SLIDES = HERO_IMAGES.slides;
+
+/* ════════════════════════════════════════════════
+   PROJECT 07 — Mystery Temple
+   แก้ไขไฟล์/ลิงก์ทั้งหมดของโปรเจคนี้ที่นี่
+════════════════════════════════════════════════ */
+const MYSTERY_TEMPLE = {
+
+  /* ArtStation */
+  artstation: 'https://www.artstation.com/artwork/4beaVq',
+
+  /* Vimeo video */
+  vimeo: 'https://vimeo.com/351195532',
+
+  /* Thumbnail (ใช้แสดงใน card) */
+  thumbnail: '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV',
+
+  /* Source images (Google Drive) */
+  images: [
+    { id: '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV', label: 'Shot 01'           },
+    { id: '1llc9PaILER8W4nYFtGf7VsRXlsHCE-Xj', label: 'Shot 02'           },
+    { id: '1b8MhF6Rs--GG4zTcz9QLSTl2s33hSPD3', label: 'Shot 03'           },
+    { id: '1lodEKYmv8Bq55lgKmsQmWZDFzY-nToMR', label: 'Shot 06'           },
+    { id: '1ITnl0_katY21VF9aibbeM9eA7IphWO2R', label: 'Modular Architect' },
+    { id: '1-VfSiCzD8DH3ZjSYNy_wygDtmZ_FkbW2', label: 'WIP (gif)'         },
+  ],
+
+};
+
+/* Wire up Mystery Temple card from config */
+document.getElementById('mystery-thumb').src =
+  `https://drive.google.com/thumbnail?id=${MYSTERY_TEMPLE.thumbnail}&sz=w800`;
+document.getElementById('mystery-vimeo').href = MYSTERY_TEMPLE.vimeo;
+document.getElementById('mystery-artstation').href = MYSTERY_TEMPLE.artstation;
 
 /* Build slides */
 const slidesEl = document.getElementById('slides');
