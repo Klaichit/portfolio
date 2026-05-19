@@ -652,7 +652,7 @@
     <!-- Profile photo (left) -->
     <div class="hero-profile">
       <div class="profile-ring">
-        <img src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w800" alt="Klaichit Kaeoman"
+        <img id="hero-profile-img" src="" alt="Klaichit Kaeoman"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="profile-initials" style="display:none;">KK</div>
       </div>
@@ -876,19 +876,29 @@
 </footer>
 
 <script>
-/* ────────────────────────────────────────────────
-   SLIDE DATA — your actual Drive artwork
-──────────────────────────────────────────────── */
-const SLIDES = [
-  { id: '1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy', cat: 'STYLIZED CHARACTER', name: 'Pirate' },
-  { id: '1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f', cat: 'CHARACTER SKIN',     name: 'SSR Reaper' },
-  { id: '1RZbm849iRcGo1zJAleUvTyB_AZh9UrjU', cat: 'CHARACTER SKIN',     name: 'SSR Punk' },
-  { id: '11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP', cat: 'STYLIZED ENVIRONMENT','name': 'World 01' },
-  { id: '1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ', cat: 'ENVIRONMENT',        name: 'Pet Sanctuary' },
-  { id: '1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA', cat: 'PBR REALISTIC',      name: 'Klaichit' },
-  { id: '1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c', cat: 'ENVIRONMENT',        name: 'Exterior House' },
-];
+/* ════════════════════════════════════════════════
+   HERO IMAGES — แก้ไขภาพทั้งหมดของ Hero ที่นี่
+════════════════════════════════════════════════ */
+const HERO_IMAGES = {
+
+  /* รูปโปรไฟล์ */
+  profile: '1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD',
+
+  /* Background slides (slideshow) */
+  slides: [
+    { id: '1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy', cat: 'STYLIZED CHARACTER',  name: 'Pirate'         },
+    { id: '1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f', cat: 'CHARACTER SKIN',      name: 'SSR Reaper'     },
+    { id: '1RZbm849iRcGo1zJAleUvTyB_AZh9UrjU', cat: 'CHARACTER SKIN',      name: 'SSR Punk'       },
+    { id: '11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP', cat: 'STYLIZED ENVIRONMENT', name: 'World 01'       },
+    { id: '1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ', cat: 'ENVIRONMENT',          name: 'Pet Sanctuary'  },
+    { id: '1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA', cat: 'PBR REALISTIC',        name: 'Klaichit'       },
+    { id: '1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c', cat: 'ENVIRONMENT',          name: 'Exterior House' },
+  ],
+
+};
+
 const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
+const SLIDES = HERO_IMAGES.slides;
 
 /* Build slides */
 const slidesEl = document.getElementById('slides');
@@ -1066,6 +1076,10 @@ const obs = new IntersectionObserver(entries => {
   });
 }, { threshold: .1 });
 document.querySelectorAll('.project-card').forEach(c => obs.observe(c));
+
+/* Set profile image from HERO_IMAGES config */
+document.getElementById('hero-profile-img').src =
+  `https://drive.google.com/thumbnail?id=${HERO_IMAGES.profile}&sz=w800`;
 
 /* ────────────────────────────────────────────────
    Smooth anchor scroll
