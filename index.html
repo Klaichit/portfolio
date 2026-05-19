@@ -517,7 +517,7 @@
     }
     .card-thumb img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform .5s ease;
+      transition: transform .5s ease, opacity .4s ease;
     }
     .project-card:hover .card-thumb img { transform: scale(1.05); }
     .card-thumb-fallback {
@@ -562,7 +562,7 @@
     }
     .project-card:hover .card-arrow {
       background: rgba(0,245,255,.1);
-      box-shadow: var(--glow-cyan); transform: rotate(45deg);
+      box-shadow: var(--glow-cyan); transform: scale(1.12);
     }
 
     /* Stats */
@@ -853,7 +853,7 @@
         </div>
       </div>
 
-      <div class="project-card" id="card-mystery-temple">
+      <div class="project-card" id="card-mystery-temple" style="cursor:none;" onclick="window.location='mystery-temple.html'">
         <div class="card-thumb p7f">
           <img id="mystery-thumb" src="" alt="Mystery Temple" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">07</div>
@@ -956,6 +956,18 @@ document.getElementById('mystery-thumb').src =
   `https://drive.google.com/thumbnail?id=${MYSTERY_TEMPLE.thumbnail}&sz=w800`;
 document.getElementById('mystery-vimeo').href = MYSTERY_TEMPLE.vimeo;
 document.getElementById('mystery-artstation').href = MYSTERY_TEMPLE.artstation;
+
+/* Auto-slide Mystery Temple card */
+let _mtIdx = 0;
+const _mtThumb = document.getElementById('mystery-thumb');
+setInterval(() => {
+  _mtIdx = (_mtIdx + 1) % MYSTERY_TEMPLE.images.length;
+  _mtThumb.style.opacity = '0';
+  setTimeout(() => {
+    _mtThumb.src = `https://drive.google.com/thumbnail?id=${MYSTERY_TEMPLE.images[_mtIdx].id}&sz=w800`;
+    _mtThumb.style.opacity = '1';
+  }, 400);
+}, 3200);
 
 /* Build slides */
 const slidesEl = document.getElementById('slides');
