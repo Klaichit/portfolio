@@ -163,9 +163,12 @@
     .hero-body {
       position: relative; z-index: 10;
       flex: 1;
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex; flex-direction: row; align-items: center; gap: 2.5rem;
       padding: 0 3.5rem;
-      max-width: 700px;
+      max-width: 860px;
+    }
+    .hero-text {
+      display: flex; flex-direction: column;
     }
 
     /* Badge */
@@ -193,7 +196,7 @@
 
     /* Title */
     .hero-title {
-      font-size: clamp(4.5rem, 11vw, 9.5rem);
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
       font-weight: 700;
       line-height: .92;
       letter-spacing: -.03em;
@@ -303,23 +306,22 @@
 
     /* ── Profile image ── */
     .hero-profile {
-      position: absolute; right: 8rem; top: 50%;
-      transform: translateY(-50%); z-index: 10;
+      flex-shrink: 0;
       opacity: 0;
-      animation: fadeIn .9s ease 1s forwards;
+      animation: slideUp .7s ease .2s forwards;
     }
     .profile-ring {
-      width: 260px; height: 260px; border-radius: 50%;
-      border: 2px solid rgba(0,245,255,.35);
-      padding: 6px;
-      box-shadow: 0 0 40px rgba(0,245,255,.2), 0 0 80px rgba(123,47,255,.1);
-      position: relative;
+      width: 130px; height: 130px; border-radius: 50%;
+      border: 2px solid rgba(0,245,255,.45);
+      padding: 4px;
+      box-shadow: 0 0 30px rgba(0,245,255,.25), 0 0 70px rgba(123,47,255,.12);
+      position: relative; display: block;
     }
-    .profile-ring::before {
+    .profile-ring::after {
       content: '';
-      position: absolute; inset: -10px; border-radius: 50%;
-      border: 1px solid rgba(0,245,255,.12);
-      animation: spinRing 12s linear infinite;
+      position: absolute; inset: -7px; border-radius: 50%;
+      border: 1px solid rgba(0,245,255,.15);
+      animation: spinRing 10s linear infinite;
     }
     @keyframes spinRing {
       from { transform: rotate(0deg); }
@@ -334,11 +336,10 @@
       width: 100%; height: 100%; border-radius: 50%;
       background: linear-gradient(135deg, #0d0d1a, #12092a);
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 4rem; font-weight: 700;
-      color: var(--cyan);
-      text-shadow: 0 0 30px rgba(0,245,255,.6);
+      font-family: var(--mono); font-size: 2rem; font-weight: 700;
+      color: var(--cyan); text-shadow: 0 0 20px rgba(0,245,255,.6);
     }
-    @media (max-width: 1024px) { .hero-profile { display: none; } }
+    @media (max-width: 768px) { .hero-profile { display: none; } }
 
     /* ── Scroll hint ── */
     .hero-scroll {
@@ -648,34 +649,37 @@
 
   <!-- Main content -->
   <div class="hero-body">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-dot"></div>
-      <div class="eyebrow-sep"></div>
-      <span class="eyebrow-label">Available for Projects</span>
+    <!-- Profile photo (left) -->
+    <div class="hero-profile">
+      <div class="profile-ring">
+        <img src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w800" alt="Klaichit Kaeoman"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="profile-initials" style="display:none;">KK</div>
+      </div>
     </div>
 
-    <h1 class="hero-title">
-      <span class="t1">Klaichit</span>
-      <span class="t2">Kaeoman</span>
-    </h1>
+    <!-- Text content (right) -->
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-dot"></div>
+        <div class="eyebrow-sep"></div>
+        <span class="eyebrow-label">Available for Projects</span>
+      </div>
 
-    <p class="hero-sub">
-      <strong>Cinematic 3D art</strong> &amp; visual effects —<br>
-      characters, environments, compositing &amp; motion.
-    </p>
+      <h1 class="hero-title">
+        <span class="t1">Klaichit</span>
+        <span class="t2">Kaeoman</span>
+      </h1>
 
-    <div class="hero-cta">
-      <a href="#showreel" class="btn-p">Watch Showreel</a>
-      <a href="#projects" class="btn-s">View Projects</a>
-    </div>
-  </div>
+      <p class="hero-sub">
+        <strong>Cinematic 3D art</strong> &amp; visual effects —<br>
+        characters, environments, compositing &amp; motion.
+      </p>
 
-  <!-- Profile image -->
-  <div class="hero-profile">
-    <div class="profile-ring">
-      <img src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w800" alt="Klaichit Kaeoman"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-      <div class="profile-initials" style="display:none;">KK</div>
+      <div class="hero-cta">
+        <a href="#showreel" class="btn-p">Watch Showreel</a>
+        <a href="#projects" class="btn-s">View Projects</a>
+      </div>
     </div>
   </div>
 
