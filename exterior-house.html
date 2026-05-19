@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exterior House — Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #06060e; --bg2: #0d0d1a;
+      --cyan: #00f5ff; --purple: #7b2fff; --pink: #ff2d78;
+      --text: #e8e8f0; --muted: #6b6b8a;
+      --glow-cyan: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
+      --font: 'Space Grotesk', sans-serif; --mono: 'Space Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.2rem 3.5rem; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,6,14,.92); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,245,255,.07);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--cyan); text-decoration: none; }
+    .nav-logo span { color: var(--purple); }
+    .nav-back { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-decoration: none; letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
+    .nav-back:hover { color: var(--cyan); }
+
+    .proj-hero { padding: 9rem 3.5rem 4rem; max-width: 1100px; margin: 0 auto; }
+    .proj-label { font-family: var(--mono); font-size: .65rem; color: var(--cyan); letter-spacing: .25em; text-transform: uppercase; margin-bottom: .7rem; display: flex; align-items: center; gap: .7rem; }
+    .proj-label::before { content: ''; width: 18px; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .proj-hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: .8rem; }
+    .proj-hero h1 span { background: linear-gradient(120deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .proj-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .proj-meta-item { font-family: var(--mono); font-size: .7rem; color: var(--muted); letter-spacing: .1em; }
+    .proj-meta-item strong { color: var(--text); }
+    .proj-desc { color: var(--muted); font-size: .95rem; line-height: 1.8; max-width: 620px; }
+
+    .gallery-wrap { max-width: 1100px; margin: 0 auto; padding: 0 3.5rem 6rem; }
+    .section-label { font-family: var(--mono); font-size: .65rem; color: var(--cyan); letter-spacing: .25em; text-transform: uppercase; margin-bottom: 1.4rem; display: flex; align-items: center; gap: .7rem; }
+    .section-label::before { content: ''; width: 18px; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+    /* Hero image (first image large) */
+    .hero-img-wrap {
+      border-radius: 14px; overflow: hidden; margin-bottom: 1rem;
+      border: 1px solid rgba(0,245,255,.15);
+      box-shadow: 0 0 80px rgba(0,245,255,.07);
+    }
+    .hero-img-wrap img { width: 100%; display: block; object-fit: cover; max-height: 560px; }
+
+    /* Grid */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .gallery-item {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid rgba(0,245,255,.08); background: var(--bg2);
+      position: relative; cursor: pointer;
+      transition: border-color .3s, transform .3s;
+    }
+    .gallery-item:hover { border-color: rgba(0,245,255,.3); transform: translateY(-3px); }
+    .gallery-item img { width: 100%; display: block; object-fit: cover; aspect-ratio: 16/10; }
+    .gallery-item .img-label {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: .5rem .8rem;
+      background: linear-gradient(to top, rgba(6,6,14,.9), transparent);
+      font-family: var(--mono); font-size: .6rem; color: var(--cyan);
+      letter-spacing: .15em; text-transform: uppercase;
+    }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; z-index: 999; background: rgba(6,6,14,.95); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; padding: 2rem; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+    .lb-close { position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--mono); font-size: 1.2rem; color: var(--muted); cursor: pointer; background: none; border: none; transition: color .2s; }
+    .lb-close:hover { color: var(--cyan); }
+    .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 1.5rem; color: var(--muted); cursor: pointer; background: none; border: none; transition: color .2s; padding: 1rem; }
+    .lb-nav:hover { color: var(--cyan); }
+    .lb-prev { left: 1rem; } .lb-next { right: 1rem; }
+    .lb-label { position: absolute; bottom: 1.5rem; font-family: var(--mono); font-size: .65rem; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; }
+
+    footer { border-top: 1px solid rgba(0,245,255,.06); padding: 2rem 3.5rem; text-align: center; font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero, .gallery-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="index.html#projects" class="nav-back">← Projects</a>
+</nav>
+
+<div class="proj-hero">
+  <div class="proj-label">Project 06 · Environment</div>
+  <h1>Exterior House<br><span>— Stylized</span></h1>
+  <div class="proj-meta">
+    <div class="proj-meta-item"><strong>Software</strong> &nbsp;Blender · Substance</div>
+    <div class="proj-meta-item"><strong>Type</strong> &nbsp;Stylized Environment · Biomes</div>
+    <div class="proj-meta-item"><strong>Artist</strong> &nbsp;Klaichit Kaeoman</div>
+  </div>
+  <p class="proj-desc">
+    A collection of stylized environment biomes — forest, meadow, mountain,
+    marsh, snow, and mine. Each scene features hand-crafted lighting, modular
+    architecture, and painterly textures across a unified art style.
+  </p>
+</div>
+
+<div class="gallery-wrap">
+  <div class="section-label">Gallery</div>
+  <div class="hero-img-wrap" id="hero-img-wrap"></div>
+  <div class="gallery-grid" id="gallery"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-nav lb-next" id="lb-next">›</button>
+  <span class="lb-label" id="lb-label"></span>
+</div>
+
+<footer>© 2025 KLAICHIT KAEOMAN · ALL RIGHTS RESERVED</footer>
+
+<script>
+const EXTERIOR_HOUSE = {
+  images: [
+    { id: '1nvqCaFEq0D0IKjQSLgAHTlSBKfdl-6LK', label: 'Pet Sanctuary'    },
+    { id: '1Pg5LYFaadLC9b6RPDsiL8EtxbAQQx4hm', label: 'Forest 01'        },
+    { id: '19hAbUBbtgRzwFmQjr10qUGtjnQEWnIA6', label: 'Forest 03'        },
+    { id: '1G-aMyyR7EKyNNzvKGPfzJzJW1Jwxof5f', label: 'Meadow 02'        },
+    { id: '1AUzN-k3MO8kVHLihMI4VRedo8_0AypBX', label: 'Meadow 03'        },
+    { id: '1hDoMlnJ7J3WMgSyCp4bST1IZKlqn8FHc', label: 'Mountain'         },
+    { id: '1VqxJkcaA7av1DTkDZGCnSH8S2d3Q7ufL', label: 'Mountain 02'      },
+    { id: '1A1MZ3rg9LxwNNNARYC3_M11CCHGB_48w', label: 'Mountain 03'      },
+    { id: '1hYc4EpJDQzD98cT8sxlDFvk_4QXdctUp', label: 'Marsh 03'         },
+    { id: '1qIxQ2hbbPgtfWeKR7rXcx4MqmRANeRab', label: 'Shared Mine 01'   },
+    { id: '110i1N6s9Sf5tIXUmvvhXWiWbot90LR0M', label: 'Shared Mine 02'   },
+    { id: '1OvrdyuZS6e8pUMYyGvnPw8wc75c5mxoQ', label: 'Snow 02'          },
+    { id: '1g6WBZohX6aPBDp80CtVB4Wzl4pHQ8WnC', label: 'Lake'             },
+    { id: '1uKo6b15n_UTEIW3l73PmSOmu5zHCUvc-', label: 'Meadow Asset'     },
+    { id: '1O0NO1VISfO0zH9as2JCWR42tg39kR7Xc', label: 'Marsh Asset'      },
+    { id: '1In16EK1gsJfdzuwXPUWNrjqXj7WWmYtY', label: 'Shared Mine Asset' },
+    { id: '1IyKGWdoLakNdlabAjtGGqFBIyXsQRQGn', label: 'Forest'           },
+  ],
+};
+const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1200`;
+
+/* Hero image */
+const heroWrap = document.getElementById('hero-img-wrap');
+const heroImg = document.createElement('img');
+heroImg.src = IMG(EXTERIOR_HOUSE.images[0].id);
+heroImg.alt = EXTERIOR_HOUSE.images[0].label;
+heroImg.addEventListener('click', () => openLightbox(0));
+heroImg.style.cursor = 'pointer';
+heroWrap.appendChild(heroImg);
+
+/* Gallery (skip first — shown as hero) */
+const galleryEl = document.getElementById('gallery');
+EXTERIOR_HOUSE.images.slice(1).forEach((img, i) => {
+  const item = document.createElement('div');
+  item.className = 'gallery-item';
+  item.innerHTML = `<img src="${IMG(img.id)}" alt="${img.label}" loading="lazy" /><div class="img-label">${img.label}</div>`;
+  item.addEventListener('click', () => openLightbox(i + 1));
+  galleryEl.appendChild(item);
+});
+
+/* Lightbox */
+let lbIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbLbl = document.getElementById('lb-label');
+function openLightbox(i) { lbIdx = i; lbImg.src = IMG(EXTERIOR_HOUSE.images[i].id); lbLbl.textContent = EXTERIOR_HOUSE.images[i].label; lb.classList.add('open'); }
+function closeLightbox() { lb.classList.remove('open'); }
+function lbMove(dir) { lbIdx = (lbIdx + dir + EXTERIOR_HOUSE.images.length) % EXTERIOR_HOUSE.images.length; lbImg.src = IMG(EXTERIOR_HOUSE.images[lbIdx].id); lbLbl.textContent = EXTERIOR_HOUSE.images[lbIdx].label; }
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', () => lbMove(-1));
+document.getElementById('lb-next').addEventListener('click', () => lbMove(1));
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbMove(-1);
+  if (e.key === 'ArrowRight') lbMove(1);
+});
+</script>
+</body>
+</html>

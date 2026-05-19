@@ -845,9 +845,12 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" id="card-exterior-house" style="cursor:none;" onclick="window.location='exterior-house.html'">
         <div class="card-thumb p6f">
-          <img src="https://drive.google.com/thumbnail?id=1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c&sz=w800" alt="House Environment" loading="lazy" onerror="this.style.display='none'" />
+          <div class="mt-slide-wrap">
+            <img class="mt-slide" id="eh-a" src="" alt="Exterior House" />
+            <img class="mt-slide" id="eh-b" src="" alt="Exterior House" style="opacity:0;" />
+          </div>
           <div class="card-thumb-fallback">06</div>
           <span class="card-tag tag-motion">Environment</span>
         </div>
@@ -962,6 +965,51 @@ const MYSTERY_TEMPLE = {
   ],
 
 };
+
+/* ════════════════════════════════════════════════
+   PROJECT 06 — Exterior House (Evergleam Hill biomes)
+════════════════════════════════════════════════ */
+const EXTERIOR_HOUSE = {
+  images: [
+    { id: '1nvqCaFEq0D0IKjQSLgAHTlSBKfdl-6LK', label: 'Pet Sanctuary'   },
+    { id: '1Pg5LYFaadLC9b6RPDsiL8EtxbAQQx4hm', label: 'Forest 01'       },
+    { id: '19hAbUBbtgRzwFmQjr10qUGtjnQEWnIA6', label: 'Forest 03'       },
+    { id: '1G-aMyyR7EKyNNzvKGPfzJzJW1Jwxof5f', label: 'Meadow 02'       },
+    { id: '1AUzN-k3MO8kVHLihMI4VRedo8_0AypBX', label: 'Meadow 03'       },
+    { id: '1hDoMlnJ7J3WMgSyCp4bST1IZKlqn8FHc', label: 'Mountain'        },
+    { id: '1VqxJkcaA7av1DTkDZGCnSH8S2d3Q7ufL', label: 'Mountain 02'     },
+    { id: '1A1MZ3rg9LxwNNNARYC3_M11CCHGB_48w', label: 'Mountain 03'     },
+    { id: '1hYc4EpJDQzD98cT8sxlDFvk_4QXdctUp', label: 'Marsh 03'        },
+    { id: '1qIxQ2hbbPgtfWeKR7rXcx4MqmRANeRab', label: 'Shared Mine 01'  },
+    { id: '110i1N6s9Sf5tIXUmvvhXWiWbot90LR0M', label: 'Shared Mine 02'  },
+    { id: '1OvrdyuZS6e8pUMYyGvnPw8wc75c5mxoQ', label: 'Snow 02'         },
+    { id: '1g6WBZohX6aPBDp80CtVB4Wzl4pHQ8WnC', label: 'Lake'            },
+    { id: '1uKo6b15n_UTEIW3l73PmSOmu5zHCUvc-', label: 'Meadow Asset'    },
+    { id: '1O0NO1VISfO0zH9as2JCWR42tg39kR7Xc', label: 'Marsh Asset'     },
+    { id: '1In16EK1gsJfdzuwXPUWNrjqXj7WWmYtY', label: 'Shared Mine Asset'},
+    { id: '1IyKGWdoLakNdlabAjtGGqFBIyXsQRQGn', label: 'Forest'          },
+  ],
+};
+
+/* Auto-slide Exterior House */
+(function () {
+  const imgA = document.getElementById('eh-a');
+  const imgB = document.getElementById('eh-b');
+  const imgs = EXTERIOR_HOUSE.images;
+  let idx = 0, activeA = true;
+  const url = id => `https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+  imgA.src = url(imgs[0].id);
+  setInterval(() => {
+    idx = (idx + 1) % imgs.length;
+    if (activeA) {
+      imgB.src = url(imgs[idx].id);
+      imgB.onload = () => { imgB.style.opacity = '1'; imgA.style.opacity = '0'; activeA = false; };
+    } else {
+      imgA.src = url(imgs[idx].id);
+      imgA.onload = () => { imgA.style.opacity = '1'; imgB.style.opacity = '0'; activeA = true; };
+    }
+  }, 3000);
+})();
 
 /* Wire up Mystery Temple card links */
 document.getElementById('mystery-vimeo').href      = MYSTERY_TEMPLE.vimeo;
