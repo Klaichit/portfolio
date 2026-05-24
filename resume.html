@@ -57,21 +57,23 @@
     .resume-hero {
       padding: 10rem 3.5rem 5rem;
       border-bottom: 1px solid rgba(122,184,212,.06);
-      display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 1.8rem;
     }
     .resume-avatar {
-      width: 100px; height: 100px; border-radius: 50%;
+      width: 180px; height: 180px; border-radius: 50%;
       border: 2px solid rgba(122,184,212,.4);
-      padding: 3px; flex-shrink: 0;
-      box-shadow: var(--glow-cyan);
+      padding: 5px; flex-shrink: 0;
+      box-shadow: var(--glow-cyan), 0 0 60px rgba(122,184,212,.08);
     }
     .resume-avatar img {
       width: 100%; height: 100%; border-radius: 50%;
       object-fit: cover; object-position: top;
     }
+    .resume-intro { display: flex; flex-direction: column; align-items: center; }
     .resume-intro h1 {
-      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1;
-      margin-bottom: .4rem;
+      font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; line-height: 1;
+      margin-bottom: .5rem;
     }
     .resume-intro h1 span {
       background: linear-gradient(120deg, var(--cyan), var(--purple));
@@ -83,10 +85,10 @@
       letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1rem;
     }
     .resume-intro .bio {
-      color: var(--muted); font-size: .95rem; line-height: 1.75; max-width: 520px;
+      color: var(--muted); font-size: .95rem; line-height: 1.75; max-width: 520px; text-align: center;
     }
     .resume-links {
-      display: flex; gap: .7rem; margin-top: 1.4rem; flex-wrap: wrap;
+      display: flex; gap: .7rem; margin-top: 1.4rem; flex-wrap: wrap; justify-content: center;
     }
     .resume-links a {
       padding: .4rem 1.1rem;
