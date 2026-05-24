@@ -517,6 +517,26 @@
     }
     .filter-divider { width: 1px; height: 16px; background: rgba(255,255,255,.1); margin: 0 .3rem; }
 
+    /* ─── GROUP DIVIDERS ─── */
+    .group-divider {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 2.2rem 0 1rem;
+      transition: opacity .3s;
+    }
+    .group-divider.first { padding-top: 0; }
+    .gd-tag {
+      font-family: var(--mono); font-size: .58rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase; white-space: nowrap;
+      padding: .28rem .85rem; border-radius: 100px;
+    }
+    .gd-vfx .gd-tag { color: var(--purple); border: 1px solid rgba(123,47,255,.35); background: rgba(123,47,255,.08); }
+    .gd-3d  .gd-tag { color: var(--cyan);   border: 1px solid rgba(0,245,255,.2);   background: rgba(0,245,255,.05);  }
+    .gd-line { flex: 1; height: 1px; }
+    .gd-vfx .gd-line { background: linear-gradient(to right, rgba(123,47,255,.25), transparent); }
+    .gd-3d  .gd-line { background: linear-gradient(to right, rgba(0,245,255,.15),  transparent); }
+    .group-divider.gone { display: none; }
+
     /* card filter transition */
     .project-card.hide-card {
       opacity: 0 !important; transform: scale(0.88) !important;
@@ -801,11 +821,91 @@
     <div class="filter-bar" id="filter-bar">
       <button class="filter-pill active" data-filter="all">All <span class="pill-count" id="cnt-all"></span></button>
       <div class="filter-divider"></div>
-      <button class="filter-pill" data-filter="3d">3D <span class="pill-count" id="cnt-3d"></span></button>
       <button class="filter-pill" data-filter="vfx">VFX <span class="pill-count" id="cnt-vfx"></span></button>
+      <button class="filter-pill" data-filter="3d">3D <span class="pill-count" id="cnt-3d"></span></button>
     </div>
 
     <div class="projects-grid">
+
+      <!-- ── VFX GROUP ── -->
+      <div class="group-divider gd-vfx first" id="div-vfx">
+        <span class="gd-tag">VFX</span>
+        <span class="gd-line"></span>
+      </div>
+
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb p5f">
+          <img src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w800" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">05</div>
+          <span class="card-tag tag-vfx">PBR</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 05</div>
+          <div class="card-title">Klaichit — PBR Character</div>
+          <div class="card-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span><span class="tool-chip">ZBrush</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb" style="background:linear-gradient(135deg,#080010,#12002a,#050018);">
+          <img src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">13</div>
+          <span class="card-tag tag-vfx">VFX</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 13</div>
+          <div class="card-title">Invictus: Lost Soul — Cinematic</div>
+          <div class="card-desc">Cinematic VFX and environment art for AAA action title — dark aesthetic, real-time atmosphere.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb" style="background:linear-gradient(135deg,#08001a,#1a0535,#001020);">
+          <img src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns VFX" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">08</div>
+          <span class="card-tag tag-vfx">VFX</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 08</div>
+          <div class="card-title">Father, Son &amp; Holy Guns — VFX</div>
+          <div class="card-desc">Real-time VFX — particle systems, custom shaders, and environmental effects for action game pipeline.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">HLSL</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="vfx">
+        <div class="card-thumb" style="background:linear-gradient(135deg,#050010,#150535,#020a1a);">
+          <img src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus VFX" loading="lazy" onerror="this.style.display='none'" />
+          <div class="card-thumb-fallback">09</div>
+          <span class="card-tag tag-vfx">VFX</span>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Project 09</div>
+          <div class="card-title">Regulus — The Advent VFX</div>
+          <div class="card-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+          <div class="card-footer">
+            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">Shader Graph</span></div>
+            <div class="card-arrow">↗</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 3D GROUP ── -->
+      <div class="group-divider gd-3d" id="div-3d">
+        <span class="gd-tag">3D</span>
+        <span class="gd-line"></span>
+      </div>
 
       <div class="project-card" data-cat="3d">
         <div class="card-thumb p1f">
@@ -875,23 +975,6 @@
         </div>
       </div>
 
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb p5f">
-          <img src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w800" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">05</div>
-          <span class="card-tag tag-vfx">PBR</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 05</div>
-          <div class="card-title">Klaichit — PBR Character</div>
-          <div class="card-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span><span class="tool-chip">ZBrush</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
       <div class="project-card" id="card-exterior-house" data-cat="3d" style="cursor:none;" onclick="window.location='exterior-house.html'">
         <div class="card-thumb p6f">
           <div class="mt-slide-wrap">
@@ -934,60 +1017,6 @@
               <a id="mystery-vimeo" href="#" target="_blank" rel="noopener" class="card-arrow" title="Watch on Vimeo" style="font-size:.65rem;width:auto;padding:0 .6rem;border-radius:4px;" onclick="event.stopPropagation()">▶ VDO</a>
               <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="card-arrow" title="ArtStation" onclick="event.stopPropagation()">↗</a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VFX Card 10 -->
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#080010,#12002a,#050018);">
-          <img src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">13</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 13</div>
-          <div class="card-title">Invictus: Lost Soul — Cinematic</div>
-          <div class="card-desc">Cinematic VFX and environment art for AAA action title — dark aesthetic, real-time atmosphere.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VFX Card 08 -->
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#08001a,#1a0535,#001020);">
-          <img src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns VFX" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">08</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 08</div>
-          <div class="card-title">Father, Son &amp; Holy Guns — VFX</div>
-          <div class="card-desc">Real-time VFX — particle systems, custom shaders, and environmental effects for action game pipeline.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">HLSL</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VFX Card 09 -->
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#050010,#150535,#020a1a);">
-          <img src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus VFX" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">09</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 09</div>
-          <div class="card-title">Regulus — The Advent VFX</div>
-          <div class="card-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">Shader Graph</span></div>
-            <div class="card-arrow">↗</div>
           </div>
         </div>
       </div>
@@ -1358,6 +1387,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         setTimeout(() => card.classList.add('gone'), 300);
       }
     });
+    const divVfx = document.getElementById('div-vfx');
+    const div3d  = document.getElementById('div-3d');
+    if (divVfx) divVfx.classList.toggle('gone', cat === '3d');
+    if (div3d)  div3d.classList.toggle('gone', cat === 'vfx');
   }
 
   pills.forEach(pill => {
