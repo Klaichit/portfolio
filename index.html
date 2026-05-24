@@ -648,6 +648,27 @@
       padding: 6rem 3.5rem;
     }
     .resume-mini-inner { max-width: 1100px; margin: 0 auto; }
+    .rm-profile-strip {
+      display: flex; align-items: center; gap: 2.8rem;
+      margin-bottom: 4rem; flex-wrap: wrap;
+    }
+    .rm-avatar-wrap {
+      width: 130px; height: 130px; flex-shrink: 0; border-radius: 50%;
+      border: 2px solid rgba(122,184,212,.35);
+      padding: 4px;
+      box-shadow: 0 0 30px rgba(122,184,212,.12);
+    }
+    .rm-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; display: block; }
+    .rm-profile-text { flex: 1; }
+    .rm-big-name {
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 700;
+      line-height: .95; letter-spacing: -.03em; margin-bottom: .7rem;
+    }
+    .rm-big-name span {
+      background: linear-gradient(120deg, var(--blue), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .rm-tagline { font-size: .88rem; color: var(--muted); letter-spacing: .06em; }
     .resume-mini-header {
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.2rem;
@@ -1065,12 +1086,17 @@
 <section id="resume-mini">
   <div class="resume-mini-inner">
 
-    <div class="resume-mini-header">
-      <div>
-        <div class="section-label">About</div>
-        <h2 class="section-title">Experience &amp; <span class="accent">Skills</span></h2>
+    <!-- Profile strip -->
+    <div class="rm-profile-strip">
+      <div class="rm-avatar-wrap">
+        <img class="rm-avatar" src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w400" alt="Klaichit Kaeoman" />
       </div>
-      <a href="resume.html" class="resume-full-btn">Full Resume ↗</a>
+      <div class="rm-profile-text">
+        <div class="section-label" style="margin-bottom:.6rem;">About</div>
+        <h2 class="rm-big-name">Klaichit<br><span>Kaeoman</span></h2>
+        <p class="rm-tagline">Senior 3D Artist &amp; VFX Specialist · Bangkok</p>
+      </div>
+      <a href="resume.html" class="resume-full-btn" style="align-self:flex-start;margin-top:.5rem;">Full Resume ↗</a>
     </div>
 
     <div class="resume-mini-grid">
