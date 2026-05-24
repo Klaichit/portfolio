@@ -521,6 +521,16 @@
       color: var(--text); letter-spacing: -.02em;
     }
     .wg-count { font-family: var(--mono); font-size: .6rem; color: var(--muted); margin-left: auto; letter-spacing: .12em; }
+    .wg-viewall {
+      font-family: var(--mono); font-size: .6rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+      padding: .32rem 1rem; border-radius: 100px; margin-left: .8rem;
+      transition: background .2s, border-color .2s;
+    }
+    .wg-vfx .wg-viewall { color: var(--lavender); border: 1px solid rgba(144,128,192,.28); background: rgba(144,128,192,.06); }
+    .wg-vfx .wg-viewall:hover { background: rgba(144,128,192,.14); border-color: rgba(144,128,192,.5); }
+    .wg-3d  .wg-viewall { color: var(--blue);     border: 1px solid rgba(122,184,212,.22); background: rgba(122,184,212,.05); }
+    .wg-3d  .wg-viewall:hover { background: rgba(122,184,212,.12); border-color: rgba(122,184,212,.45); }
     .wg-rule { width: 1px; height: 20px; background: rgba(122,184,212,.12); }
 
     /* Bento grid */
@@ -871,6 +881,7 @@
       <span class="wg-rule"></span>
       <span class="wg-name">Visual Effects</span>
       <span class="wg-count">04 Projects</span>
+      <a href="vfx.html" class="wg-viewall">View All ↗</a>
       <span class="wg-bg-text">VFX</span>
     </div>
     <div class="wgrid">
@@ -937,6 +948,7 @@
       <span class="wg-rule"></span>
       <span class="wg-name">3D Art</span>
       <span class="wg-count">06 Projects</span>
+      <a href="3d-art.html" class="wg-viewall">View All ↗</a>
       <span class="wg-bg-text">3D</span>
     </div>
     <div class="wgrid">
