@@ -641,6 +641,60 @@
       border-top: 1px solid rgba(122,184,212,.06);
       padding: 2.8rem 3.5rem;
     }
+
+    /* ─── RESUME MINI ─── */
+    #resume-mini {
+      border-top: 1px solid rgba(122,184,212,.06);
+      padding: 6rem 3.5rem;
+    }
+    .resume-mini-inner { max-width: 1100px; margin: 0 auto; }
+    .resume-mini-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.2rem;
+    }
+    .resume-full-btn {
+      font-family: var(--mono); font-size: .68rem; color: var(--blue);
+      text-decoration: none; letter-spacing: .15em; text-transform: uppercase;
+      border: 1px solid rgba(122,184,212,.25); border-radius: 4px;
+      padding: .5rem 1.2rem; transition: border-color .2s, background .2s;
+    }
+    .resume-full-btn:hover { border-color: var(--blue); background: rgba(122,184,212,.06); }
+    .resume-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .rm-col-label {
+      font-family: var(--mono); font-size: .6rem; color: var(--blue);
+      letter-spacing: .25em; text-transform: uppercase;
+      margin-bottom: 1.8rem; display: flex; align-items: center; gap: .7rem;
+    }
+    .rm-col-label::before { content: ''; width: 14px; height: 1px; background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+    .rm-item { padding: 1rem 0; border-bottom: 1px solid rgba(122,184,212,.05); }
+    .rm-item:last-child { border-bottom: none; }
+    .rm-role { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .rm-company { font-weight: 400; color: var(--blue); font-size: .85rem; }
+    .rm-period { font-family: var(--mono); font-size: .6rem; color: var(--muted); letter-spacing: .1em; margin-bottom: .35rem; }
+    .rm-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .rm-edu .rm-role { color: var(--muted); font-weight: 500; }
+    .rm-skill-block { margin-bottom: 1.6rem; }
+    .rm-skill-cat { font-family: var(--mono); font-size: .6rem; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .6rem; }
+    .rm-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .rm-chips span {
+      font-family: var(--mono); font-size: .6rem; letter-spacing: .08em;
+      padding: .25rem .7rem; border-radius: 100px;
+      border: 1px solid rgba(122,184,212,.18); color: var(--blue); background: rgba(122,184,212,.05);
+    }
+    .rm-chips-v span { border-color: rgba(144,128,192,.25); color: var(--lavender); background: rgba(144,128,192,.05); }
+    .rm-chips-p span { border-color: rgba(200,221,232,.2); color: var(--pearl); background: rgba(200,221,232,.04); }
+    .rm-glance {
+      display: flex; gap: 1.5rem; margin-top: 2rem;
+      padding-top: 1.5rem; border-top: 1px solid rgba(122,184,212,.06);
+    }
+    .rm-glance-item { display: flex; flex-direction: column; gap: .2rem; }
+    .rm-glance-num {
+      font-family: var(--mono); font-size: 1.6rem; font-weight: 700;
+      background: linear-gradient(120deg, var(--blue), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .rm-glance-lbl { font-size: .72rem; color: var(--muted); letter-spacing: .08em; }
+
     .footer-inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
@@ -662,10 +716,11 @@
       .hero-dots { display: none; }
       section:not(#hero) { padding: 5rem 1.5rem; }
       footer { padding: 2rem 1.5rem; }
-      .stats-bar { grid-template-columns: repeat(2,1fr); }
       .projects-grid { grid-template-columns: 1fr; }
       .showreel-header, .projects-header { flex-direction: column; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
+      #resume-mini { padding: 4rem 1.5rem; }
+      .resume-mini-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
   </style>
 </head>
@@ -999,6 +1054,98 @@
               <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="card-arrow" title="ArtStation" onclick="event.stopPropagation()">↗</a>
             </div>
           </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESUME MINI ═══ -->
+<section id="resume-mini">
+  <div class="resume-mini-inner">
+
+    <div class="resume-mini-header">
+      <div>
+        <div class="section-label">About</div>
+        <h2 class="section-title">Experience &amp; <span class="accent">Skills</span></h2>
+      </div>
+      <a href="resume.html" class="resume-full-btn">Full Resume ↗</a>
+    </div>
+
+    <div class="resume-mini-grid">
+
+      <!-- EXPERIENCE -->
+      <div class="rm-col">
+        <div class="rm-col-label">Experience</div>
+
+        <div class="rm-item">
+          <div class="rm-role">VFX Artist <span class="rm-company">· Jumbo Jumps</span></div>
+          <div class="rm-period">Apr 2024 — Present</div>
+          <div class="rm-desc">VFX production for interactive projects — Unity3D, real-time compositing.</div>
+        </div>
+
+        <div class="rm-item">
+          <div class="rm-role">Senior 3D Artist <span class="rm-company">· Jumbo Jumps</span></div>
+          <div class="rm-period">Oct 2018 — Mar 2026 · 7 yrs</div>
+          <div class="rm-desc">Led 3D art production — character modeling, environment art, visual direction.</div>
+        </div>
+
+        <div class="rm-item">
+          <div class="rm-role">3D Artist <span class="rm-company">· True Axion Interactive</span></div>
+          <div class="rm-period">May 2017 — Oct 2018 · 1 yr 6 mos</div>
+          <div class="rm-desc">3D asset creation for interactive and game projects.</div>
+        </div>
+
+        <div class="rm-item">
+          <div class="rm-role">3D Artist <span class="rm-company">· BUMBLISS</span></div>
+          <div class="rm-period">Nov 2015 — Mar 2017 · 1 yr 5 mos</div>
+          <div class="rm-desc">3D modeling and asset production for commercial projects.</div>
+        </div>
+
+        <div class="rm-item">
+          <div class="rm-role">3D Artist <span class="rm-company">· Bohemia Interactive</span></div>
+          <div class="rm-period">Mar 2014 — Oct 2015 · 1 yr 8 mos</div>
+          <div class="rm-desc">Environment design for AAA titles — Arma III &amp; DayZ.</div>
+        </div>
+
+        <div class="rm-item rm-edu">
+          <div class="rm-role">B.Sc. Animation &amp; Game <span class="rm-company">· Mahasarakham University</span></div>
+          <div class="rm-period">2011 — 2014 · GPA 3.14</div>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="rm-col">
+        <div class="rm-col-label">Skills</div>
+
+        <div class="rm-skill-block">
+          <div class="rm-skill-cat">3D &amp; Rendering</div>
+          <div class="rm-chips">
+            <span>Blender</span><span>Maya</span><span>ZBrush</span>
+            <span>Arnold</span><span>EEVEE</span><span>Cycles</span>
+          </div>
+        </div>
+
+        <div class="rm-skill-block">
+          <div class="rm-skill-cat">Texturing &amp; Materials</div>
+          <div class="rm-chips rm-chips-v">
+            <span>Substance Painter</span><span>PBR Materials</span><span>Hand-painted</span>
+          </div>
+        </div>
+
+        <div class="rm-skill-block">
+          <div class="rm-skill-cat">VFX &amp; Motion</div>
+          <div class="rm-chips rm-chips-p">
+            <span>Unity VFX Graph</span><span>Compositing</span>
+            <span>Motion Design</span><span>Fluid Sim</span><span>Rigging</span>
+          </div>
+        </div>
+
+        <div class="rm-glance">
+          <div class="rm-glance-item"><span class="rm-glance-num">10+</span><span class="rm-glance-lbl">Years</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">50+</span><span class="rm-glance-lbl">Projects</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">12+</span><span class="rm-glance-lbl">Tools</span></div>
         </div>
       </div>
 
