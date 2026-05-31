@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet" />
   <style>
     /* ─── RESET ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -485,115 +486,145 @@
       background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
     }
 
-    /* ─── FILTER BAR ─── */
-    .filter-bar {
-      display: flex; align-items: center; gap: .5rem;
-      margin-bottom: 2.8rem; flex-wrap: wrap;
-    }
-    .filter-pill {
-      position: relative;
-      padding: .42rem 1.3rem; border-radius: 100px;
-      font-family: var(--mono); font-size: .65rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.1);
-      color: var(--muted); background: transparent;
-      cursor: none; transition: color .25s, border-color .25s, background .25s, box-shadow .25s;
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .filter-pill:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
-    .filter-pill.active {
-      color: var(--bg); background: var(--blue);
-      border-color: var(--blue);
-      box-shadow: 0 0 18px rgba(122,184,212,.35), 0 0 40px rgba(122,184,212,.12);
-    }
-    .filter-pill[data-filter="vfx"].active {
-      background: var(--lavender); border-color: var(--lavender);
-      box-shadow: 0 0 18px rgba(144,128,192,.45), 0 0 40px rgba(144,128,192,.15);
-    }
-    .pill-count {
-      font-size: .58rem; opacity: .7;
-      background: rgba(0,0,0,.2); border-radius: 100px;
-      padding: .05rem .35rem;
-    }
-    .filter-divider { width: 1px; height: 16px; background: rgba(255,255,255,.1); margin: 0 .3rem; }
-
-    /* ─── GROUP DIVIDERS ─── */
-    .group-divider {
-      grid-column: 1 / -1;
-      display: flex; align-items: center; gap: 1.2rem;
-      padding: 2.2rem 0 1rem;
-      transition: opacity .3s;
-    }
-    .group-divider.first { padding-top: 0; }
-    .gd-tag {
-      font-family: var(--mono); font-size: .58rem; font-weight: 700;
-      letter-spacing: .22em; text-transform: uppercase; white-space: nowrap;
-      padding: .28rem .85rem; border-radius: 100px;
-    }
-    .gd-vfx .gd-tag { color: var(--lavender); border: 1px solid rgba(144,128,192,.35); background: rgba(144,128,192,.08); }
-    .gd-3d  .gd-tag { color: var(--blue);   border: 1px solid rgba(122,184,212,.2);   background: rgba(122,184,212,.05);  }
-    .gd-line { flex: 1; height: 1px; }
-    .gd-vfx .gd-line { background: linear-gradient(to right, rgba(144,128,192,.25), transparent); }
-    .gd-3d  .gd-line { background: linear-gradient(to right, rgba(122,184,212,.15),  transparent); }
-    .group-divider.gone { display: none; }
-
-    /* card filter transition */
-    .project-card.hide-card {
-      opacity: 0 !important; transform: scale(0.88) !important;
-      pointer-events: none;
-    }
-    .project-card.gone { display: none; }
-
-    /* ─── PROJECTS ─── */
-    #projects { background: var(--bg); }
+    /* ─── WORK GROUPS (editorial bento) ─── */
+    #projects { background: var(--bg); padding-bottom: 0; }
     .projects-inner { max-width: 1200px; margin: 0 auto; }
     .projects-header {
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
     }
-    .projects-grid {
+
+    /* Group header */
+    .work-group { margin-bottom: 2px; }
+    .wg-header {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; gap: 1.4rem;
+      padding: 2.8rem 3.5rem 2rem;
+    }
+    .wg-bg-text {
+      position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%);
+      font-size: clamp(4.5rem, 11vw, 9rem); font-weight: 900;
+      font-family: var(--mono); color: transparent;
+      -webkit-text-stroke: 1px rgba(122,184,212,.055);
+      letter-spacing: -.05em; line-height: 1;
+      pointer-events: none; user-select: none; text-transform: uppercase;
+    }
+    .wg-vfx .wg-bg-text { -webkit-text-stroke-color: rgba(144,128,192,.07); }
+    .wg-pill {
+      font-family: var(--mono); font-size: .58rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 100px; flex-shrink: 0;
+    }
+    .wg-vfx .wg-pill { color: var(--lavender); border: 1px solid rgba(144,128,192,.3); background: rgba(144,128,192,.07); }
+    .wg-3d  .wg-pill { color: var(--blue);     border: 1px solid rgba(122,184,212,.2);  background: rgba(122,184,212,.05); }
+    .wg-name {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 700;
+      color: var(--text); letter-spacing: -.02em;
+    }
+    .wg-count { font-family: var(--mono); font-size: .6rem; color: var(--muted); margin-left: auto; letter-spacing: .12em; }
+    .wg-viewall {
+      font-family: var(--mono); font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+      padding: .45rem 1.3rem; border-radius: 100px; margin-left: 1rem;
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: background .2s, border-color .2s;
+    }
+    .wg-viewall i { font-size: 1rem; line-height: 1; letter-spacing: 0; }
+    .wg-vfx .wg-viewall { color: var(--lavender); border: 1px solid rgba(144,128,192,.28); background: rgba(144,128,192,.06); }
+    .wg-vfx .wg-viewall:hover { background: rgba(144,128,192,.14); border-color: rgba(144,128,192,.5); }
+    .wg-3d  .wg-viewall { color: var(--blue);     border: 1px solid rgba(122,184,212,.22); background: rgba(122,184,212,.05); }
+    .wg-3d  .wg-viewall:hover { background: rgba(122,184,212,.12); border-color: rgba(122,184,212,.45); }
+    .wg-rule { width: 1px; height: 20px; background: rgba(122,184,212,.12); }
+
+    /* Bento grid */
+    .wgrid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.4rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
     }
-    .project-card {
-      border-radius: 12px; border: 1px solid rgba(122,184,212,.1);
-      background: rgba(255,255,255,.025); overflow: hidden;
-      cursor: none; transition: border-color .3s, box-shadow .3s, transform .3s;
-      opacity: 0; transform: translateY(30px);
+    .wcard {
+      position: relative; overflow: hidden;
+      background: var(--bg2); cursor: none;
+      opacity: 0; transform: translateY(24px);
     }
-    .project-card.visible {
-      opacity: 1; transform: translateY(0);
-      transition: opacity .6s ease, transform .6s ease, border-color .3s, box-shadow .3s;
+    .wcard.visible { opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s ease; }
+    .wcard-feat { grid-column: span 2; }
+
+    /* Card image */
+    .wcard-img {
+      width: 100%; height: 100%; min-height: 300px;
+      object-fit: cover; display: block;
+      transition: transform .7s cubic-bezier(.4,0,.2,1);
     }
-    .project-card:hover {
-      border-color: rgba(122,184,212,.35);
-      box-shadow: 0 0 40px rgba(122,184,212,.08);
-      transform: translateY(-4px) !important;
-    }
-    .card-thumb {
-      aspect-ratio: 16/10; position: relative; overflow: hidden;
-    }
-    .card-thumb img {
+    .wcard-feat .wcard-img { min-height: 360px; }
+    .wcard:hover .wcard-img { transform: scale(1.06); }
+
+    /* Slide wrapper (for autoplay cards) */
+    .wcard .mt-slide-wrap { position: absolute; inset: 0; }
+    .wcard .mt-slide-wrap .mt-slide {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform .5s ease, opacity .4s ease;
-    }
-    .mt-slide-wrap {
-      position: absolute; inset: 0;
-    }
-    .mt-slide {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover;
+      display: block; position: absolute; inset: 0;
       transition: opacity .9s cubic-bezier(.4,0,.2,1);
     }
-    .project-card:hover .mt-slide { transform: scale(1.05); }
-    .project-card:hover .card-thumb img { transform: scale(1.05); }
-    .card-thumb-fallback {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 3.5rem; font-weight: 700;
-      color: rgba(255,255,255,.05);
+    .wcard:hover .mt-slide { transform: scale(1.06); }
+
+    /* Fallback number */
+    .wcard-fallback {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 5rem; font-weight: 900; color: rgba(255,255,255,.03);
     }
+
+    /* Dark gradient overlay */
+    .wcard-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(9,12,18,.96) 0%, rgba(9,12,18,.35) 45%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem;
+      transition: background .4s;
+    }
+    .wcard:hover .wcard-overlay {
+      background: linear-gradient(to top, rgba(9,12,18,.98) 0%, rgba(9,12,18,.55) 55%, rgba(9,12,18,.08) 100%);
+    }
+
+    /* Tag badge */
+    .wcard-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      font-family: var(--mono); font-size: .5rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: .2rem .6rem; border-radius: 2px;
+    }
+    .wtag-vfx { background: rgba(144,128,192,.18); color: var(--lavender); border: 1px solid rgba(144,128,192,.25); }
+    .wtag-3d  { background: rgba(122,184,212,.12);  color: var(--blue);     border: 1px solid rgba(122,184,212,.18); }
+    .wtag-env { background: rgba(200,221,232,.1);   color: var(--pearl);    border: 1px solid rgba(200,221,232,.18); }
+
+    /* Card text */
+    .wcard-num { font-family: var(--mono); font-size: .5rem; color: rgba(122,184,212,.4); letter-spacing: .2em; margin-bottom: .3rem; }
+    .wcard-title { font-size: .95rem; font-weight: 600; line-height: 1.2; color: var(--text); }
+    .wcard-feat .wcard-title { font-size: 1.25rem; }
+    .wcard-desc {
+      font-size: .76rem; color: rgba(232,238,244,.5); line-height: 1.55; margin-top: .45rem;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .4s ease, opacity .35s ease;
+    }
+    .wcard:hover .wcard-desc { max-height: 80px; opacity: 1; }
+    .wcard-chips { display: flex; gap: .3rem; flex-wrap: wrap; margin-top: .55rem; }
+    .wchip {
+      font-family: var(--mono); font-size: .5rem; letter-spacing: .06em;
+      padding: .15rem .5rem; border-radius: 3px;
+      background: rgba(122,184,212,.07); color: rgba(122,184,212,.6);
+      border: 1px solid rgba(122,184,212,.1);
+    }
+    .wcard-actions { display: flex; gap: .45rem; margin-top: .6rem; }
+    .wcard-btn {
+      font-family: var(--mono); font-size: .55rem; letter-spacing: .1em;
+      padding: .28rem .7rem; border-radius: 3px;
+      border: 1px solid rgba(122,184,212,.25); color: var(--blue);
+      text-decoration: none; background: rgba(122,184,212,.05);
+      transition: background .2s; cursor: none;
+    }
+    .wcard-btn:hover { background: rgba(122,184,212,.12); }
+
+    /* Card background gradients */
     .p1f { background: linear-gradient(135deg,#0a0a1a,#1a0535,#051525); }
     .p2f { background: linear-gradient(135deg,#0a1520,#001a10,#0d0820); }
     .p3f { background: linear-gradient(135deg,#1a0510,#0a0035,#150a20); }
@@ -601,37 +632,6 @@
     .p5f { background: linear-gradient(135deg,#10000a,#1a0505,#200d10); }
     .p6f { background: linear-gradient(135deg,#050d0a,#001518,#0a0d15); }
     .p7f { background: linear-gradient(135deg,#0d0a00,#1a1005,#100a00); }
-    .card-tag {
-      position: absolute; top: .9rem; right: .9rem;
-      padding: .22rem .6rem; border-radius: 100px;
-      font-family: var(--mono); font-size: .6rem;
-      letter-spacing: .12em; text-transform: uppercase;
-    }
-    .tag-3d    { background: rgba(122,184,212,.1); color: var(--blue); border: 1px solid rgba(122,184,212,.3); }
-    .tag-vfx   { background: rgba(144,128,192,.1); color: var(--lavender); border: 1px solid rgba(144,128,192,.3); }
-    .tag-motion{ background: rgba(200,221,232,.1); color: var(--pearl); border: 1px solid rgba(200,221,232,.3); }
-    .card-body { padding: 1.2rem 1.4rem 1.4rem; }
-    .card-num  { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .15em; margin-bottom: .35rem; }
-    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: .45rem; }
-    .card-desc { font-size: .83rem; color: var(--muted); line-height: 1.65; margin-bottom: .9rem; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .card-tools { display: flex; gap: .35rem; flex-wrap: wrap; }
-    .tool-chip {
-      padding: .18rem .48rem; border-radius: 4px;
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-      font-size: .65rem; color: var(--muted); font-family: var(--mono);
-    }
-    .card-arrow {
-      width: 30px; height: 30px; border-radius: 50%;
-      border: 1px solid rgba(122,184,212,.2);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--blue); font-size: .85rem; flex-shrink: 0;
-      transition: background .2s, box-shadow .2s, transform .2s;
-    }
-    .project-card:hover .card-arrow {
-      background: rgba(122,184,212,.1);
-      box-shadow: var(--glow-blue); transform: scale(1.12);
-    }
 
     /* Stats */
 
@@ -737,7 +737,9 @@
       .hero-dots { display: none; }
       section:not(#hero) { padding: 5rem 1.5rem; }
       footer { padding: 2rem 1.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .wgrid { grid-template-columns: 1fr; }
+      .wcard-feat { grid-column: span 1; }
+      .wg-header { padding: 2rem 1.5rem 1.2rem; }
       .showreel-header, .projects-header { flex-direction: column; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       #resume-mini { padding: 4rem 1.5rem; }
@@ -873,213 +875,178 @@
       </div>
       <p class="section-desc">From stylized renders to live-action VFX compositing — each project is a new world.</p>
     </div>
+  </div>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar" id="filter-bar">
-      <button class="filter-pill active" data-filter="all">All <span class="pill-count" id="cnt-all"></span></button>
-      <div class="filter-divider"></div>
-      <button class="filter-pill" data-filter="vfx">VFX <span class="pill-count" id="cnt-vfx"></span></button>
-      <button class="filter-pill" data-filter="3d">3D <span class="pill-count" id="cnt-3d"></span></button>
+  <!-- ══ VFX GROUP ══ -->
+  <div class="work-group wg-vfx">
+    <div class="wg-header">
+      <span class="wg-pill">VFX</span>
+      <span class="wg-rule"></span>
+      <span class="wg-name">Visual Effects</span>
+      <a href="vfx.html" class="wg-viewall"><i class="ph ph-sparkle"></i>View All ↗</a>
+      <span class="wg-count" style="margin-left:auto;">04 Projects</span>
+      <span class="wg-bg-text">VFX</span>
     </div>
+    <div class="wgrid">
 
-    <div class="projects-grid">
-
-      <!-- ── VFX GROUP ── -->
-      <div class="group-divider gd-vfx first" id="div-vfx">
-        <span class="gd-tag">VFX</span>
-        <span class="gd-line"></span>
-      </div>
-
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb p5f">
-          <img src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w800" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">05</div>
-          <span class="card-tag tag-vfx">PBR</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 05</div>
-          <div class="card-title">Klaichit — PBR Character</div>
-          <div class="card-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span><span class="tool-chip">ZBrush</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 05 FEATURED -->
+      <div class="wcard wcard-feat p5f">
+        <img class="wcard-img" src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w1200" alt="Klaichit PBR" loading="lazy" />
+        <span class="wcard-tag wtag-vfx">PBR</span>
+        <div class="wcard-fallback">05</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 05</div>
+          <div class="wcard-title">Klaichit — PBR Character</div>
+          <div class="wcard-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
+          <div class="wcard-chips"><span class="wchip">Maya</span><span class="wchip">Arnold</span><span class="wchip">ZBrush</span></div>
         </div>
       </div>
 
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#0c1018,#101828,#0c1020);">
-          <img src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">13</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 13</div>
-          <div class="card-title">Invictus: Lost Soul — Cinematic</div>
-          <div class="card-desc">Cinematic VFX and environment art for AAA action title — dark aesthetic, real-time atmosphere.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 13 -->
+      <div class="wcard" style="background:linear-gradient(135deg,#0c1018,#101828,#0c1020);">
+        <img class="wcard-img" src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul" loading="lazy" />
+        <span class="wcard-tag wtag-vfx">VFX</span>
+        <div class="wcard-fallback">13</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 13</div>
+          <div class="wcard-title">Invictus: Lost Soul — Cinematic</div>
+          <div class="wcard-desc">Cinematic VFX for AAA action title — dark aesthetic, real-time atmosphere.</div>
+          <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span></div>
         </div>
       </div>
 
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#0c1020,#101530,#0c1228);">
-          <img src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns VFX" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">08</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 08</div>
-          <div class="card-title">Father, Son &amp; Holy Guns — VFX</div>
-          <div class="card-desc">Real-time VFX — particle systems, custom shaders, and environmental effects for action game pipeline.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">HLSL</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 08 -->
+      <div class="wcard" style="background:linear-gradient(135deg,#0c1020,#101530,#0c1228);">
+        <img class="wcard-img" src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns" loading="lazy" />
+        <span class="wcard-tag wtag-vfx">VFX</span>
+        <div class="wcard-fallback">08</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 08</div>
+          <div class="wcard-title">Father, Son &amp; Holy Guns — VFX</div>
+          <div class="wcard-desc">Real-time VFX — particle systems, custom shaders, environmental effects for action game pipeline.</div>
+          <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span><span class="wchip">HLSL</span></div>
         </div>
       </div>
 
-      <div class="project-card" data-cat="vfx">
-        <div class="card-thumb" style="background:linear-gradient(135deg,#0c1018,#12153a,#0a101a);">
-          <img src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus VFX" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">09</div>
-          <span class="card-tag tag-vfx">VFX</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 09</div>
-          <div class="card-title">Regulus — The Advent VFX</div>
-          <div class="card-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Unity</span><span class="tool-chip">VFX Graph</span><span class="tool-chip">Shader Graph</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 09 FEATURED -->
+      <div class="wcard wcard-feat" style="background:linear-gradient(135deg,#0c1018,#12153a,#0a101a);">
+        <img class="wcard-img" src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus VFX" loading="lazy" />
+        <span class="wcard-tag wtag-vfx">VFX</span>
+        <div class="wcard-fallback">09</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 09</div>
+          <div class="wcard-title">Regulus — The Advent VFX</div>
+          <div class="wcard-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+          <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span><span class="wchip">Shader Graph</span></div>
         </div>
       </div>
 
-      <!-- ── 3D GROUP ── -->
-      <div class="group-divider gd-3d" id="div-3d">
-        <span class="gd-tag">3D</span>
-        <span class="gd-line"></span>
-      </div>
+    </div>
+  </div>
 
-      <div class="project-card" data-cat="3d">
-        <div class="card-thumb p1f">
-          <img src="https://drive.google.com/thumbnail?id=1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy&sz=w800" alt="Pirate" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">01</div>
-          <span class="card-tag tag-3d">3D</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 01</div>
-          <div class="card-title">Pirate — Stylized Character</div>
-          <div class="card-desc">High-detail stylized character with hand-painted textures and expressive silhouette design.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Substance</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
-        </div>
-      </div>
+  <!-- ══ 3D GROUP ══ -->
+  <div class="work-group wg-3d">
+    <div class="wg-header">
+      <span class="wg-pill">3D</span>
+      <span class="wg-rule"></span>
+      <span class="wg-name">3D Art</span>
+      <a href="3d-art.html" class="wg-viewall"><i class="ph ph-cube"></i>View All ↗</a>
+      <span class="wg-count" style="margin-left:auto;">06 Projects</span>
+      <span class="wg-bg-text">3D</span>
+    </div>
+    <div class="wgrid">
 
-      <div class="project-card" data-cat="3d">
-        <div class="card-thumb p2f">
-          <img src="https://drive.google.com/thumbnail?id=1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f&sz=w800" alt="Reaper Skin" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">02</div>
-          <span class="card-tag tag-3d">3D</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 02</div>
-          <div class="card-title">SSR Reaper — Character Skin</div>
-          <div class="card-desc">SSR-grade character skin with cinematic lighting and PBR material refinement.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Maya</span><span class="tool-chip">Arnold</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 01 FEATURED -->
+      <div class="wcard wcard-feat p1f">
+        <img class="wcard-img" src="https://drive.google.com/thumbnail?id=1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy&sz=w1200" alt="Pirate" loading="lazy" />
+        <span class="wcard-tag wtag-3d">3D</span>
+        <div class="wcard-fallback">01</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 01</div>
+          <div class="wcard-title">Pirate — Stylized Character</div>
+          <div class="wcard-desc">High-detail stylized character with hand-painted textures and expressive silhouette design.</div>
+          <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">Substance</span></div>
         </div>
       </div>
 
-      <div class="project-card" data-cat="3d">
-        <div class="card-thumb p3f">
-          <img src="https://drive.google.com/thumbnail?id=11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP&sz=w800" alt="Wallpaper Environment" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">03</div>
-          <span class="card-tag tag-3d">3D</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 03</div>
-          <div class="card-title">Stylized World — Wallpaper</div>
-          <div class="card-desc">Stylized fantasy environment with atmospheric lighting and painterly aesthetic.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">EEVEE</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 02 -->
+      <div class="wcard p2f">
+        <img class="wcard-img" src="https://drive.google.com/thumbnail?id=1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f&sz=w800" alt="Reaper Skin" loading="lazy" />
+        <span class="wcard-tag wtag-3d">3D</span>
+        <div class="wcard-fallback">02</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 02</div>
+          <div class="wcard-title">SSR Reaper — Character Skin</div>
+          <div class="wcard-desc">SSR-grade character skin with cinematic lighting and PBR material refinement.</div>
+          <div class="wcard-chips"><span class="wchip">Maya</span><span class="wchip">Arnold</span></div>
         </div>
       </div>
 
-      <div class="project-card" data-cat="3d">
-        <div class="card-thumb p4f">
-          <img src="https://drive.google.com/thumbnail?id=1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ&sz=w800" alt="Pet Sanctuary" loading="lazy" onerror="this.style.display='none'" />
-          <div class="card-thumb-fallback">04</div>
-          <span class="card-tag tag-3d">Environment</span>
-        </div>
-        <div class="card-body">
-          <div class="card-num">Project 04</div>
-          <div class="card-title">Pet Sanctuary — Full Environment</div>
-          <div class="card-desc">Full-scale stylized game environment with rich props, foliage, and cinematic composition.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Cycles</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+      <!-- 03 -->
+      <div class="wcard p3f">
+        <img class="wcard-img" src="https://drive.google.com/thumbnail?id=11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP&sz=w800" alt="Wallpaper Environment" loading="lazy" />
+        <span class="wcard-tag wtag-3d">3D</span>
+        <div class="wcard-fallback">03</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 03</div>
+          <div class="wcard-title">Stylized World — Wallpaper</div>
+          <div class="wcard-desc">Stylized fantasy environment with atmospheric lighting and painterly aesthetic.</div>
+          <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">EEVEE</span></div>
         </div>
       </div>
 
-      <div class="project-card" id="card-exterior-house" data-cat="3d" style="cursor:none;" onclick="window.location='exterior-house.html'">
-        <div class="card-thumb p6f">
-          <div class="mt-slide-wrap">
-            <img class="mt-slide" id="eh-a" src="" alt="Exterior House" />
-            <img class="mt-slide" id="eh-b" src="" alt="Exterior House" style="opacity:0;" />
-          </div>
-          <div class="card-thumb-fallback">06</div>
-          <span class="card-tag tag-motion">Environment</span>
+      <!-- 06 FEATURED — Exterior House (autoplay) -->
+      <div class="wcard wcard-feat p6f" id="card-exterior-house" style="cursor:none;" onclick="window.location='exterior-house.html'">
+        <div class="mt-slide-wrap">
+          <img class="mt-slide" id="eh-a" src="" alt="Exterior House" />
+          <img class="mt-slide" id="eh-b" src="" alt="Exterior House" style="opacity:0;" />
         </div>
-        <div class="card-body">
-          <div class="card-num">Project 06</div>
-          <div class="card-title">3D Environment Stylized</div>
-          <div class="card-desc">Stylized exterior architecture with hand-crafted lighting, textures, and environment dressing.</div>
-          <div class="card-footer">
-            <div class="card-tools"><span class="tool-chip">Blender</span><span class="tool-chip">Substance</span></div>
-            <div class="card-arrow">↗</div>
-          </div>
+        <span class="wcard-tag wtag-env">Environment</span>
+        <div class="wcard-fallback">06</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 06</div>
+          <div class="wcard-title">3D Environment Stylized</div>
+          <div class="wcard-desc">Stylized exterior architecture with hand-crafted lighting, textures, and environment dressing.</div>
+          <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">Substance</span></div>
         </div>
       </div>
 
-      <div class="project-card" id="card-mystery-temple" data-cat="3d" style="cursor:none;" onclick="window.location='mystery-temple.html'">
-        <div class="card-thumb p7f">
-          <div class="mt-slide-wrap">
-            <img class="mt-slide" id="mt-a" src="" alt="Mystery Temple" />
-            <img class="mt-slide" id="mt-b" src="" alt="Mystery Temple" style="opacity:0;" />
-          </div>
-          <div class="card-thumb-fallback">07</div>
-          <span class="card-tag tag-3d">3D</span>
+      <!-- 04 -->
+      <div class="wcard p4f">
+        <img class="wcard-img" src="https://drive.google.com/thumbnail?id=1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ&sz=w800" alt="Pet Sanctuary" loading="lazy" />
+        <span class="wcard-tag wtag-env">Environment</span>
+        <div class="wcard-fallback">04</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 04</div>
+          <div class="wcard-title">Pet Sanctuary — Full Environment</div>
+          <div class="wcard-desc">Full-scale stylized game environment with rich props, foliage, and cinematic composition.</div>
+          <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">Cycles</span></div>
         </div>
-        <div class="card-body">
-          <div class="card-num">Project 07</div>
-          <div class="card-title">Mystery Temple — Environment</div>
-          <div class="card-desc">Stylized ancient temple environment with atmospheric lighting and modular architecture.</div>
-          <div class="card-footer">
-            <div class="card-tools">
-              <span class="tool-chip">Blender</span>
-              <span class="tool-chip">Substance</span>
-            </div>
-            <div style="display:flex;gap:.5rem;">
-              <a id="mystery-vimeo" href="#" target="_blank" rel="noopener" class="card-arrow" title="Watch on Vimeo" style="font-size:.65rem;width:auto;padding:0 .6rem;border-radius:4px;" onclick="event.stopPropagation()">▶ VDO</a>
-              <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="card-arrow" title="ArtStation" onclick="event.stopPropagation()">↗</a>
-            </div>
+      </div>
+
+      <!-- 07 FEATURED — Mystery Temple (autoplay + links) -->
+      <div class="wcard wcard-feat p7f" id="card-mystery-temple" style="cursor:none;" onclick="window.location='mystery-temple.html'">
+        <div class="mt-slide-wrap">
+          <img class="mt-slide" id="mt-a" src="" alt="Mystery Temple" />
+          <img class="mt-slide" id="mt-b" src="" alt="Mystery Temple" style="opacity:0;" />
+        </div>
+        <span class="wcard-tag wtag-3d">3D</span>
+        <div class="wcard-fallback">07</div>
+        <div class="wcard-overlay">
+          <div class="wcard-num">Project 07</div>
+          <div class="wcard-title">Mystery Temple — Environment</div>
+          <div class="wcard-desc">Stylized ancient temple environment with atmospheric lighting and modular architecture.</div>
+          <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">Substance</span></div>
+          <div class="wcard-actions">
+            <a id="mystery-vimeo" href="#" target="_blank" rel="noopener" class="wcard-btn" onclick="event.stopPropagation()">▶ VDO</a>
+            <a id="mystery-artstation" href="#" target="_blank" rel="noopener" class="wcard-btn" onclick="event.stopPropagation()">ArtStation ↗</a>
           </div>
         </div>
       </div>
 
     </div>
   </div>
+
 </section>
 
 <!-- ═══ RESUME MINI ═══ -->
@@ -1489,13 +1456,13 @@ window.addEventListener('scroll', () => {
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      const i = [...document.querySelectorAll('.project-card')].indexOf(e.target);
-      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      const i = [...document.querySelectorAll('.wcard')].indexOf(e.target);
+      setTimeout(() => e.target.classList.add('visible'), i * 70);
       obs.unobserve(e.target);
     }
   });
-}, { threshold: .1 });
-document.querySelectorAll('.project-card').forEach(c => obs.observe(c));
+}, { threshold: .08 });
+document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
 
 /* Set profile image from HERO_IMAGES config */
 document.getElementById('hero-profile-img').src =
@@ -1511,45 +1478,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ────────────────────────────────────────────────
-   PROJECT FILTER
-──────────────────────────────────────────────── */
-(function () {
-  const pills  = document.querySelectorAll('.filter-pill');
-  const cards  = document.querySelectorAll('.project-card');
-
-  /* count per category */
-  const counts = { all: cards.length, '3d': 0, vfx: 0 };
-  cards.forEach(c => { if (counts[c.dataset.cat] !== undefined) counts[c.dataset.cat]++; });
-  document.getElementById('cnt-all').textContent = counts.all;
-  document.getElementById('cnt-3d').textContent  = counts['3d'];
-  document.getElementById('cnt-vfx').textContent = counts.vfx;
-
-  function applyFilter(cat) {
-    cards.forEach(card => {
-      const match = cat === 'all' || card.dataset.cat === cat;
-      if (match) {
-        card.classList.remove('gone');
-        requestAnimationFrame(() => card.classList.remove('hide-card'));
-      } else {
-        card.classList.add('hide-card');
-        setTimeout(() => card.classList.add('gone'), 300);
-      }
-    });
-    const divVfx = document.getElementById('div-vfx');
-    const div3d  = document.getElementById('div-3d');
-    if (divVfx) divVfx.classList.toggle('gone', cat === '3d');
-    if (div3d)  div3d.classList.toggle('gone', cat === 'vfx');
-  }
-
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      applyFilter(pill.dataset.filter);
-    });
-  });
-})();
 </script>
 </body>
 </html>

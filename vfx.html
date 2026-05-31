@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VFX — Visual Effects · Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #090c12; --bg2: #101520;
+      --blue: #7ab8d4; --lavender: #9080c0; --pearl: #c8dde8;
+      --text: #e8eef4; --muted: #68788a;
+      --card-border: rgba(122,184,212,0.1);
+      --glow-blue: 0 0 20px rgba(122,184,212,0.2), 0 0 55px rgba(122,184,212,0.06);
+      --font: 'Space Grotesk', sans-serif; --mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.2rem 3.5rem; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(9,12,18,.92); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(122,184,212,.07);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-weight: 700; font-size: 1.1rem;
+      color: var(--blue); text-decoration: none;
+      text-shadow: 0 0 20px rgba(122,184,212,.5);
+    }
+    .nav-logo span { color: var(--lavender); }
+    .nav-back {
+      font-family: var(--mono); font-size: .72rem; color: var(--muted);
+      text-decoration: none; letter-spacing: .12em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--blue); }
+
+    /* ─── HERO ─── */
+    .proj-hero {
+      padding: 9rem 3.5rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .proj-label {
+      font-family: var(--mono); font-size: .65rem; color: var(--blue);
+      letter-spacing: .25em; text-transform: uppercase;
+      margin-bottom: .7rem; display: flex; align-items: center; gap: .7rem;
+    }
+    .proj-label::before {
+      content: ''; width: 18px; height: 1px;
+      background: var(--blue); box-shadow: 0 0 8px var(--blue);
+    }
+    .proj-hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 700;
+      line-height: .95; letter-spacing: -.03em; margin-bottom: 1rem;
+    }
+    .proj-hero h1 .grad {
+      background: linear-gradient(120deg, var(--blue), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(122,184,212,.3));
+    }
+    .proj-desc {
+      color: var(--muted); font-size: .95rem; line-height: 1.8;
+      max-width: 620px; margin-bottom: 2rem;
+    }
+    .stat-chips { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .stat-chip {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+      padding: .35rem .85rem; border-radius: 100px;
+      border: 1px solid rgba(122,184,212,.2); color: var(--blue);
+      background: rgba(122,184,212,.05);
+    }
+
+    /* ─── BENTO GRID ─── */
+    .bento-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 0 3.5rem 6rem;
+    }
+    .section-label {
+      font-family: var(--mono); font-size: .65rem; color: var(--blue);
+      letter-spacing: .25em; text-transform: uppercase;
+      margin-bottom: 1.4rem; display: flex; align-items: center; gap: .7rem;
+    }
+    .section-label::before {
+      content: ''; width: 18px; height: 1px;
+      background: var(--blue); box-shadow: 0 0 8px var(--blue);
+    }
+    .wgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    /* ─── CARD CSS ─── */
+    .wcard { position:relative; overflow:hidden; background:var(--bg2); cursor:pointer;
+      opacity:0; transform:translateY(24px); }
+    .wcard.visible { opacity:1; transform:translateY(0); transition:opacity .55s ease,transform .55s ease; }
+    .wcard-feat { grid-column: span 2; }
+    .wcard-img { width:100%; height:100%; min-height:300px; object-fit:cover; display:block; transition:transform .7s cubic-bezier(.4,0,.2,1); }
+    .wcard-feat .wcard-img { min-height:360px; }
+    .wcard:hover .wcard-img { transform:scale(1.06); }
+    .wcard-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(9,12,18,.96) 0%,rgba(9,12,18,.35) 45%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; transition:background .4s; }
+    .wcard:hover .wcard-overlay { background:linear-gradient(to top,rgba(9,12,18,.98) 0%,rgba(9,12,18,.55) 55%,rgba(9,12,18,.08) 100%); }
+    .wcard-tag { position:absolute; top:1rem; left:1rem; font-family:var(--mono); font-size:.5rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; padding:.2rem .6rem; border-radius:2px; }
+    .wtag-vfx { background:rgba(144,128,192,.18); color:var(--lavender); border:1px solid rgba(144,128,192,.25); }
+    .wtag-3d { background:rgba(122,184,212,.12); color:var(--blue); border:1px solid rgba(122,184,212,.18); }
+    .wtag-env { background:rgba(200,221,232,.1); color:var(--pearl); border:1px solid rgba(200,221,232,.18); }
+    .wcard-num { font-family:var(--mono); font-size:.5rem; color:rgba(122,184,212,.4); letter-spacing:.2em; margin-bottom:.3rem; }
+    .wcard-title { font-size:.95rem; font-weight:600; line-height:1.2; color:var(--text); }
+    .wcard-feat .wcard-title { font-size:1.25rem; }
+    .wcard-desc { font-size:.76rem; color:rgba(232,238,244,.5); line-height:1.55; margin-top:.45rem; max-height:0; overflow:hidden; opacity:0; transition:max-height .4s ease,opacity .35s ease; }
+    .wcard:hover .wcard-desc { max-height:80px; opacity:1; }
+    .wcard-chips { display:flex; gap:.3rem; flex-wrap:wrap; margin-top:.55rem; }
+    .wchip { font-family:var(--mono); font-size:.5rem; letter-spacing:.06em; padding:.15rem .5rem; border-radius:3px; background:rgba(122,184,212,.07); color:rgba(122,184,212,.6); border:1px solid rgba(122,184,212,.1); }
+    .wcard-actions { display:flex; gap:.45rem; margin-top:.6rem; }
+    .wcard-btn { font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; padding:.28rem .7rem; border-radius:3px; border:1px solid rgba(122,184,212,.25); color:var(--blue); text-decoration:none; background:rgba(122,184,212,.05); transition:background .2s; }
+    .wcard-btn:hover { background:rgba(122,184,212,.12); }
+
+    /* ─── CARD GRADIENT BACKGROUNDS ─── */
+    .p1f { background: linear-gradient(135deg,#0a0a1a,#1a0535,#051525); }
+    .p2f { background: linear-gradient(135deg,#0a1520,#001a10,#0d0820); }
+    .p3f { background: linear-gradient(135deg,#1a0510,#0a0035,#150a20); }
+    .p4f { background: linear-gradient(135deg,#050a1a,#0d0535,#001020); }
+    .p5f { background: linear-gradient(135deg,#10000a,#1a0505,#200d10); }
+    .p6f { background: linear-gradient(135deg,#050d0a,#001518,#0a0d15); }
+    .p7f { background: linear-gradient(135deg,#0d0a00,#1a1005,#100a00); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(122,184,212,.06);
+      padding: 2rem 3.5rem; text-align: center;
+      font-family: var(--mono); font-size: .62rem;
+      color: var(--muted); letter-spacing: .1em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero { padding: 7rem 1.5rem 3rem; }
+      .bento-wrap { padding: 0 1.5rem 4rem; }
+      .wgrid { grid-template-columns: 1fr; }
+      .wcard-feat { grid-column: span 1; }
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="index.html#projects" class="nav-back">← Work</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="proj-hero">
+  <div class="proj-label">VFX · Visual Effects</div>
+  <h1>Visual<br><span class="grad">Effects</span></h1>
+  <p class="proj-desc">Real-time VFX, cinematic particle systems, and environment art — built for AAA games and interactive projects.</p>
+  <div class="stat-chips">
+    <span class="stat-chip">4 Projects</span>
+    <span class="stat-chip">Unity · VFX Graph · HLSL</span>
+    <span class="stat-chip">Real-time &amp; Cinematic</span>
+  </div>
+</div>
+
+<!-- ═══ BENTO GRID ═══ -->
+<div class="bento-wrap">
+  <div class="section-label">Projects</div>
+
+  <div class="wgrid">
+
+    <!-- Project 05 FEATURED (span 2) -->
+    <div class="wcard wcard-feat p5f">
+      <img class="wcard-img" src="https://drive.google.com/thumbnail?id=1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA&sz=w1200" alt="Klaichit PBR Character" loading="lazy" />
+      <span class="wcard-tag wtag-vfx">PBR</span>
+      <div class="wcard-overlay">
+        <div class="wcard-num">Project 05</div>
+        <div class="wcard-title">Klaichit — PBR Character</div>
+        <div class="wcard-desc">Photorealistic character render with PBR skin, SSS, and cinematic key lighting.</div>
+        <div class="wcard-chips">
+          <span class="wchip">Maya</span>
+          <span class="wchip">Arnold</span>
+          <span class="wchip">ZBrush</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 13 -->
+    <div class="wcard" style="background:linear-gradient(135deg,#0c1018,#101828,#0c1020);">
+      <img class="wcard-img" src="https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg" alt="Invictus Lost Soul Cinematic" loading="lazy" />
+      <span class="wcard-tag wtag-vfx">VFX</span>
+      <div class="wcard-overlay">
+        <div class="wcard-num">Project 13</div>
+        <div class="wcard-title">Invictus: Lost Soul — Cinematic</div>
+        <div class="wcard-desc">Cinematic VFX for AAA action title — dark aesthetic, real-time atmosphere.</div>
+        <div class="wcard-chips">
+          <span class="wchip">Unity</span>
+          <span class="wchip">VFX Graph</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 08 -->
+    <div class="wcard" style="background:linear-gradient(135deg,#0c1020,#101530,#0c1228);">
+      <img class="wcard-img" src="https://img.youtube.com/vi/Pp3EoksO-hI/hqdefault.jpg" alt="Father Son Holy Guns VFX" loading="lazy" />
+      <span class="wcard-tag wtag-vfx">VFX</span>
+      <div class="wcard-overlay">
+        <div class="wcard-num">Project 08</div>
+        <div class="wcard-title">Father, Son &amp; Holy Guns — VFX</div>
+        <div class="wcard-desc">Real-time VFX — particle systems, custom shaders, and environmental effects for action game pipeline.</div>
+        <div class="wcard-chips">
+          <span class="wchip">Unity</span>
+          <span class="wchip">VFX Graph</span>
+          <span class="wchip">HLSL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 09 FEATURED (span 2) -->
+    <div class="wcard wcard-feat" style="background:linear-gradient(135deg,#0c1018,#12153a,#0a101a);">
+      <img class="wcard-img" src="https://img.youtube.com/vi/wgnG5x1SZ6M/hqdefault.jpg" alt="Regulus The Advent VFX" loading="lazy" />
+      <span class="wcard-tag wtag-vfx">VFX</span>
+      <div class="wcard-overlay">
+        <div class="wcard-num">Project 09</div>
+        <div class="wcard-title">Regulus — The Advent VFX</div>
+        <div class="wcard-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+        <div class="wcard-chips">
+          <span class="wchip">Unity</span>
+          <span class="wchip">VFX Graph</span>
+          <span class="wchip">Shader Graph</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>© 2025 KLAICHIT KAEOMAN · ALL RIGHTS RESERVED</footer>
+
+<script>
+/* ── Scroll reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = [...document.querySelectorAll('.wcard')].indexOf(e.target);
+    setTimeout(() => e.target.classList.add('visible'), i * 70);
+    obs.unobserve(e.target);
+  });
+}, { threshold: .08 });
+document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
+</script>
+</body>
+</html>
