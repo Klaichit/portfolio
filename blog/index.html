@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:       #090c12;
+      --bg2:      #0e1420;
+      --cyan:     #00f5ff;
+      --purple:   #7b2fff;
+      --blue:     #7ab8d4;
+      --lavender: #9080c0;
+      --text:     #e8e8f0;
+      --muted:    #6b6b8a;
+      --border:   rgba(0,245,255,.09);
+      --font:     'Space Grotesk', sans-serif;
+      --mono:     'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(9,12,18,.88); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--cyan); text-decoration: none; letter-spacing: .06em; }
+    .nav-logo span { color: var(--purple); }
+    .nav-back {
+      font-family: var(--mono); font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 9rem 3.5rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label { font-family: var(--mono); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: .8rem; }
+    .page-title { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.1; }
+    .page-title span { color: var(--cyan); }
+    .page-desc { margin-top: 1rem; color: var(--muted); font-size: .95rem; max-width: 480px; line-height: 1.7; }
+
+    /* ── GRID ── */
+    .blog-grid {
+      max-width: 1100px; margin: 4rem auto;
+      padding: 0 3.5rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.6rem;
+    }
+
+    /* ── CARD ── */
+    .blog-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      display: flex; flex-direction: column;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,245,255,.22);
+      box-shadow: 0 12px 40px rgba(0,0,0,.4);
+    }
+    .card-cover {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0c1018, #101828);
+      overflow: hidden; position: relative;
+    }
+    .card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .blog-card:hover .card-cover img { transform: scale(1.04); }
+    .card-cover-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 2.5rem; color: rgba(0,245,255,.12);
+    }
+    .card-tag {
+      position: absolute; top: .8rem; left: .8rem;
+      font-family: var(--mono); font-size: .58rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .28rem .7rem; border-radius: 100px;
+      background: rgba(0,245,255,.12); color: var(--cyan);
+      border: 1px solid rgba(0,245,255,.25);
+    }
+    .card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; gap: .6rem; }
+    .card-meta { display: flex; align-items: center; gap: .8rem; }
+    .card-date { font-family: var(--mono); font-size: .6rem; color: var(--muted); letter-spacing: .1em; }
+    .card-read { font-family: var(--mono); font-size: .6rem; color: var(--muted); letter-spacing: .08em; }
+    .card-read::before { content: '·'; margin-right: .8rem; }
+    .card-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
+    .card-excerpt { font-size: .85rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .8rem; }
+    .card-chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .chip {
+      font-family: var(--mono); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .22rem .6rem; border-radius: 100px;
+      background: rgba(122,184,212,.08); color: var(--blue);
+      border: 1px solid rgba(122,184,212,.18);
+    }
+    .card-arrow { color: var(--cyan); font-size: .95rem; opacity: .5; transition: opacity .2s, transform .2s; }
+    .blog-card:hover .card-arrow { opacity: 1; transform: translate(3px,-3px); }
+
+    /* ── EMPTY STATE ── */
+    .empty { text-align: center; padding: 5rem 2rem; color: var(--muted); grid-column: 1/-1; }
+    .empty i { font-size: 3rem; margin-bottom: 1rem; display: block; opacity: .3; }
+    .empty p { font-size: .9rem; line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .blog-grid { padding: 0 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="../index.html" class="nav-back"><i class="ph ph-arrow-left"></i> Back</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-label">Writing</div>
+  <h1 class="page-title">The <span>Blog</span></h1>
+  <p class="page-desc">Breakdowns, process notes, and thoughts on 3D art, VFX, and the craft behind the work.</p>
+</div>
+
+<div class="blog-grid" id="blog-grid">
+
+  <!--
+  ══════════════════════════════════════════════
+  CARD TEMPLATE — copy & paste, fill in details
+  ══════════════════════════════════════════════
+
+  <a href="posts/post-slug.html" class="blog-card">
+    <div class="card-cover">
+      <img src="assets/cover-filename.jpg" alt="Post title" loading="lazy" onerror="this.style.display='none'" />
+      <div class="card-cover-fallback"><i class="ph ph-image"></i></div>
+      <span class="card-tag">CATEGORY</span>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="card-date">30 Jul 2026</span>
+        <span class="card-read">5 min read</span>
+      </div>
+      <div class="card-title">Post Title Goes Here</div>
+      <div class="card-excerpt">One or two sentences summarising the post — keep it short and punchy.</div>
+      <div class="card-footer">
+        <div class="card-chips">
+          <span class="chip">Tool</span>
+          <span class="chip">Topic</span>
+        </div>
+        <span class="card-arrow">↗</span>
+      </div>
+    </div>
+  </a>
+
+  ══════════════════════════════════════════════
+  -->
+
+  <!-- ── PASTE NEW CARD ABOVE THIS LINE ── -->
+
+  <!-- EMPTY STATE — remove when first post is added -->
+  <div class="empty">
+    <i class="ph ph-pencil-line"></i>
+    <p>No posts yet — first one coming soon.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

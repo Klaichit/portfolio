@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POST TITLE — Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:       #090c12;
+      --bg2:      #0e1420;
+      --cyan:     #00f5ff;
+      --purple:   #7b2fff;
+      --blue:     #7ab8d4;
+      --text:     #e8e8f0;
+      --muted:    #6b6b8a;
+      --border:   rgba(0,245,255,.09);
+      --font:     'Space Grotesk', sans-serif;
+      --mono:     'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(9,12,18,.88); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--cyan); text-decoration: none; letter-spacing: .06em; }
+    .nav-logo span { color: var(--purple); }
+    .nav-back {
+      font-family: var(--mono); font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* HERO */
+    .post-hero {
+      padding: 8rem 0 0;
+      max-width: 760px; margin: 0 auto;
+      padding-inline: 2rem;
+    }
+    .post-tag {
+      font-family: var(--mono); font-size: .6rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: .28rem .8rem; border-radius: 100px;
+      background: rgba(0,245,255,.1); color: var(--cyan);
+      border: 1px solid rgba(0,245,255,.22);
+      display: inline-block; margin-bottom: 1.4rem;
+    }
+    .post-title {
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 700; line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.4rem; }
+    .meta-date { font-family: var(--mono); font-size: .65rem; color: var(--muted); letter-spacing: .1em; }
+    .meta-sep  { width: 1px; height: 14px; background: rgba(255,255,255,.12); }
+    .meta-read { font-family: var(--mono); font-size: .65rem; color: var(--muted); letter-spacing: .1em; }
+    .meta-chips { display: flex; gap: .4rem; }
+    .chip {
+      font-family: var(--mono); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .22rem .6rem; border-radius: 100px;
+      background: rgba(122,184,212,.08); color: var(--blue);
+      border: 1px solid rgba(122,184,212,.18);
+    }
+
+    /* COVER IMAGE */
+    .post-cover {
+      max-width: 900px; margin: 0 auto 3.5rem;
+      padding-inline: 2rem;
+    }
+    .post-cover img {
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .cover-caption {
+      font-family: var(--mono); font-size: .62rem; color: var(--muted);
+      text-align: center; margin-top: .6rem; letter-spacing: .08em;
+    }
+
+    /* BODY */
+    .post-body {
+      max-width: 760px; margin: 0 auto;
+      padding: 0 2rem 8rem;
+      line-height: 1.85; font-size: 1rem;
+    }
+
+    /* TYPOGRAPHY */
+    .post-body h2 {
+      font-size: 1.4rem; font-weight: 700;
+      margin: 3rem 0 1rem;
+      color: var(--text);
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-body h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 .6rem; color: var(--blue); }
+    .post-body p  { margin-bottom: 1.4rem; color: #c8cfe0; }
+    .post-body a  { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(0,245,255,.25); transition: border-color .2s; }
+    .post-body a:hover { border-color: var(--cyan); }
+    .post-body strong { color: var(--text); font-weight: 600; }
+    .post-body em { color: var(--muted); font-style: italic; }
+    .post-body ul, .post-body ol { padding-left: 1.6rem; margin-bottom: 1.4rem; color: #c8cfe0; }
+    .post-body li { margin-bottom: .4rem; }
+    .post-body blockquote {
+      border-left: 2px solid var(--cyan);
+      padding: .8rem 1.4rem; margin: 1.8rem 0;
+      background: rgba(0,245,255,.04);
+      border-radius: 0 8px 8px 0;
+      color: var(--muted); font-style: italic;
+    }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .post-body code {
+      font-family: var(--mono); font-size: .82rem;
+      background: rgba(0,245,255,.06); color: var(--cyan);
+      padding: .15rem .45rem; border-radius: 4px;
+    }
+
+    /* INLINE IMAGE */
+    .post-body figure { margin: 2rem 0; }
+    .post-body figure img { width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block; }
+    .post-body figcaption { font-family: var(--mono); font-size: .62rem; color: var(--muted); text-align: center; margin-top: .5rem; }
+
+    /* FOOTER NAV */
+    .post-nav {
+      max-width: 760px; margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: flex; justify-content: space-between; gap: 1rem;
+      border-top: 1px solid var(--border); padding-top: 2.5rem;
+    }
+    .post-nav a {
+      font-family: var(--mono); font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+    }
+    .post-nav a:hover { color: var(--cyan); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .post-hero, .post-cover, .post-body, .post-nav { padding-inline: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="../index.html" class="nav-back"><i class="ph ph-arrow-left"></i> Blog</a>
+</nav>
+
+<!-- ── POST HEADER ── -->
+<div class="post-hero">
+  <span class="post-tag">CATEGORY</span>  <!-- e.g. 3D ART / VFX / WORKFLOW / TUTORIAL -->
+  <h1 class="post-title">Post Title Goes Here</h1>
+  <div class="post-meta">
+    <span class="meta-date">30 Jul 2026</span>
+    <span class="meta-sep"></span>
+    <span class="meta-read">5 min read</span>
+    <span class="meta-sep"></span>
+    <div class="meta-chips">
+      <span class="chip">Blender</span>
+      <span class="chip">Texturing</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── COVER IMAGE ── -->
+<div class="post-cover">
+  <img src="../assets/cover-filename.jpg" alt="Cover image description" />
+  <p class="cover-caption">Caption for cover image</p>
+</div>
+
+<!-- ── POST CONTENT ── -->
+<div class="post-body">
+
+  <p>Opening paragraph — hook the reader here. Describe what this post is about and why it matters.</p>
+
+  <h2>Section Title</h2>
+  <p>Write content here...</p>
+
+  <figure>
+    <img src="../assets/image-01.jpg" alt="Description" />
+    <figcaption>Caption for this image</figcaption>
+  </figure>
+
+  <h2>Another Section</h2>
+  <p>More content...</p>
+
+  <blockquote>
+    A key insight or quote worth highlighting.
+  </blockquote>
+
+  <h3>Subsection</h3>
+  <p>Detail here...</p>
+
+  <ul>
+    <li>Point one</li>
+    <li>Point two</li>
+    <li>Point three</li>
+  </ul>
+
+  <hr />
+
+  <p>Closing paragraph — wrap up, what you learned, or what's next.</p>
+
+</div>
+
+<!-- ── PREV / NEXT ── -->
+<div class="post-nav">
+  <a href="#"><i class="ph ph-arrow-left"></i> Previous Post</a>
+  <a href="#">Next Post <i class="ph ph-arrow-right"></i></a>
+</div>
+
+</body>
+</html>
