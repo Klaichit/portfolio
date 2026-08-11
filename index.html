@@ -1056,7 +1056,7 @@
     <!-- Profile strip -->
     <div class="rm-profile-strip">
       <div class="rm-avatar-wrap">
-        <img class="rm-avatar" src="https://drive.google.com/thumbnail?id=1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD&sz=w400" alt="Klaichit Kaeoman" />
+        <img class="rm-avatar" src="assets/images/Profile/profile.png" alt="Klaichit Kaeoman" />
       </div>
       <div class="rm-profile-text">
         <div class="section-label" style="margin-bottom:.6rem;">About</div>
@@ -1165,7 +1165,7 @@
 const HERO_IMAGES = {
 
   /* รูปโปรไฟล์ */
-  profile: '1jP2oq3iwu8YD9hMNxHS3PWYCSeogmVAD',
+  profile: null, /* ใช้ local file แทน */
 
   /* Background slides (slideshow) */
   slides: [
@@ -1462,9 +1462,8 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: .08 });
 document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
 
-/* Set profile image from HERO_IMAGES config */
-document.getElementById('hero-profile-img').src =
-  `https://drive.google.com/thumbnail?id=${HERO_IMAGES.profile}&sz=w800`;
+/* Set profile image from local file */
+document.getElementById('hero-profile-img').src = 'assets/images/Profile/profile.png';
 
 /* ────────────────────────────────────────────────
    Smooth anchor scroll
