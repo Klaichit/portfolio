@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unreal Engine — Scene Lighting · Klaichit Kaeoman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #090c12; --bg2: #101520;
+      --cyan: #7ab8d4; --purple: #9080c0; --pink: #c8dde8;
+      --text: #e8eef4; --muted: #68788a;
+      --font: 'Space Grotesk', sans-serif;
+      --mono: 'Space Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.2rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(9,12,18,.92); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(122,184,212,.07);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--cyan); text-decoration: none; }
+    .nav-logo span { color: var(--purple); }
+    .nav-back { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-decoration: none; letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* HERO */
+    .proj-hero {
+      padding: 9rem 3.5rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .proj-label { font-family: var(--mono); font-size: .65rem; color: var(--cyan); letter-spacing: .25em; text-transform: uppercase; margin-bottom: .7rem; display: flex; align-items: center; gap: .7rem; }
+    .proj-label::before { content: ''; width: 18px; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .proj-hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: .8rem; }
+    .proj-hero h1 span { background: linear-gradient(120deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .proj-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .proj-meta-item { font-family: var(--mono); font-size: .7rem; color: var(--muted); letter-spacing: .1em; }
+    .proj-meta-item strong { color: var(--text); }
+    .proj-desc { color: var(--muted); font-size: .95rem; line-height: 1.8; max-width: 620px; margin-bottom: 2rem; }
+    .btn-s {
+      padding: .75rem 1.8rem; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.15); color: var(--text);
+      font-family: var(--font); font-weight: 600; font-size: .78rem;
+      letter-spacing: .1em; text-transform: uppercase; border-radius: 5px;
+      text-decoration: none; display: inline-block; transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-s:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .proj-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .btn-p {
+      padding: .75rem 1.8rem; background: linear-gradient(120deg, var(--cyan), var(--purple));
+      color: #000; font-family: var(--font); font-weight: 700; font-size: .78rem;
+      letter-spacing: .1em; text-transform: uppercase; border: none; border-radius: 5px;
+      text-decoration: none; display: inline-block; transition: opacity .2s, transform .2s;
+    }
+    .btn-p:hover { opacity: .85; transform: translateY(-2px); }
+
+    /* VIDEO */
+    .video-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 0 3.5rem 6rem;
+    }
+    .section-label {
+      font-family: var(--mono); font-size: .65rem; color: var(--cyan);
+      letter-spacing: .25em; text-transform: uppercase; margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .section-label::before { content: ''; width: 18px; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .video-embed {
+      border-radius: 14px; overflow: hidden; aspect-ratio: 16/9;
+      border: 1px solid rgba(122,184,212,.15);
+      box-shadow: 0 0 80px rgba(122,184,212,.07);
+      background: #000;
+    }
+    .video-embed iframe { width: 100%; height: 100%; display: block; border: none; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid rgba(122,184,212,.06); padding: 2rem 3.5rem; text-align: center; font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero, .video-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Klaichit<span>.K</span></a>
+  <a href="3d-art.html" class="nav-back">← 3D Art</a>
+</nav>
+
+<!-- HERO -->
+<div class="proj-hero">
+  <div class="proj-label">Project 11 · Environment</div>
+  <h1>Unreal Engine<br><span>— Scene Lighting</span></h1>
+  <div class="proj-meta">
+    <div class="proj-meta-item"><strong>Engine</strong> &nbsp;Unreal Engine</div>
+    <div class="proj-meta-item"><strong>Type</strong> &nbsp;Lighting · Scene Setup</div>
+    <div class="proj-meta-item"><strong>Artist</strong> &nbsp;Klaichit Kaeoman</div>
+  </div>
+  <p class="proj-desc">
+    Scene setup and lighting production in Unreal Engine — cinematic environment
+    built with dynamic and baked lighting to achieve atmosphere and visual depth.
+  </p>
+  <div class="proj-actions">
+    <a href="https://vimeo.com/376626204" target="_blank" rel="noopener" class="btn-p">▶ Watch on Vimeo</a>
+    <a href="3d-art.html" class="btn-s">← Back to 3D Art</a>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-wrap">
+  <div class="section-label">Breakdown</div>
+  <div class="video-embed">
+    <iframe src="https://player.vimeo.com/video/376626204?title=0&byline=0&portrait=0"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+            title="Unreal Engine Scene Lighting"></iframe>
+  </div>
+</div>
+
+<footer>© 2025 KLAICHIT KAEOMAN · ALL RIGHTS RESERVED</footer>
+
+</body>
+</html>
