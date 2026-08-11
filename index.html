@@ -497,8 +497,9 @@
     .project-card {
       border-radius: 12px; border: 1px solid rgba(0,245,255,.1);
       background: rgba(255,255,255,.025); overflow: hidden;
-      cursor: none; transition: border-color .3s, box-shadow .3s, transform .3s;
+      cursor: pointer; transition: border-color .3s, box-shadow .3s, transform .3s;
       opacity: 0; transform: translateY(30px);
+      text-decoration: none; color: inherit; display: block;
     }
     .project-card.visible {
       opacity: 1; transform: translateY(0);
@@ -741,7 +742,7 @@
 
     <div class="projects-grid">
 
-      <div class="project-card">
+      <a class="project-card" href="projects/01-pirate.html">
         <div class="card-thumb p1f">
           <img src="https://lh3.googleusercontent.com/d/1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy" alt="Pirate" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">01</div>
@@ -756,9 +757,9 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a class="project-card" href="projects/02-ssr-reaper.html">
         <div class="card-thumb p2f">
           <img src="https://lh3.googleusercontent.com/d/1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f" alt="Reaper Skin" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">02</div>
@@ -773,9 +774,9 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a class="project-card" href="projects/03-world-01.html">
         <div class="card-thumb p3f">
           <img src="https://lh3.googleusercontent.com/d/11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP" alt="Wallpaper Environment" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">03</div>
@@ -790,9 +791,9 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a class="project-card" href="projects/04-pet-sanctuary.html">
         <div class="card-thumb p4f">
           <img src="https://lh3.googleusercontent.com/d/1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ" alt="Pet Sanctuary" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">04</div>
@@ -807,9 +808,9 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a class="project-card" href="projects/05-klaichit-pbr.html">
         <div class="card-thumb p5f">
           <img src="https://lh3.googleusercontent.com/d/1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA" alt="Klaichit PBR" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">05</div>
@@ -824,9 +825,9 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a class="project-card" href="projects/06-exterior-house.html">
         <div class="card-thumb p6f">
           <img src="https://lh3.googleusercontent.com/d/1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c" alt="House Environment" loading="lazy" onerror="this.style.display='none'" />
           <div class="card-thumb-fallback">06</div>
@@ -841,7 +842,7 @@
             <div class="card-arrow">↗</div>
           </div>
         </div>
-      </div>
+      </a>
 
     </div>
 
