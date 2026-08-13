@@ -130,31 +130,19 @@
 <script>
 const EXTERIOR_HOUSE = {
   images: [
-    { id: '1nvqCaFEq0D0IKjQSLgAHTlSBKfdl-6LK', label: 'Pet Sanctuary'    },
-    { id: '1Pg5LYFaadLC9b6RPDsiL8EtxbAQQx4hm', label: 'Forest 01'        },
-    { id: '19hAbUBbtgRzwFmQjr10qUGtjnQEWnIA6', label: 'Forest 03'        },
-    { id: '1G-aMyyR7EKyNNzvKGPfzJzJW1Jwxof5f', label: 'Meadow 02'        },
-    { id: '1AUzN-k3MO8kVHLihMI4VRedo8_0AypBX', label: 'Meadow 03'        },
-    { id: '1hDoMlnJ7J3WMgSyCp4bST1IZKlqn8FHc', label: 'Mountain'         },
-    { id: '1VqxJkcaA7av1DTkDZGCnSH8S2d3Q7ufL', label: 'Mountain 02'      },
-    { id: '1A1MZ3rg9LxwNNNARYC3_M11CCHGB_48w', label: 'Mountain 03'      },
-    { id: '1hYc4EpJDQzD98cT8sxlDFvk_4QXdctUp', label: 'Marsh 03'         },
-    { id: '1qIxQ2hbbPgtfWeKR7rXcx4MqmRANeRab', label: 'Shared Mine 01'   },
-    { id: '110i1N6s9Sf5tIXUmvvhXWiWbot90LR0M', label: 'Shared Mine 02'   },
-    { id: '1OvrdyuZS6e8pUMYyGvnPw8wc75c5mxoQ', label: 'Snow 02'          },
-    { id: '1g6WBZohX6aPBDp80CtVB4Wzl4pHQ8WnC', label: 'Lake'             },
-    { id: '1uKo6b15n_UTEIW3l73PmSOmu5zHCUvc-', label: 'Meadow Asset'     },
-    { id: '1O0NO1VISfO0zH9as2JCWR42tg39kR7Xc', label: 'Marsh Asset'      },
-    { id: '1In16EK1gsJfdzuwXPUWNrjqXj7WWmYtY', label: 'Shared Mine Asset' },
-    { id: '1IyKGWdoLakNdlabAjtGGqFBIyXsQRQGn', label: 'Forest'           },
+    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', label: 'Pet Sanctuary' },
+    { src: 'assets/images/Slidebackground3D/forest03.png',      label: 'Forest 03'     },
+    { src: 'assets/images/Slidebackground3D/forest04.png',      label: 'Forest 04'     },
+    { src: 'assets/images/Slidebackground3D/meadow01.png',      label: 'Meadow'        },
+    { src: 'assets/images/Slidebackground3D/mountain01.png',    label: 'Mountain'      },
+    { src: 'assets/images/Slidebackground3D/snow01.png',        label: 'Snow'          },
   ],
 };
-const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1200`;
 
 /* Hero image */
 const heroWrap = document.getElementById('hero-img-wrap');
 const heroImg = document.createElement('img');
-heroImg.src = IMG(EXTERIOR_HOUSE.images[0].id);
+heroImg.src = EXTERIOR_HOUSE.images[0].src;
 heroImg.alt = EXTERIOR_HOUSE.images[0].label;
 heroImg.addEventListener('click', () => openLightbox(0));
 heroImg.style.cursor = 'pointer';
@@ -165,7 +153,7 @@ const galleryEl = document.getElementById('gallery');
 EXTERIOR_HOUSE.images.slice(1).forEach((img, i) => {
   const item = document.createElement('div');
   item.className = 'gallery-item';
-  item.innerHTML = `<img src="${IMG(img.id)}" alt="${img.label}" loading="lazy" /><div class="img-label">${img.label}</div>`;
+  item.innerHTML = `<img src="${img.src}" alt="${img.label}" loading="lazy" /><div class="img-label">${img.label}</div>`;
   item.addEventListener('click', () => openLightbox(i + 1));
   galleryEl.appendChild(item);
 });
@@ -175,9 +163,9 @@ let lbIdx = 0;
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lb-img');
 const lbLbl = document.getElementById('lb-label');
-function openLightbox(i) { lbIdx = i; lbImg.src = IMG(EXTERIOR_HOUSE.images[i].id); lbLbl.textContent = EXTERIOR_HOUSE.images[i].label; lb.classList.add('open'); }
+function openLightbox(i) { lbIdx = i; lbImg.src = EXTERIOR_HOUSE.images[i].src; lbLbl.textContent = EXTERIOR_HOUSE.images[i].label; lb.classList.add('open'); }
 function closeLightbox() { lb.classList.remove('open'); }
-function lbMove(dir) { lbIdx = (lbIdx + dir + EXTERIOR_HOUSE.images.length) % EXTERIOR_HOUSE.images.length; lbImg.src = IMG(EXTERIOR_HOUSE.images[lbIdx].id); lbLbl.textContent = EXTERIOR_HOUSE.images[lbIdx].label; }
+function lbMove(dir) { lbIdx = (lbIdx + dir + EXTERIOR_HOUSE.images.length) % EXTERIOR_HOUSE.images.length; lbImg.src = EXTERIOR_HOUSE.images[lbIdx].src; lbLbl.textContent = EXTERIOR_HOUSE.images[lbIdx].label; }
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
 document.getElementById('lb-prev').addEventListener('click', () => lbMove(-1));
 document.getElementById('lb-next').addEventListener('click', () => lbMove(1));

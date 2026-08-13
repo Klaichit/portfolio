@@ -1055,18 +1055,18 @@ const HERO_IMAGES = {
 
   /* Background slides (slideshow) */
   slides: [
-    { id: '1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy', cat: 'STYLIZED CHARACTER',  name: 'Pirate'         },
-    { id: '1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f', cat: 'CHARACTER SKIN',      name: 'SSR Reaper'     },
-    { id: '1RZbm849iRcGo1zJAleUvTyB_AZh9UrjU', cat: 'CHARACTER SKIN',      name: 'SSR Punk'       },
-    { id: '11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP', cat: 'STYLIZED ENVIRONMENT', name: 'World 01'       },
-    { id: '1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ', cat: 'ENVIRONMENT',          name: 'Pet Sanctuary'  },
-    { id: '1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA', cat: 'PBR REALISTIC',        name: 'Klaichit'       },
-    { id: '1b1WHHR0uaQu71XWtGM8P9Aro4N2HUo_c', cat: 'ENVIRONMENT',          name: 'Exterior House' },
+    { src: 'assets/images/Slidebackground3D/Pirate.png',        cat: 'STYLIZED CHARACTER',  name: 'Pirate'         },
+    { src: 'assets/images/Slidebackground3D/ssr_skin_punk.png', cat: 'CHARACTER SKIN',      name: 'SSR Reaper'     },
+    { src: 'assets/images/Slidebackground3D/Klaichit45.jpg',    cat: 'PBR REALISTIC',       name: 'Klaichit'       },
+    { src: 'assets/images/Slidebackground3D/dragon01.png',      cat: 'STYLIZED ENVIRONMENT',name: 'World 01'       },
+    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', cat: 'ENVIRONMENT',         name: 'Pet Sanctuary'  },
+    { src: 'assets/images/Slidebackground3D/forest03.png',      cat: 'ENVIRONMENT',         name: 'Exterior House' },
+    { src: 'assets/images/Slidebackground3D/Jailhead.png',      cat: 'CINEMATIC CHARACTER', name: 'Invictus'       },
+    { src: 'assets/images/Slidebackground3D/Razor.png',         cat: 'STYLIZED CHARACTER',  name: 'Razormetal'     },
   ],
 
 };
 
-const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
 const SLIDES = HERO_IMAGES.slides;
 
 /* ════════════════════════════════════════════════
@@ -1098,23 +1098,12 @@ const MYSTERY_TEMPLE = {
 ════════════════════════════════════════════════ */
 const EXTERIOR_HOUSE = {
   images: [
-    { id: '1nvqCaFEq0D0IKjQSLgAHTlSBKfdl-6LK', label: 'Pet Sanctuary'   },
-    { id: '1Pg5LYFaadLC9b6RPDsiL8EtxbAQQx4hm', label: 'Forest 01'       },
-    { id: '19hAbUBbtgRzwFmQjr10qUGtjnQEWnIA6', label: 'Forest 03'       },
-    { id: '1G-aMyyR7EKyNNzvKGPfzJzJW1Jwxof5f', label: 'Meadow 02'       },
-    { id: '1AUzN-k3MO8kVHLihMI4VRedo8_0AypBX', label: 'Meadow 03'       },
-    { id: '1hDoMlnJ7J3WMgSyCp4bST1IZKlqn8FHc', label: 'Mountain'        },
-    { id: '1VqxJkcaA7av1DTkDZGCnSH8S2d3Q7ufL', label: 'Mountain 02'     },
-    { id: '1A1MZ3rg9LxwNNNARYC3_M11CCHGB_48w', label: 'Mountain 03'     },
-    { id: '1hYc4EpJDQzD98cT8sxlDFvk_4QXdctUp', label: 'Marsh 03'        },
-    { id: '1qIxQ2hbbPgtfWeKR7rXcx4MqmRANeRab', label: 'Shared Mine 01'  },
-    { id: '110i1N6s9Sf5tIXUmvvhXWiWbot90LR0M', label: 'Shared Mine 02'  },
-    { id: '1OvrdyuZS6e8pUMYyGvnPw8wc75c5mxoQ', label: 'Snow 02'         },
-    { id: '1g6WBZohX6aPBDp80CtVB4Wzl4pHQ8WnC', label: 'Lake'            },
-    { id: '1uKo6b15n_UTEIW3l73PmSOmu5zHCUvc-', label: 'Meadow Asset'    },
-    { id: '1O0NO1VISfO0zH9as2JCWR42tg39kR7Xc', label: 'Marsh Asset'     },
-    { id: '1In16EK1gsJfdzuwXPUWNrjqXj7WWmYtY', label: 'Shared Mine Asset'},
-    { id: '1IyKGWdoLakNdlabAjtGGqFBIyXsQRQGn', label: 'Forest'          },
+    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', label: 'Pet Sanctuary' },
+    { src: 'assets/images/Slidebackground3D/forest03.png',      label: 'Forest 03'     },
+    { src: 'assets/images/Slidebackground3D/forest04.png',      label: 'Forest 04'     },
+    { src: 'assets/images/Slidebackground3D/meadow01.png',      label: 'Meadow'        },
+    { src: 'assets/images/Slidebackground3D/mountain01.png',    label: 'Mountain'      },
+    { src: 'assets/images/Slidebackground3D/snow01.png',        label: 'Snow'          },
   ],
 };
 
@@ -1128,20 +1117,18 @@ const EXTERIOR_HOUSE = {
     }
     return a;
   }
-  const GD = (id, sz) => `https://drive.google.com/thumbnail?id=${id}&sz=${sz||'w1200'}`;
-
   const FEAT = [
     { num:'01', title:'Pirate — Stylized Character',
       desc:'High-detail stylized character with hand-painted textures and expressive silhouette design.',
-      img: GD('1Srz9OmNRcyClesJ1ZZ3j47ZoR16L3GYy'),
+      img: 'assets/images/Slidebackground3D/Pirate.png',
       chips:['Blender','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p1f' },
     { num:'05', title:'Klaichit — PBR Character',
       desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
-      img: GD('1H1L_SaKTK3G6T_S5Pu300GnqJt9qfvzA'),
+      img: 'assets/images/Slidebackground3D/Klaichit45.jpg',
       chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f' },
     { num:'06', title:'3D Environment Stylized',
       desc:'Stylized exterior architecture with hand-crafted lighting, textures, and environment dressing.',
-      slides: EXTERIOR_HOUSE.images.map(x => GD(x.id,'w800')),
+      slides: EXTERIOR_HOUSE.images.map(x => x.src),
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
     { num:'07', title:'Mystery Temple — Environment',
       desc:'Realistic ancient temple environment with cinematic lighting, PBR materials, and detailed prop work.',
@@ -1158,15 +1145,15 @@ const EXTERIOR_HOUSE = {
   const REG = [
     { num:'02', title:'SSR Reaper — Character Skin',
       desc:'SSR-grade character skin with cinematic lighting and PBR material refinement.',
-      img: GD('1vehmAqGX1uNxYB62zePqUa3a4HdBg0_f','w800'),
+      img: 'assets/images/Slidebackground3D/ssr_skin_punk.png',
       chips:['Maya','Arnold'], tag:'3D', tagCls:'wtag-3d', bg:'p2f' },
     { num:'03', title:'Stylized World — Wallpaper',
       desc:'Stylized fantasy environment with atmospheric lighting and painterly aesthetic.',
-      img: GD('11g9ngyF3dYoJTes5PWNaLr77E5rMTzPP','w800'),
+      img: 'assets/images/Slidebackground3D/dragon01.png',
       chips:['Blender','EEVEE'], tag:'3D', tagCls:'wtag-3d', bg:'p3f' },
     { num:'04', title:'Pet Sanctuary — Full Environment',
       desc:'Full-scale stylized game environment with rich props, foliage, and cinematic composition.',
-      img: GD('1ANeVmWFy0t6KceV6ixD6gzs1RvclG9NQ','w800'),
+      img: 'assets/images/Slidebackground3D/Pet_sanctuary.png',
       chips:['Blender','Cycles'], tag:'Environment', tagCls:'wtag-env', bg:'p4f' },
     { num:'11', title:'Mushroom Forest',
       desc:'Scene setup and lighting production in Unreal Engine — cinematic mushroom forest environment.',
@@ -1180,7 +1167,7 @@ const EXTERIOR_HOUSE = {
       bgStyle:'linear-gradient(135deg,#0a0f1a,#101828,#080d18)', href:'razormetal.html' },
     { num:'13', title:'Invictus: Lost Soul — Cinematic',
       desc:'Cinematic character art for AAA action title — dark aesthetic, real-time atmosphere.',
-      img:'https://img.youtube.com/vi/Hty7wmRYebM/hqdefault.jpg',
+      img:'assets/images/Slidebackground3D/Jailhead.png',
       chips:['Maya','ZBrush'], tag:'Weapon', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0c1018,#101828,#0c1020)' },
   ];
@@ -1259,7 +1246,7 @@ SLIDES.forEach((s, i) => {
   const div = document.createElement('div');
   div.className = 'slide' + (i === 0 ? ' active' : '');
   const img = document.createElement('img');
-  img.src = IMG(s.id);
+  img.src = s.src;
   img.alt = s.name;
   img.draggable = false;
   /* fallback colour if image fails */
