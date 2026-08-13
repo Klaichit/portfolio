@@ -544,11 +544,11 @@
     }
     .wcard {
       position: relative; overflow: hidden;
-      background: var(--bg2); cursor: none;
+      background: var(--bg2); cursor: none; min-height: 300px;
       opacity: 0; transform: translateY(24px);
     }
     .wcard.visible { opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s ease; }
-    .wcard-feat { grid-column: span 2; }
+    .wcard-feat { grid-column: span 2; min-height: 360px; }
 
     /* Card image */
     .wcard-img {
@@ -1143,7 +1143,10 @@ const EXTERIOR_HOUSE = {
   ];
 
   const REG = [
-    /* NtZY Environment hidden — pending image update */
+    { num:'NtZY·E', title:'Nice to Z You — Environment',
+      desc:'Stylized world environments for Jumbo Jumps\' mobile game — hand-crafted biomes and scenes.',
+      slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).png'],
+      chips:['Blender','Unity'], tag:'Environment', tagCls:'wtag-env', bg:'p3f', href:'nice-to-z-you-environment.html' },
     { num:'EH·C', title:'Evergleam Hill — Character',
       desc:'Stylized character models for Evergleam Hill — multiple species, costumes, and rig-ready designs.',
       slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).png'],
@@ -1219,12 +1222,12 @@ const EXTERIOR_HOUSE = {
     return el;
   }
 
-  /* Pick 4 featured + 4 regular → 12 cells = 4 clean rows */
-  const fp = shuffle(FEAT).slice(0, 4);
-  const rp = shuffle(REG).slice(0, 4);
-  /* Pattern: feat,reg  /  reg,feat  /  reg,feat  /  reg,feat */
-  const order   = [fp[0], rp[0], rp[1], fp[1], rp[2], fp[2], rp[3], fp[3]];
-  const isFeat  = [true, false, false, true, false, true, false, true];
+  /* Pick 3 featured + 3 regular → 9 cells = 3 clean rows */
+  const fp = shuffle(FEAT).slice(0, 3);
+  const rp = shuffle(REG).slice(0, 3);
+  /* Pattern: feat,reg  /  reg,feat  /  feat,reg */
+  const order   = [fp[0], rp[0], rp[1], fp[1], fp[2], rp[2]];
+  const isFeat  = [true, false, false, true, true, false];
   const grid = document.getElementById('wgrid-3d');
   order.forEach((p, i) => grid.appendChild(buildCard(p, isFeat[i])));
 })();
