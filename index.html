@@ -781,7 +781,7 @@
     <!-- Profile photo (left) -->
     <div class="hero-profile">
       <div class="profile-ring">
-        <img id="hero-profile-img" src="" alt="Klaichit Kaeoman"
+        <img id="hero-profile-img" src="assets/images/Profile/profile.png" alt="Klaichit Kaeoman"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="profile-initials" style="display:none;">KK</div>
       </div>
@@ -1404,8 +1404,6 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: .08 });
 document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
 
-/* Set profile image from local file */
-document.getElementById('hero-profile-img').src = 'assets/images/Profile/profile.png';
 
 /* ────────────────────────────────────────────────
    Smooth anchor scroll
