@@ -203,17 +203,26 @@ const MYSTERY_TEMPLE = {
   artstation: 'https://www.artstation.com/artwork/4beaVq',
   vimeo:      'https://vimeo.com/351195532',
   vimeoId:    '351195532',
-  thumbnail:  '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV',
   images: [
-    { id: '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV', label: 'Shot 01'           },
-    { id: '1llc9PaILER8W4nYFtGf7VsRXlsHCE-Xj', label: 'Shot 02'           },
-    { id: '1b8MhF6Rs--GG4zTcz9QLSTl2s33hSPD3', label: 'Shot 03'           },
-    { id: '1lodEKYmv8Bq55lgKmsQmWZDFzY-nToMR', label: 'Shot 06'           },
-    { id: '1ITnl0_katY21VF9aibbeM9eA7IphWO2R', label: 'Modular Architect' },
-    { id: '1-VfSiCzD8DH3ZjSYNy_wygDtmZ_FkbW2', label: 'WIP'               },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(1).png',  label: 'Shot 01' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(2).png',  label: 'Shot 02' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(3).png',  label: 'Shot 03' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(4).png',  label: 'Shot 04' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(5).png',  label: 'Shot 05' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(6).png',  label: 'Shot 06' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(7).png',  label: 'Shot 07' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(8).png',  label: 'Shot 08' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(9).png',  label: 'Shot 09' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(10).png', label: 'Shot 10' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(11).png', label: 'Shot 11' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(12).png', label: 'Shot 12' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(13).png', label: 'Shot 13' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(14).png', label: 'Shot 14' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(15).png', label: 'Shot 15' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(16).png', label: 'Shot 16' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(17).png', label: 'Shot 17' },
   ],
 };
-const IMG = id => `https://drive.google.com/thumbnail?id=${id}&sz=w1200`;
 
 /* Wire links */
 document.getElementById('btn-vimeo').href      = MYSTERY_TEMPLE.vimeo;
@@ -227,7 +236,7 @@ MYSTERY_TEMPLE.images.forEach((img, i) => {
   const item = document.createElement('div');
   item.className = 'gallery-item';
   item.innerHTML = `
-    <img src="${IMG(img.id)}" alt="${img.label}" loading="${i < 3 ? 'eager' : 'lazy'}" />
+    <img src="${img.src}" alt="${img.label}" loading="${i < 3 ? 'eager' : 'lazy'}" />
     <div class="img-label">${img.label}</div>
   `;
   item.addEventListener('click', () => openLightbox(i));
@@ -242,14 +251,14 @@ const lbLbl  = document.getElementById('lb-label');
 
 function openLightbox(i) {
   lbIdx = i;
-  lbImg.src = IMG(MYSTERY_TEMPLE.images[i].id);
+  lbImg.src = MYSTERY_TEMPLE.images[i].src;
   lbLbl.textContent = MYSTERY_TEMPLE.images[i].label;
   lb.classList.add('open');
 }
 function closeLightbox() { lb.classList.remove('open'); }
 function lbMove(dir) {
   lbIdx = (lbIdx + dir + MYSTERY_TEMPLE.images.length) % MYSTERY_TEMPLE.images.length;
-  lbImg.src = IMG(MYSTERY_TEMPLE.images[lbIdx].id);
+  lbImg.src = MYSTERY_TEMPLE.images[lbIdx].src;
   lbLbl.textContent = MYSTERY_TEMPLE.images[lbIdx].label;
 }
 

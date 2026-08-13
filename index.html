@@ -1081,17 +1081,14 @@ const MYSTERY_TEMPLE = {
   /* Vimeo video */
   vimeo: 'https://vimeo.com/351195532',
 
-  /* Thumbnail (ใช้แสดงใน card) */
-  thumbnail: '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV',
-
-  /* Source images (Google Drive) */
+  /* Source images (local) */
   images: [
-    { id: '1bLOf7WGhQBOp-Vq_CWnDiosOWPBJOyXV', label: 'Shot 01'           },
-    { id: '1llc9PaILER8W4nYFtGf7VsRXlsHCE-Xj', label: 'Shot 02'           },
-    { id: '1b8MhF6Rs--GG4zTcz9QLSTl2s33hSPD3', label: 'Shot 03'           },
-    { id: '1lodEKYmv8Bq55lgKmsQmWZDFzY-nToMR', label: 'Shot 06'           },
-    { id: '1ITnl0_katY21VF9aibbeM9eA7IphWO2R', label: 'Modular Architect' },
-    { id: '1-VfSiCzD8DH3ZjSYNy_wygDtmZ_FkbW2', label: 'WIP (gif)'         },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(1).png',  label: 'Shot 01' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(2).png',  label: 'Shot 02' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(3).png',  label: 'Shot 03' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(4).png',  label: 'Shot 04' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(5).png',  label: 'Shot 05' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(6).png',  label: 'Shot 06' },
   ],
 
 };
@@ -1148,7 +1145,7 @@ const EXTERIOR_HOUSE = {
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
     { num:'07', title:'Mystery Temple — Environment',
       desc:'Realistic ancient temple environment with cinematic lighting, PBR materials, and detailed prop work.',
-      slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => GD(x.id,'w800')),
+      slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => x.src),
       chips:['Unreal Engine'], tag:'3D', tagCls:'wtag-3d', bg:'p7f', href:'mystery-temple.html',
       links:[{l:'▶ VDO',u:MYSTERY_TEMPLE.vimeo},{l:'ArtStation ↗',u:MYSTERY_TEMPLE.artstation}] },
     { num:'10', title:'Luna: Episode 1 — Left Behind',
