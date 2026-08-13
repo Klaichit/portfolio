@@ -101,9 +101,9 @@
 
     /* ─── CARD CSS ─── */
     .wcard { position:relative; overflow:hidden; background:var(--bg2); cursor:pointer;
-      opacity:0; transform:translateY(24px); }
+      opacity:0; transform:translateY(24px); min-height:300px; }
     .wcard.visible { opacity:1; transform:translateY(0); transition:opacity .55s ease,transform .55s ease; }
-    .wcard-feat { grid-column: span 2; }
+    .wcard-feat { grid-column: span 2; min-height:360px; }
     .wcard-img { width:100%; height:100%; min-height:300px; object-fit:cover; display:block; transition:transform .7s cubic-bezier(.4,0,.2,1); }
     .wcard-feat .wcard-img { min-height:360px; }
     .wcard:hover .wcard-img { transform:scale(1.06); }
@@ -298,7 +298,7 @@
       </div>
     </div>
 
-    <!-- Row 5: Luna (feat, full width showcase) -->
+    <!-- Row 5: Luna (feat) + NtZY Environment (reg) -->
     <div class="wcard wcard-feat" onclick="window.location='luna.html'" style="cursor:pointer;background:linear-gradient(135deg,#080818,#10052a,#180828);">
       <div class="mt-slide-wrap">
         <img class="mt-slide" id="luna-a" src="assets/images/3D/luna/luna-01.webp" alt="Luna Episode 1 Left Behind" />
@@ -313,7 +313,20 @@
       </div>
     </div>
 
-    <!-- Nice to Z You — Environment (hidden, pending image update) -->
+    <div class="wcard p3f" onclick="window.location='nice-to-z-you-environment.html'" style="cursor:pointer;">
+      <div class="mt-slide-wrap">
+        <img class="mt-slide" id="ntze-a" src="assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).png" alt="Nice to Z You Environment" />
+        <img class="mt-slide" id="ntze-b" src="" alt="" style="opacity:0;" />
+      </div>
+      <span class="wcard-tag wtag-env">Environment</span>
+      <div class="wcard-overlay">
+        <div class="wcard-num">Nice to Z You · Environment</div>
+        <div class="wcard-title">NiceToZYouEnvironment</div>
+        <div class="wcard-desc">Stylized world environments for Jumbo Jumps' mobile game — hand-crafted biomes and scenes.</div>
+        <div class="wcard-chips"><span class="wchip">Blender</span><span class="wchip">Unity</span></div>
+        <div class="wcard-actions"><a href="nice-to-z-you-environment.html" class="wcard-btn" onclick="event.stopPropagation()">View Gallery ↗</a></div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -373,6 +386,14 @@ document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
   const imgA = document.getElementById('inv-a'), imgB = document.getElementById('inv-b');
   let idx = 0, useA = true;
   setInterval(() => { idx = (idx+1)%slides.length; if(useA){imgB.src=slides[idx];imgB.onload=()=>{imgB.style.opacity='1';imgA.style.opacity='0';useA=false;}}else{imgA.src=slides[idx];imgA.onload=()=>{imgA.style.opacity='1';imgB.style.opacity='0';useA=true;}} }, 4900);
+})();
+
+/* ── NiceToZYouEnvironment autoplay ── */
+(function () {
+  const slides = ['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(2).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(4).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).png'];
+  const imgA = document.getElementById('ntze-a'), imgB = document.getElementById('ntze-b');
+  let idx = 0, useA = true;
+  setInterval(() => { idx = (idx+1)%slides.length; if(useA){imgB.src=slides[idx];imgB.onload=()=>{imgB.style.opacity='1';imgA.style.opacity='0';useA=false;}}else{imgA.src=slides[idx];imgA.onload=()=>{imgA.style.opacity='1';imgB.style.opacity='0';useA=true;}} }, 4100);
 })();
 
 /* ── Luna autoplay ── */
