@@ -927,7 +927,7 @@
       <span class="wg-rule"></span>
       <span class="wg-name">3D Art</span>
       <a href="3d-art.html" class="wg-viewall"><i class="ph ph-cube"></i>View All ↗</a>
-      <span class="wg-count" style="margin-left:auto;">09 Projects</span>
+      <span class="wg-count" style="margin-left:auto;">10 Projects</span>
       <span class="wg-bg-text">3D</span>
     </div>
     <div class="wgrid" id="wgrid-3d"></div>
@@ -1055,14 +1055,14 @@ const HERO_IMAGES = {
 
   /* Background slides (slideshow) */
   slides: [
-    { src: 'assets/images/Slidebackground3D/Pirate.png',        cat: 'STYLIZED CHARACTER',  name: 'Pirate'         },
-    { src: 'assets/images/Slidebackground3D/ssr_skin_punk.png', cat: 'CHARACTER SKIN',      name: 'SSR Reaper'     },
-    { src: 'assets/images/Slidebackground3D/Klaichit45.jpg',    cat: 'PBR REALISTIC',       name: 'Klaichit'       },
-    { src: 'assets/images/Slidebackground3D/dragon01.png',      cat: 'STYLIZED ENVIRONMENT',name: 'World 01'       },
-    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', cat: 'ENVIRONMENT',         name: 'Pet Sanctuary'  },
-    { src: 'assets/images/Slidebackground3D/forest03.png',      cat: 'ENVIRONMENT',         name: 'Exterior House' },
-    { src: 'assets/images/Slidebackground3D/Jailhead.png',      cat: 'CINEMATIC CHARACTER', name: 'Invictus'       },
-    { src: 'assets/images/Slidebackground3D/Razor.png',         cat: 'STYLIZED CHARACTER',  name: 'Razormetal'     },
+    { src: 'assets/images/3D/NiceToZYouCharacter/NTZ_Character%20(1).png',    cat: 'CHARACTER',           name: 'Nice to Z You'     },
+    { src: 'assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).png', cat: 'STYLIZED CHARACTER',  name: 'Evergleam Hill'    },
+    { src: 'assets/images/Slidebackground3D/Klaichit45.jpg',                  cat: 'PBR REALISTIC',       name: 'Klaichit'          },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/forest01.png',          cat: 'ENVIRONMENT',         name: 'Evergleam Hill Env'},
+    { src: 'assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(4).png',cat: 'ENVIRONMENT',         name: 'Nice to Z You Env' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(1).png',          cat: 'REALISTIC ENV',       name: 'Mystery Temple'    },
+    { src: 'assets/images/3D/Invictus/Invictus%20(1).png',                    cat: 'CINEMATIC CHARACTER', name: 'Invictus'          },
+    { src: 'assets/images/3D/Razormetal/RazorMetal%20(1).png',                cat: 'STYLIZED CHARACTER',  name: 'Razormetal'        },
   ],
 
 };
@@ -1098,12 +1098,12 @@ const MYSTERY_TEMPLE = {
 ════════════════════════════════════════════════ */
 const EXTERIOR_HOUSE = {
   images: [
-    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', label: 'Pet Sanctuary' },
-    { src: 'assets/images/Slidebackground3D/forest03.png',      label: 'Forest 03'     },
-    { src: 'assets/images/Slidebackground3D/forest04.png',      label: 'Forest 04'     },
-    { src: 'assets/images/Slidebackground3D/meadow01.png',      label: 'Meadow'        },
-    { src: 'assets/images/Slidebackground3D/mountain01.png',    label: 'Mountain'      },
-    { src: 'assets/images/Slidebackground3D/snow01.png',        label: 'Snow'          },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/Pet_sanctuary.png', label: 'Pet Sanctuary' },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/forest01.png',      label: 'Forest'        },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/meadow01.png',      label: 'Meadow'        },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/mountain01.png',    label: 'Mountain'      },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/snow01.png',        label: 'Snow'          },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/lake01.png',        label: 'Lake'          },
   ],
 };
 
@@ -1118,16 +1118,12 @@ const EXTERIOR_HOUSE = {
     return a;
   }
   const FEAT = [
-    { num:'01 · 02', title:'Nice to Z You — Character',
+    { num:'NtZY·C', title:'Nice to Z You — Character',
       desc:'Stylized character art for Jumbo Jumps\' mobile game — pirate crew, SSR skins, and expressive silhouette design.',
-      slides:['assets/images/Slidebackground3D/Pirate.png','assets/images/Slidebackground3D/ssr_skin_punk.png'],
+      slides:['assets/images/3D/NiceToZYouCharacter/NTZ_Character%20(1).png','assets/images/3D/NiceToZYouCharacter/NTZ_Character%20(3).png','assets/images/3D/NiceToZYouCharacter/NTZ_Character%20(5).png','assets/images/3D/NiceToZYouCharacter/NTZ_Character%20(6).png'],
       chips:['Blender','Maya','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p1f' },
-    { num:'05', title:'Klaichit — PBR Character',
-      desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
-      img: 'assets/images/Slidebackground3D/Klaichit45.jpg',
-      chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f' },
-    { num:'06', title:'3D Environment Stylized',
-      desc:'Stylized exterior architecture with hand-crafted lighting, textures, and environment dressing.',
+    { num:'EH·Env', title:'Evergleam Hill — Environment',
+      desc:'Stylized exterior biomes — forest, meadow, mountain, marsh, snow, and mine. Hand-crafted lighting and painterly textures.',
       slides: EXTERIOR_HOUSE.images.map(x => x.src),
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
     { num:'07', title:'Mystery Temple — Environment',
@@ -1135,22 +1131,26 @@ const EXTERIOR_HOUSE = {
       slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => x.src),
       chips:['Unreal Engine'], tag:'3D', tagCls:'wtag-3d', bg:'p7f', href:'mystery-temple.html',
       links:[{l:'▶ VDO',u:MYSTERY_TEMPLE.vimeo},{l:'ArtStation ↗',u:MYSTERY_TEMPLE.artstation}] },
-    { num:'10', title:'Luna: Episode 1 — Left Behind',
+    { num:'05', title:'Klaichit — PBR Character',
+      desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
+      img: 'assets/images/Slidebackground3D/Klaichit45.jpg',
+      chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f' },
+    { num:'Luna', title:'Luna: Episode 1 — Left Behind',
       desc:'Stylized environment with custom lighting setup and baked light maps — built in Unity.',
-      slides:['luna-01','luna-02','luna-03','luna-04','luna-05'].map(n=>`assets/images/luna/${n}.webp`),
+      slides:['assets/images/3D/luna/luna-01.webp','assets/images/3D/luna/luna-02.webp','assets/images/3D/luna/luna-03.webp','assets/images/3D/luna/luna-04.webp','assets/images/3D/luna/luna-05.webp'],
       chips:['Unity','Light Baking'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080818,#10052a,#180828)', href:'luna.html' },
   ];
 
   const REG = [
-    { num:'03', title:'Stylized World — Wallpaper',
-      desc:'Stylized fantasy environment with atmospheric lighting and painterly aesthetic.',
-      img: 'assets/images/Slidebackground3D/dragon01.png',
-      chips:['Blender','EEVEE'], tag:'3D', tagCls:'wtag-3d', bg:'p3f' },
-    { num:'04', title:'Pet Sanctuary — Full Environment',
-      desc:'Full-scale stylized game environment with rich props, foliage, and cinematic composition.',
-      img: 'assets/images/Slidebackground3D/Pet_sanctuary.png',
-      chips:['Blender','Cycles'], tag:'Environment', tagCls:'wtag-env', bg:'p4f' },
+    { num:'NtZY·E', title:'Nice to Z You — Environment',
+      desc:'Stylized in-game environment art for Nice to Z You — level layouts, props, and scene composition.',
+      slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(4).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(7).png'],
+      chips:['Blender','EEVEE'], tag:'Environment', tagCls:'wtag-env', bg:'p3f' },
+    { num:'EH·C', title:'Evergleam Hill — Character',
+      desc:'Stylized character models for Evergleam Hill — multiple species, costumes, and rig-ready designs.',
+      slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).png'],
+      chips:['Blender','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p2f' },
     { num:'11', title:'Mushroom Forest',
       desc:'Scene setup and lighting production in Unreal Engine — cinematic mushroom forest environment.',
       img:'https://vumbnail.com/376626204.jpg',
@@ -1161,10 +1161,10 @@ const EXTERIOR_HOUSE = {
       img:'assets/images/3D/Razormetal/RazorMetal%20(1).png',
       chips:['Blender','Stylized'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0a0f1a,#101828,#080d18)', href:'razormetal.html' },
-    { num:'13', title:'Invictus: Lost Soul — Cinematic',
+    { num:'13', title:'Invictus: Lost Soul',
       desc:'Cinematic character art for AAA action title — dark aesthetic, real-time atmosphere.',
-      img:'assets/images/Slidebackground3D/Jailhead.png',
-      chips:['Maya','ZBrush'], tag:'Weapon', tagCls:'wtag-3d',
+      slides:['assets/images/3D/Invictus/Invictus%20(1).png','assets/images/3D/Invictus/Invictus%20(2).png'],
+      chips:['Maya','ZBrush'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0c1018,#101828,#0c1020)' },
   ];
 
