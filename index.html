@@ -340,7 +340,7 @@
       font-family: var(--mono); font-size: 2rem; font-weight: 700;
       color: var(--blue); text-shadow: 0 0 20px rgba(122,184,212,.6);
     }
-    @media (max-width: 768px) { .hero-profile { display: none; } }
+    @media (max-width: 768px) { .hero-profile { display: block; } }
 
     /* ── Scroll hint ── */
     .hero-scroll {
@@ -731,7 +731,9 @@
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      .hero-body { padding: 0 1.5rem; }
+      .hero-body { padding: 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; padding-top: 1.5rem; }
+      .profile-ring { width: 120px; height: 120px; }
+      .profile-ring .profile-initials { font-size: 1.3rem; }
       .hero-artwork { left: 1.5rem; }
       .hero-counter { right: 1.5rem; }
       .hero-dots { display: none; }
