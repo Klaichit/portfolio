@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evergleam Hill — Environment · Klaichit Kaeoman</title>
+  <title>Evergleam Hill: Environment · Klaichit Kaeoman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -98,14 +98,14 @@
 
 <div class="proj-hero">
   <div class="proj-label">Evergleam Hill · Environment</div>
-  <h1>Evergleam Hill<br><span>— Environment</span></h1>
+  <h1>Evergleam Hill<br><span>Environment</span></h1>
   <div class="proj-meta">
     <div class="proj-meta-item"><strong>Software</strong> &nbsp;Unity · 3D Coat · Blender</div>
     <div class="proj-meta-item"><strong>Type</strong> &nbsp;Stylized Environment · Biomes</div>
     <div class="proj-meta-item"><strong>Artist</strong> &nbsp;Klaichit Kaeoman</div>
   </div>
   <p class="proj-desc">
-    Full collection of stylized environment biomes for Evergleam Hill — forest, meadow, mountain, marsh, snow, lake, and mine. Each scene features hand-crafted lighting, modular architecture, and painterly textures across a unified art style.
+    Full collection of stylized environment biomes for Evergleam Hill, forest, meadow, mountain, marsh, snow, lake, and mine. Each scene features hand-crafted lighting, modular architecture, and painterly textures across a unified art style.
   </p>
 </div>
 
@@ -118,7 +118,7 @@
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lb-close">✕</button>
   <button class="lb-nav lb-prev" id="lb-prev">‹</button>
-  <img id="lb-img" src="" alt="" />
+  <img id="lb-img" alt="" />
   <button class="lb-nav lb-next" id="lb-next">›</button>
   <span class="lb-label" id="lb-label"></span>
 </div>
@@ -176,7 +176,7 @@ heroImg.addEventListener('click', () => openLightbox(0));
 heroImg.style.cursor = 'pointer';
 heroWrap.appendChild(heroImg);
 
-/* Gallery (skip first — shown as hero) */
+/* Gallery (skip first: shown as hero) */
 const galleryEl = document.getElementById('gallery');
 EXTERIOR_HOUSE.images.slice(1).forEach((img, i) => {
   const item = document.createElement('div');

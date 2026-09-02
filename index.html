@@ -37,7 +37,9 @@
       --lavender:  #9080c0;
       --pearl:     #c8dde8;
       --text:      #e8eef4;
-      --muted:     #68788a;
+      /* Was #68788a at 4.33:1 on --bg, which fails AA for small text.
+         #7d8fa3 measures 5.90:1 and keeps the same cool grey read. */
+      --muted:     #7d8fa3;
       --card-border: rgba(122,184,212,0.1);
       --glow-blue: 0 0 20px rgba(122,184,212,0.2), 0 0 55px rgba(122,184,212,0.06);
       --font: 'Space Grotesk', sans-serif;
@@ -139,7 +141,7 @@
     .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after  { transform: translateY(-5.25px) rotate(-45deg); }
 
     /* ═══════════════════════════════════════════════
-       HERO — Apechain style
+       HERO: Apechain style
     ═══════════════════════════════════════════════ */
     #hero {
       position: relative;
@@ -250,7 +252,7 @@
     }
     .hero-title .t1 {
       display: block;
-      color: #fff;
+      color: var(--text);
       text-shadow: 0 2px 40px rgba(0,0,0,.8);
     }
     .hero-title .t2 {
@@ -303,6 +305,19 @@
     }
     .btn-s:hover { border-color: rgba(122,184,212,.4); color: var(--blue); transform: translateY(-3px); }
 
+    /* Secondary hero actions: readable, reachable, but not competing with the
+       one primary button. Three filled buttons meant no primary at all. */
+    .btn-link {
+      display: inline-flex; align-items: center;
+      min-height: 44px; padding: 0 .25rem;
+      color: var(--muted); font-family: var(--font); font-weight: 500;
+      font-size: .82rem; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(122,184,212,.25);
+      transition: color .2s, border-color .2s;
+    }
+    .btn-link:hover { color: var(--blue); border-color: var(--blue); }
+
     /* ── Artwork info (bottom-left) ── */
     .hero-artwork {
       position: absolute; bottom: 6rem; left: 3.5rem; z-index: 10;
@@ -314,7 +329,7 @@
       letter-spacing: .2em; text-transform: uppercase; margin-bottom: .3rem;
     }
     .artwork-name {
-      font-size: 1.4rem; font-weight: 700; color: #fff;
+      font-size: 1.4rem; font-weight: 700; color: var(--text);
       transition: opacity .4s, transform .4s;
     }
     .artwork-name.fading { opacity: 0; transform: translateY(8px); }
@@ -347,6 +362,25 @@
       cursor: none; transition: background .3s, height .3s;
     }
     .dot.active { background: var(--blue); height: 32px; box-shadow: 0 0 10px var(--blue); }
+
+    /* ── Swipe cue ──
+       The carousel holds 8 slides and nothing on a phone says so. Words,
+       not a hover state, because there is no hover on a phone. */
+    .hero-swipe {
+      display: none;
+      align-items: center; gap: .5rem;
+      font-family: var(--mono); font-size: .6rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-swipe-arrow {
+      display: inline-block; color: var(--blue);
+      animation: swipeHint 1.8s ease-in-out infinite;
+    }
+    @keyframes swipeHint {
+      0%, 100% { transform: translateX(0); opacity: .5; }
+      50%      { transform: translateX(6px); opacity: 1; }
+    }
 
     /* ── Profile image ── */
     .hero-profile {
@@ -407,7 +441,7 @@
     }
 
     /* ══════════════════════════════════════════
-       INFINITE TICKER — The Apechain Signature
+       INFINITE TICKER: The Apechain Signature
     ══════════════════════════════════════════ */
     .hero-ticker {
       position: relative; z-index: 10;
@@ -441,7 +475,7 @@
     }
     .ticker-item {
       font-family: var(--mono); font-size: .7rem; font-weight: 700;
-      color: rgba(232,238,244,.5); letter-spacing: .18em;
+      color: rgba(232,238,244,.72); letter-spacing: .18em;
       text-transform: uppercase; padding: 0 1.5rem;
       transition: color .2s;
     }
@@ -632,16 +666,21 @@
     /* Tag badge */
     .wcard-tag {
       position: absolute; top: 1rem; left: 1rem;
-      font-family: var(--mono); font-size: .5rem; font-weight: 700;
-      letter-spacing: .18em; text-transform: uppercase;
-      padding: .2rem .6rem; border-radius: 2px;
+      /* .5rem rendered at 8px, below any readable floor. */
+      font-family: var(--mono); font-size: .65rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .25rem .6rem; border-radius: 2px;
     }
-    .wtag-vfx { background: rgba(144,128,192,.18); color: var(--lavender); border: 1px solid rgba(144,128,192,.25); }
-    .wtag-3d  { background: rgba(122,184,212,.12);  color: var(--blue);     border: 1px solid rgba(122,184,212,.18); }
-    .wtag-env { background: rgba(200,221,232,.1);   color: var(--pearl);    border: 1px solid rgba(200,221,232,.18); }
+    /* These sit on photography, so a same-hue tint at low alpha let the image
+       underneath decide the contrast (measured 3.22 to 4.29 on the same tag).
+       An opaque ink backdrop makes the ratio a property of the token instead. */
+    .wtag-vfx { background: rgba(12,16,26,.92); color: #b3a6de; border: 1px solid rgba(144,128,192,.4); }
+    .wtag-3d  { background: rgba(12,16,26,.92); color: var(--blue); border: 1px solid rgba(122,184,212,.4); }
+    .wtag-env { background: rgba(12,16,26,.92); color: var(--pearl); border: 1px solid rgba(200,221,232,.35); }
 
     /* Card text */
-    .wcard-num { font-family: var(--mono); font-size: .5rem; color: rgba(122,184,212,.4); letter-spacing: .2em; margin-bottom: .3rem; }
+    /* Carries the studio and year, so it must be readable, not decorative. */
+    .wcard-num { font-family: var(--mono); font-size: .68rem; color: var(--blue); letter-spacing: .14em; margin-bottom: .4rem; }
     .wcard-title { font-size: .95rem; font-weight: 600; line-height: 1.2; color: var(--text); }
     .wcard-feat .wcard-title { font-size: 1.25rem; }
     .wcard-desc {
@@ -774,6 +813,43 @@
     .footer-links a:hover { color: var(--blue); }
     .footer-copy { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
 
+    /* ─── CREDENTIALS ─── */
+    #credentials {
+      background: var(--bg2);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 3.5rem 3.5rem;
+    }
+    .cred-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .cred-lead { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .cred-num {
+      font-family: var(--mono); font-size: 3.4rem; font-weight: 700;
+      line-height: 1; color: var(--blue); text-shadow: var(--glow-blue);
+    }
+    .cred-lead-txt {
+      font-size: .88rem; line-height: 1.45; color: var(--text);
+      letter-spacing: .02em;
+    }
+    .cred-list {
+      list-style: none; flex: 1;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;
+      min-width: 260px;
+    }
+    .cred-list li {
+      display: flex; flex-direction: column; gap: .3rem;
+      padding-left: 1rem; border-left: 1px solid var(--card-border);
+    }
+    .cred-studio {
+      font-size: .92rem; font-weight: 600; color: var(--text);
+    }
+    .cred-detail {
+      font-family: var(--mono); font-size: .68rem; line-height: 1.5;
+      color: var(--muted); letter-spacing: .03em;
+    }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
@@ -811,13 +887,27 @@
       .hero-eyebrow { margin-bottom: .8rem; }
       .hero-title { font-size: 2.2rem; margin-bottom: 1rem; }
       .hero-sub { font-size: .82rem; margin-bottom: 1.5rem; letter-spacing: .04em; }
-      .hero-cta { flex-direction: column; gap: .65rem; width: 100%; }
+      .hero-cta { flex-direction: column; gap: .5rem; width: 100%; align-items: center; }
       .btn-p { width: 100%; text-align: center; padding: .85rem 1.5rem; }
       .hero-cta .btn-s { width: 100%; text-align: center; }
+      .hero-cta .btn-link { justify-content: center; }
       .hero-artwork { left: 1.5rem; }
       .hero-counter { right: 1.5rem; }
-      .hero-dots { display: none; }
+      /* Dots move from a right-hand column to a row under the caption, so the
+         carousel still announces its 8 slides on a phone. */
+      .hero-dots {
+        position: absolute; right: auto; left: 1.5rem;
+        bottom: 4.5rem; top: auto; transform: none;
+        flex-direction: row; gap: .4rem;
+      }
+      .dot { width: 20px; height: 3px; }
+      .dot.active { width: 32px; height: 3px; }
+      .hero-swipe { display: flex; }
       section:not(#hero) { padding: 5rem 1.5rem; }
+      #credentials { padding: 2.5rem 1.5rem; }
+      .cred-inner { gap: 1.75rem; }
+      .cred-num { font-size: 2.8rem; }
+      .cred-list { grid-template-columns: 1fr; gap: 1rem; }
       footer { padding: 2rem 1.5rem; }
       .wgrid { grid-template-columns: 1fr; }
       .wcard-feat { grid-column: span 1; }
@@ -925,14 +1015,14 @@
       </h1>
 
       <p class="hero-sub">
-        <strong>Cinematic 3D art</strong> &amp; visual effects —<br>
-        characters, environments, compositing &amp; motion.
+        <strong>11 years of cinematic 3D art</strong> and real-time VFX.<br>
+        Shipped on Arma III and DayZ at Bohemia Interactive.
       </p>
 
       <div class="hero-cta">
         <a href="#showreel" class="btn-p">Watch Showreel</a>
-        <a href="#projects" class="btn-s">View Projects</a>
-        <a href="resume.html" class="btn-s">Resume</a>
+        <a href="#projects" class="btn-link">View 12 projects</a>
+        <a href="resume.html" class="btn-link">Resume</a>
       </div>
     </div>
   </div>
@@ -941,6 +1031,10 @@
   <div class="hero-artwork">
     <div class="artwork-cat" id="art-cat">CHARACTER</div>
     <div class="artwork-name" id="art-name">Pirate</div>
+    <div class="hero-swipe">
+      <span class="hero-swipe-arrow">&rsaquo;&rsaquo;</span>
+      <span>Swipe for 8 works</span>
+    </div>
   </div>
 
   <!-- Slide counter -->
@@ -968,6 +1062,32 @@
 
 </section>
 
+<!-- ═══ CREDENTIALS ═══
+     Arma III and DayZ are the strongest proof on this site and were buried in
+     a 13px resume row near the footer. A scanner gets 20 seconds; put it here. -->
+<section id="credentials">
+  <div class="cred-inner">
+    <div class="cred-lead">
+      <span class="cred-num">11</span>
+      <span class="cred-lead-txt">years shipping 3D<br>across 4 studios</span>
+    </div>
+    <ul class="cred-list">
+      <li>
+        <span class="cred-studio">Bohemia Interactive</span>
+        <span class="cred-detail">Arma III, DayZ &middot; environment art &middot; 2014 to 2015</span>
+      </li>
+      <li>
+        <span class="cred-studio">Jumbo Jumps</span>
+        <span class="cred-detail">Senior 3D artist, then VFX &middot; 2018 to present</span>
+      </li>
+      <li>
+        <span class="cred-studio">True Axion Interactive</span>
+        <span class="cred-detail">3D assets for interactive titles &middot; 2017 to 2018</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- ═══ SHOWREEL ═══ -->
 <section id="showreel">
   <div class="showreel-inner">
@@ -976,7 +1096,7 @@
         <div class="section-label">Showreel</div>
         <h2 class="section-title">The <span class="accent">Reel</span></h2>
       </div>
-      <p class="section-desc">Real-time VFX and particle systems crafted in Unity VFX Graph — from concept to in-engine effect.</p>
+      <p class="section-desc">Real-time VFX and particle systems crafted in Unity VFX Graph, from concept to in-engine effect.</p>
     </div>
     <div class="reel-wrap">
       <div style="padding:56.25% 0 0 0;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(122,184,212,.15);box-shadow:0 0 80px rgba(122,184,212,.08);">
@@ -999,7 +1119,7 @@
         <div class="section-label">Work</div>
         <h2 class="section-title">Selected <span class="accent">Projects</span></h2>
       </div>
-      <p class="section-desc">From stylized renders to live-action VFX compositing — each project is a new world.</p>
+      <p class="section-desc">From stylized renders to live-action VFX compositing, each project is a new world.</p>
     </div>
   </div>
 
@@ -1021,9 +1141,9 @@
         <span class="wcard-tag wtag-vfx">VFX</span>
         <div class="wcard-fallback">08</div>
         <div class="wcard-overlay">
-          <div class="wcard-num">Project 08</div>
-          <div class="wcard-title">Father, Son &amp; Holy Guns — VFX</div>
-          <div class="wcard-desc">Real-time VFX — particle systems, custom shaders, environmental effects for action game pipeline.</div>
+          <div class="wcard-num" data-meta="holy-guns"></div>
+          <div class="wcard-title">Father, Son &amp; Holy Guns: VFX</div>
+          <div class="wcard-desc">Real-time VFX for an action game pipeline: particle systems, custom shaders, and environmental effects.</div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">Particle System</span></div>
         </div>
       </div>
@@ -1034,9 +1154,9 @@
         <span class="wcard-tag wtag-vfx">VFX</span>
         <div class="wcard-fallback">09</div>
         <div class="wcard-overlay">
-          <div class="wcard-num">Project 09</div>
-          <div class="wcard-title">Regulus — The Advent VFX</div>
-          <div class="wcard-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+          <div class="wcard-num" data-meta="regulus"></div>
+          <div class="wcard-title">Regulus: The Advent VFX</div>
+          <div class="wcard-desc">Unity VFX production for an action RPG: skill effects, ambient atmosphere, and character FX.</div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span><span class="wchip">Shader Graph</span></div>
         </div>
       </div>
@@ -1084,37 +1204,37 @@
 
         <div class="rm-item">
           <div class="rm-role">VFX Artist <span class="rm-company">· Jumbo Jumps</span></div>
-          <div class="rm-period">Apr 2024 — Present</div>
-          <div class="rm-desc">VFX production for interactive projects — Unity3D, real-time compositing.</div>
+          <div class="rm-period">Apr 2024 to Present</div>
+          <div class="rm-desc">VFX production for interactive projects, Unity3D, real-time compositing.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">Senior 3D Artist <span class="rm-company">· Jumbo Jumps</span></div>
-          <div class="rm-period">Oct 2018 — Mar 2026 · 7 yrs</div>
-          <div class="rm-desc">Led 3D art production — character modeling, environment art, visual direction.</div>
+          <div class="rm-period">Oct 2018 to Mar 2026 · 7 yrs</div>
+          <div class="rm-desc">Led 3D art production, character modeling, environment art, visual direction.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· True Axion Interactive</span></div>
-          <div class="rm-period">May 2017 — Oct 2018 · 1 yr 6 mos</div>
+          <div class="rm-period">May 2017 to Oct 2018 · 1 yr 6 mos</div>
           <div class="rm-desc">3D asset creation for interactive and game projects.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· BUMBLISS</span></div>
-          <div class="rm-period">Nov 2015 — Mar 2017 · 1 yr 5 mos</div>
+          <div class="rm-period">Nov 2015 to Mar 2017 · 1 yr 5 mos</div>
           <div class="rm-desc">3D modeling and asset production for commercial projects.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· Bohemia Interactive</span></div>
-          <div class="rm-period">Mar 2014 — Oct 2015 · 1 yr 8 mos</div>
-          <div class="rm-desc">Environment design for AAA titles — Arma III &amp; DayZ.</div>
+          <div class="rm-period">Mar 2014 to Oct 2015 · 1 yr 8 mos</div>
+          <div class="rm-desc">Environment design for AAA titles, Arma III &amp; DayZ.</div>
         </div>
 
         <div class="rm-item rm-edu">
           <div class="rm-role">B.Sc. Animation &amp; Game <span class="rm-company">· Mahasarakham University</span></div>
-          <div class="rm-period">2011 — 2014 · GPA 3.14</div>
+          <div class="rm-period">2011 to 2014 · GPA 3.14</div>
         </div>
       </div>
 
@@ -1147,7 +1267,7 @@
         <div class="rm-glance">
           <div class="rm-glance-item"><span class="rm-glance-num">11+</span><span class="rm-glance-lbl">3D Artist</span></div>
           <div class="rm-glance-item"><span class="rm-glance-num">2+</span><span class="rm-glance-lbl">VFX</span></div>
-          <div class="rm-glance-item"><span class="rm-glance-num">5</span><span class="rm-glance-lbl">Studios</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">4</span><span class="rm-glance-lbl">Studios</span></div>
         </div>
       </div>
 
@@ -1170,7 +1290,7 @@
 
 <script>
 /* ════════════════════════════════════════════════
-   HERO IMAGES — แก้ไขภาพทั้งหมดของ Hero ที่นี่
+   HERO IMAGES: แก้ไขภาพทั้งหมดของ Hero ที่นี่
 ════════════════════════════════════════════════ */
 const HERO_IMAGES = {
 
@@ -1194,7 +1314,7 @@ const HERO_IMAGES = {
 const SLIDES = HERO_IMAGES.slides;
 
 /* ════════════════════════════════════════════════
-   PROJECT 07 — Mystery Temple
+   PROJECT 07: Mystery Temple
    แก้ไขไฟล์/ลิงก์ทั้งหมดของโปรเจคนี้ที่นี่
 ════════════════════════════════════════════════ */
 const MYSTERY_TEMPLE = {
@@ -1218,7 +1338,7 @@ const MYSTERY_TEMPLE = {
 };
 
 /* ════════════════════════════════════════════════
-   PROJECT 06 — Exterior House (Evergleam Hill biomes)
+   PROJECT 06: Exterior House (Evergleam Hill biomes)
 ════════════════════════════════════════════════ */
 const EXTERIOR_HOUSE = {
   images: [
@@ -1232,6 +1352,37 @@ const EXTERIOR_HOUSE = {
 };
 
 /* ── 3D Grid: shuffle & render on every page load ── */
+/* ════════════════════════════════════════════════
+   ⚠️  MOCKUP DATA, แก้ตรงนี้ที่เดียว
+   ────────────────────────────────────────────────
+   ช่อง eyebrow บนการ์ดแต่ละใบ เดิมเป็น "Project 08" ซึ่งไม่บอกอะไรคนดู
+   เปลี่ยนเป็น "สตูดิโอ · ปี" เพราะเป็นข้อมูลที่ HR มองหาจริง
+
+   ค่าที่ใส่ไว้ตอนนี้เป็นการเดาจาก resume ในเว็บ ยังไม่ยืนยัน
+   กรุณาแก้ปีและชื่อสตูดิโอให้ตรงความจริง
+   ถ้าเป็นงานส่วนตัวให้ใส่ 'Personal'
+════════════════════════════════════════════════ */
+const PROJECT_META = {
+  'nice-to-z-you-character':   'Jumbo Jumps · 2023',
+  'nice-to-z-you-environment': 'Jumbo Jumps · 2023',
+  'evergleam-hill-character':  'Jumbo Jumps · 2022',
+  'evergleam-hill-env':        'Jumbo Jumps · 2022',
+  'mystery-temple':            'Personal · 2020',
+  'klaichit-pbr':              'Personal · 2021',
+  'luna':                      'Jumbo Jumps · 2021',
+  'mushroom-forest':           'Personal · 2019',
+  'razormetal':                'Personal · 2022',
+  'invictus':                  'True Axion · 2018',
+  'holy-guns':                 'Jumbo Jumps · 2024',
+  'regulus':                   'Jumbo Jumps · 2024',
+};
+
+/* The two VFX cards are hand-written markup; fill their eyebrow from the same
+   source so there is only one place to edit. */
+document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
+  el.textContent = PROJECT_META[el.dataset.meta] || '';
+});
+
 (function () {
   function shuffle(arr) {
     const a = [...arr];
@@ -1242,51 +1393,51 @@ const EXTERIOR_HOUSE = {
     return a;
   }
   const FEAT = [
-    { num:'NtZY·C', title:'Nice to Z You — Character',
-      desc:'Stylized character art for Jumbo Jumps\' mobile game — pirate crew, SSR skins, and expressive silhouette design.',
+    { meta:PROJECT_META['nice-to-z-you-character'], title:'Nice to Z You: Character',
+      desc:'Stylized character art for Jumbo Jumps\' mobile game: pirate crew, SSR skins, and expressive silhouette design.',
       slides:['assets/images/Slidebackground3D/Pirate.webp','assets/images/Slidebackground3D/ssr_skin_punk.webp'],
       chips:['Blender','Maya','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p1f', href:'nice-to-z-you-character.html' },
-    { num:'EH·Env', title:'Evergleam Hill — Environment',
-      desc:'Stylized exterior biomes — forest, meadow, mountain, marsh, snow, and mine. Hand-crafted lighting and painterly textures.',
+    { meta:PROJECT_META['evergleam-hill-env'], title:'Evergleam Hill: Environment',
+      desc:'Six stylized exterior biomes (forest, meadow, mountain, marsh, snow, mine) with hand-crafted lighting and painterly textures.',
       slides:['assets/images/Slidebackground3D/forest03.webp','assets/images/Slidebackground3D/meadow01.webp','assets/images/Slidebackground3D/mountain01.webp','assets/images/Slidebackground3D/snow01.webp','assets/images/Slidebackground3D/Pet_sanctuary.webp'],
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
-    { num:'07', title:'Mystery Temple — Environment',
+    { meta:PROJECT_META['mystery-temple'], title:'Mystery Temple: Environment',
       desc:'Realistic ancient temple environment with cinematic lighting, PBR materials, and detailed prop work.',
       slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => x.src),
       chips:['Unreal Engine'], tag:'3D', tagCls:'wtag-3d', bg:'p7f', href:'mystery-temple.html',
       links:[{l:'▶ VDO',u:MYSTERY_TEMPLE.vimeo},{l:'ArtStation ↗',u:MYSTERY_TEMPLE.artstation}] },
-    { num:'05', title:'Klaichit — PBR Character',
+    { meta:PROJECT_META['klaichit-pbr'], title:'Klaichit: PBR Character',
       desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
       img: 'assets/images/Slidebackground3D/Klaichit45.webp',
       chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f', href:'klaichit-pbr.html' },
-    { num:'Luna', title:'Luna: Episode 1 — Left Behind',
-      desc:'Stylized environment with custom lighting setup and baked light maps — built in Unity.',
+    { meta:PROJECT_META['luna'], title:'Luna, Episode 1: Left Behind',
+      desc:'Stylized environment built in Unity with a custom lighting setup and baked light maps.',
       slides:['assets/images/3D/luna/luna-01.webp','assets/images/3D/luna/luna-02.webp','assets/images/3D/luna/luna-03.webp','assets/images/3D/luna/luna-04.webp','assets/images/3D/luna/luna-05.webp'],
       chips:['Unity','Light Baking'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080818,#10052a,#180828)', href:'luna.html' },
   ];
 
   const REG = [
-    { num:'NtZY·E', title:'Nice to Z You — Environment',
-      desc:'Stylized world environments for Jumbo Jumps\' mobile game — hand-crafted biomes and scenes.',
+    { meta:PROJECT_META['nice-to-z-you-environment'], title:'Nice to Z You: Environment',
+      desc:'Stylized world environments for Jumbo Jumps\' mobile game: hand-crafted biomes and scenes.',
       slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).webp'],
       chips:['Blender','Unity'], tag:'Environment', tagCls:'wtag-env', bg:'p3f', href:'nice-to-z-you-environment.html' },
-    { num:'EH·C', title:'Evergleam Hill — Character',
-      desc:'Stylized character models for Evergleam Hill — multiple species, costumes, and rig-ready designs.',
+    { meta:PROJECT_META['evergleam-hill-character'], title:'Evergleam Hill: Character',
+      desc:'Stylized character models for Evergleam Hill: multiple species, costumes, and rig-ready designs.',
       slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).webp'],
       chips:['Blender','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p2f', href:'evergleam-hill-character.html' },
-    { num:'11', title:'Mushroom Forest',
-      desc:'Scene setup and lighting production in Unreal Engine — cinematic mushroom forest environment.',
+    { meta:PROJECT_META['mushroom-forest'], title:'Mushroom Forest',
+      desc:'Cinematic mushroom forest environment: scene setup and lighting production in Unreal Engine.',
       img:'https://vumbnail.com/376626204.jpg',
       chips:['Unreal Engine','Lighting'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080d18,#0a1530,#060d20)', href:'unreal-scene.html' },
-    { num:'12', title:'Razormetal',
+    { meta:PROJECT_META['razormetal'], title:'Razormetal',
       desc:'Stylized 3D character with high-detail metallic design and expressive silhouette.',
       img:'assets/images/Slidebackground3D/Razor.webp',
       chips:['Blender','Stylized'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0a0f1a,#101828,#080d18)', href:'razormetal.html' },
-    { num:'13', title:'Invictus: Lost Soul',
-      desc:'Cinematic character art for AAA action title — dark aesthetic, real-time atmosphere.',
+    { meta:PROJECT_META['invictus'], title:'Invictus: Lost Soul',
+      desc:'Cinematic character art for an AAA action title: dark aesthetic, real-time atmosphere.',
       slides:['assets/images/3D/Invictus/Invictus%20(1).webp','assets/images/3D/Invictus/Invictus%20(2).webp','assets/images/3D/Invictus/Invictus%20(1).webp'],
       chips:['Maya','ZBrush'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0c1018,#101828,#0c1020)', href:'invictus.html' },
@@ -1336,7 +1487,7 @@ const EXTERIOR_HOUSE = {
     const ov = document.createElement('div');
     ov.className = 'wcard-overlay';
     ov.innerHTML = `
-      <div class="wcard-num">Project ${p.num}</div>
+      <div class="wcard-num">${p.meta}</div>
       <div class="wcard-title">${p.title}</div>
       <div class="wcard-desc">${p.desc}</div>
       <div class="wcard-chips">${p.chips.map(c=>`<span class="wchip">${c}</span>`).join('')}</div>
@@ -1413,6 +1564,38 @@ autoPlay();
 
 /* Click slide area to advance */
 slidesEl.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
+
+/* Swipe, so the "Swipe for 8 works" cue is telling the truth on a phone.
+   A tap still advances: the click handler above only fires when the pointer
+   did not travel far enough to count as a swipe. */
+(() => {
+  const THRESHOLD = 45; /* px of horizontal travel before it counts */
+  let startX = 0, startY = 0, tracking = false;
+
+  slidesEl.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+
+  slidesEl.addEventListener('touchend', e => {
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    /* Ignore mostly-vertical travel so page scrolling still works. */
+    if (Math.abs(dx) < THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+    goTo(cur + (dx < 0 ? 1 : -1));
+    resetTimer();
+  }, { passive: true });
+})();
+
+/* Arrow keys drive it too, for anyone on a keyboard. */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { goTo(cur + 1); resetTimer(); }
+  if (e.key === 'ArrowLeft')  { goTo(cur - 1); resetTimer(); }
+});
 
 /* ────────────────────────────────────────────────
    INFINITE TICKER
