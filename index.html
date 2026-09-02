@@ -684,17 +684,25 @@
     .wcard-title { font-size: .95rem; font-weight: 600; line-height: 1.2; color: var(--text); }
     .wcard-feat .wcard-title { font-size: 1.25rem; }
     .wcard-desc {
-      font-size: .76rem; color: rgba(232,238,244,.5); line-height: 1.55; margin-top: .45rem;
+      font-size: .76rem; color: rgba(232,238,244,.8); line-height: 1.55; margin-top: .45rem;
       max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height .4s ease, opacity .35s ease;
     }
     .wcard:hover .wcard-desc { max-height: 80px; opacity: 1; }
+
+    /* The craft numbers are the proof, so they are never hover-gated: a phone
+       has no hover and would otherwise see only the title. */
+    .wcard-stats {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .04em;
+      color: var(--blue); margin-top: .4rem; line-height: 1.5;
+    }
+
     .wcard-chips { display: flex; gap: .3rem; flex-wrap: wrap; margin-top: .55rem; }
     .wchip {
-      font-family: var(--mono); font-size: .5rem; letter-spacing: .06em;
-      padding: .15rem .5rem; border-radius: 3px;
-      background: rgba(122,184,212,.07); color: rgba(122,184,212,.6);
-      border: 1px solid rgba(122,184,212,.1);
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .05em;
+      padding: .2rem .55rem; border-radius: 3px;
+      background: rgba(122,184,212,.1); color: rgba(122,184,212,.85);
+      border: 1px solid rgba(122,184,212,.2);
     }
     .wcard-actions { display: flex; gap: .45rem; margin-top: .6rem; }
     .wcard-btn {
@@ -911,6 +919,8 @@
       footer { padding: 2rem 1.5rem; }
       .wgrid { grid-template-columns: 1fr; }
       .wcard-feat { grid-column: span 1; }
+      /* There is no hover on a phone, so the description would never open. */
+      .wcard-desc { max-height: 90px; opacity: 1; }
       /* Was clipping "View All" at 390px: let the row wrap instead of hiding it. */
       .wg-header { padding: 2rem 1.5rem 1.2rem; flex-wrap: wrap; row-gap: .75rem; }
       .wg-rule { display: none; }
@@ -1144,6 +1154,7 @@
           <div class="wcard-num" data-meta="holy-guns"></div>
           <div class="wcard-title">Father, Son &amp; Holy Guns: VFX</div>
           <div class="wcard-desc">Real-time VFX for an action game pipeline: particle systems, custom shaders, and environmental effects.</div>
+          <div class="wcard-stats"></div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">Particle System</span></div>
         </div>
       </div>
@@ -1157,6 +1168,7 @@
           <div class="wcard-num" data-meta="regulus"></div>
           <div class="wcard-title">Regulus: The Advent VFX</div>
           <div class="wcard-desc">Unity VFX production for an action RPG: skill effects, ambient atmosphere, and character FX.</div>
+          <div class="wcard-stats"></div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span><span class="wchip">Shader Graph</span></div>
         </div>
       </div>
@@ -1361,26 +1373,39 @@ const EXTERIOR_HOUSE = {
    ค่าที่ใส่ไว้ตอนนี้เป็นการเดาจาก resume ในเว็บ ยังไม่ยืนยัน
    กรุณาแก้ปีและชื่อสตูดิโอให้ตรงความจริง
    ถ้าเป็นงานส่วนตัวให้ใส่ 'Personal'
+
+   stats คือตัวเลขที่พิสูจน์ฝีมือ (จำนวนตัวละคร, tris, ความละเอียด texture,
+   จำนวน props, fps) ตอนนี้เป็นตัวเลขสมมติทั้งหมด ใส่ไว้ให้เห็นหน้าตาก่อน
+   ⚠️ ต้องแก้ให้ตรงงานจริงก่อนเอาขึ้นเว็บ เพราะเป็นการอ้างผลงานของตัวเอง
 ════════════════════════════════════════════════ */
 const PROJECT_META = {
-  'nice-to-z-you-character':   'Jumbo Jumps · 2023',
-  'nice-to-z-you-environment': 'Jumbo Jumps · 2023',
-  'evergleam-hill-character':  'Jumbo Jumps · 2022',
-  'evergleam-hill-env':        'Jumbo Jumps · 2022',
-  'mystery-temple':            'Personal · 2020',
-  'klaichit-pbr':              'Personal · 2021',
-  'luna':                      'Jumbo Jumps · 2021',
-  'mushroom-forest':           'Personal · 2019',
-  'razormetal':                'Personal · 2022',
-  'invictus':                  'True Axion · 2018',
-  'holy-guns':                 'Jumbo Jumps · 2024',
-  'regulus':                   'Jumbo Jumps · 2024',
+  /*  key                        studio and year            the craft numbers  */
+  'nice-to-z-you-character':   { meta:'Jumbo Jumps · 2023',  stats:'12 characters · 18k tris · 4K PBR' },
+  'nice-to-z-you-environment': { meta:'Jumbo Jumps · 2023',  stats:'8 biomes · 240 props · mobile budget' },
+  'evergleam-hill-character':  { meta:'Jumbo Jumps · 2022',  stats:'9 species · 22k tris · rig-ready' },
+  'evergleam-hill-env':        { meta:'Jumbo Jumps · 2022',  stats:'6 biomes · 180 props · baked lighting' },
+  'mystery-temple':            { meta:'Personal · 2020',     stats:'40 props · 4K PBR · Unreal' },
+  'klaichit-pbr':              { meta:'Personal · 2021',     stats:'1.2M tris · SSS skin · Arnold' },
+  'luna':                      { meta:'Jumbo Jumps · 2021',  stats:'14 scenes · baked GI · 60 fps' },
+  'mushroom-forest':           { meta:'Personal · 2019',     stats:'90 assets · 1 hero scene · Unreal' },
+  'razormetal':                { meta:'Personal · 2022',     stats:'28k tris · 4K metallic · Blender' },
+  'invictus':                  { meta:'True Axion · 2018',   stats:'35k tris · ZBrush sculpt · real-time' },
+  'holy-guns':                 { meta:'Jumbo Jumps · 2024',  stats:'24 effects · 12 shaders · 60 fps' },
+  'regulus':                   { meta:'Jumbo Jumps · 2024',  stats:'30 skill FX · VFX Graph · mobile' },
 };
+
+/* Loud on purpose: this must not reach production still saying "Personal 2019"
+   when the real year is something else. Delete this line once the numbers above
+   are the real ones. */
+console.warn('PROJECT_META still holds MOCKUP figures. Replace before shipping.');
 
 /* The two VFX cards are hand-written markup; fill their eyebrow from the same
    source so there is only one place to edit. */
 document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
-  el.textContent = PROJECT_META[el.dataset.meta] || '';
+  const m = PROJECT_META[el.dataset.meta] || {};
+  el.textContent = m.meta || '';
+  const statsEl = el.parentElement.querySelector('.wcard-stats');
+  if (statsEl) statsEl.textContent = m.stats || '';
 });
 
 (function () {
@@ -1393,24 +1418,24 @@ document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
     return a;
   }
   const FEAT = [
-    { meta:PROJECT_META['nice-to-z-you-character'], title:'Nice to Z You: Character',
+    { key:'nice-to-z-you-character', title:'Nice to Z You: Character',
       desc:'Stylized character art for Jumbo Jumps\' mobile game: pirate crew, SSR skins, and expressive silhouette design.',
       slides:['assets/images/Slidebackground3D/Pirate.webp','assets/images/Slidebackground3D/ssr_skin_punk.webp'],
       chips:['Blender','Maya','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p1f', href:'nice-to-z-you-character.html' },
-    { meta:PROJECT_META['evergleam-hill-env'], title:'Evergleam Hill: Environment',
+    { key:'evergleam-hill-env', title:'Evergleam Hill: Environment',
       desc:'Six stylized exterior biomes (forest, meadow, mountain, marsh, snow, mine) with hand-crafted lighting and painterly textures.',
       slides:['assets/images/Slidebackground3D/forest03.webp','assets/images/Slidebackground3D/meadow01.webp','assets/images/Slidebackground3D/mountain01.webp','assets/images/Slidebackground3D/snow01.webp','assets/images/Slidebackground3D/Pet_sanctuary.webp'],
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
-    { meta:PROJECT_META['mystery-temple'], title:'Mystery Temple: Environment',
+    { key:'mystery-temple', title:'Mystery Temple: Environment',
       desc:'Realistic ancient temple environment with cinematic lighting, PBR materials, and detailed prop work.',
       slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => x.src),
       chips:['Unreal Engine'], tag:'3D', tagCls:'wtag-3d', bg:'p7f', href:'mystery-temple.html',
       links:[{l:'▶ VDO',u:MYSTERY_TEMPLE.vimeo},{l:'ArtStation ↗',u:MYSTERY_TEMPLE.artstation}] },
-    { meta:PROJECT_META['klaichit-pbr'], title:'Klaichit: PBR Character',
+    { key:'klaichit-pbr', title:'Klaichit: PBR Character',
       desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
       img: 'assets/images/Slidebackground3D/Klaichit45.webp',
       chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f', href:'klaichit-pbr.html' },
-    { meta:PROJECT_META['luna'], title:'Luna, Episode 1: Left Behind',
+    { key:'luna', title:'Luna, Episode 1: Left Behind',
       desc:'Stylized environment built in Unity with a custom lighting setup and baked light maps.',
       slides:['assets/images/3D/luna/luna-01.webp','assets/images/3D/luna/luna-02.webp','assets/images/3D/luna/luna-03.webp','assets/images/3D/luna/luna-04.webp','assets/images/3D/luna/luna-05.webp'],
       chips:['Unity','Light Baking'], tag:'Environment', tagCls:'wtag-env',
@@ -1418,25 +1443,25 @@ document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
   ];
 
   const REG = [
-    { meta:PROJECT_META['nice-to-z-you-environment'], title:'Nice to Z You: Environment',
+    { key:'nice-to-z-you-environment', title:'Nice to Z You: Environment',
       desc:'Stylized world environments for Jumbo Jumps\' mobile game: hand-crafted biomes and scenes.',
       slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).webp'],
       chips:['Blender','Unity'], tag:'Environment', tagCls:'wtag-env', bg:'p3f', href:'nice-to-z-you-environment.html' },
-    { meta:PROJECT_META['evergleam-hill-character'], title:'Evergleam Hill: Character',
+    { key:'evergleam-hill-character', title:'Evergleam Hill: Character',
       desc:'Stylized character models for Evergleam Hill: multiple species, costumes, and rig-ready designs.',
       slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).webp'],
       chips:['Blender','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p2f', href:'evergleam-hill-character.html' },
-    { meta:PROJECT_META['mushroom-forest'], title:'Mushroom Forest',
+    { key:'mushroom-forest', title:'Mushroom Forest',
       desc:'Cinematic mushroom forest environment: scene setup and lighting production in Unreal Engine.',
       img:'https://vumbnail.com/376626204.jpg',
       chips:['Unreal Engine','Lighting'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080d18,#0a1530,#060d20)', href:'unreal-scene.html' },
-    { meta:PROJECT_META['razormetal'], title:'Razormetal',
+    { key:'razormetal', title:'Razormetal',
       desc:'Stylized 3D character with high-detail metallic design and expressive silhouette.',
       img:'assets/images/Slidebackground3D/Razor.webp',
       chips:['Blender','Stylized'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0a0f1a,#101828,#080d18)', href:'razormetal.html' },
-    { meta:PROJECT_META['invictus'], title:'Invictus: Lost Soul',
+    { key:'invictus', title:'Invictus: Lost Soul',
       desc:'Cinematic character art for an AAA action title: dark aesthetic, real-time atmosphere.',
       slides:['assets/images/3D/Invictus/Invictus%20(1).webp','assets/images/3D/Invictus/Invictus%20(2).webp','assets/images/3D/Invictus/Invictus%20(1).webp'],
       chips:['Maya','ZBrush'], tag:'3D', tagCls:'wtag-3d',
@@ -1480,16 +1505,20 @@ document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
     tagEl.textContent = p.tag;
     el.appendChild(tagEl);
 
+    const m = PROJECT_META[p.key] || {};
+
     const fb = document.createElement('div');
-    fb.className = 'wcard-fallback'; fb.textContent = p.num;
+    /* Shown only when the image fails, so give it the title, not an id. */
+    fb.className = 'wcard-fallback'; fb.textContent = p.title;
     el.appendChild(fb);
 
     const ov = document.createElement('div');
     ov.className = 'wcard-overlay';
     ov.innerHTML = `
-      <div class="wcard-num">${p.meta}</div>
+      <div class="wcard-num">${m.meta || ''}</div>
       <div class="wcard-title">${p.title}</div>
       <div class="wcard-desc">${p.desc}</div>
+      ${m.stats ? `<div class="wcard-stats">${m.stats}</div>` : ''}
       <div class="wcard-chips">${p.chips.map(c=>`<span class="wchip">${c}</span>`).join('')}</div>
       ${p.links ? `<div class="wcard-actions">${p.links.map(x=>`<a href="${x.u}" target="_blank" rel="noopener" class="wcard-btn" onclick="event.stopPropagation()">${x.l}</a>`).join('')}</div>` : ''}
     `;
