@@ -532,68 +532,52 @@
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
     }
-    .reel-wrap {
-      border-radius: 14px; overflow: hidden;
-      background: #000; aspect-ratio: 16/9;
-      border: 1px solid rgba(122,184,212,.15);
-      box-shadow: 0 0 80px rgba(122,184,212,.07);
-      position: relative; cursor: none;
-    }
-    .reel-ph {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg,#101520,#12092a 50%,#0a1520);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 1.5rem;
-    }
-    .play-btn {
-      width: 78px; height: 78px; border-radius: 50%;
-      border: 2px solid var(--blue);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--glow-blue);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-    .play-btn svg { margin-left: 5px; fill: var(--blue); filter: drop-shadow(0 0 8px var(--blue)); }
-    @keyframes glowPulse {
-      0%,100% { box-shadow: var(--glow-blue); }
-      50%      { box-shadow: 0 0 50px rgba(122,184,212,.6), 0 0 100px rgba(122,184,212,.2); }
-    }
-    .reel-ph p { color: var(--muted); font-family: var(--mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
-    .reel-wrap::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
-    }
-
     /* ─── SHOWREEL LAYOUT ─── */
     .reel-layout {
       display: flex; gap: 1rem; align-items: center;
+      overflow: visible; /* allow transform to overflow during animation */
     }
-    /* Center main reel */
+
+    /* ── Center main reel ── */
     .reel-wrap {
-      flex: 1 1 0; aspect-ratio: 16/9;
+      flex: 1 1 0; min-width: 0;
+      aspect-ratio: 16/9;
       border-radius: 14px; overflow: hidden;
       background: #000;
       border: 1px solid rgba(122,184,212,.18);
       box-shadow: 0 0 80px rgba(122,184,212,.08);
       position: relative;
-      transition: opacity .25s ease;
+      transform-origin: center center;
+      z-index: 1;
     }
     .reel-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .reel-wrap::after {
       content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
       background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.10) 2px,rgba(0,0,0,.10) 4px);
     }
-    /* Side panels — same 16:9 shape, slightly smaller */
+
+    /* ── Side panels — 16:9, smaller by default ── */
     .reel-side-item {
-      flex: 0 0 28%;
+      /* start small; flex-grow transitions to 1 on hover → same size as center */
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 16%;
+      min-width: 0;
       aspect-ratio: 16/9;
       border-radius: 10px; overflow: hidden; background: #000;
       border: 1px solid rgba(122,184,212,.12); position: relative;
       cursor: pointer;
-      transition: transform .3s ease, border-color .3s ease,
-                  box-shadow .3s ease, opacity .25s ease;
+      transform-origin: center center;
+      z-index: 1;
+      transition:
+        flex-grow  .45s cubic-bezier(.4,0,.2,1),
+        flex-basis .45s cubic-bezier(.4,0,.2,1),
+        border-color .3s ease,
+        box-shadow   .3s ease;
     }
     .reel-side-item:hover {
-      transform: scale(1.03);
+      flex-grow: 1;
+      flex-basis: 0%;            /* match center's flex: 1 1 0 → equal width */
       border-color: rgba(122,184,212,.4);
       box-shadow: 0 0 32px rgba(122,184,212,.15);
     }
@@ -601,7 +585,8 @@
       position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
       pointer-events: none;
     }
-    /* Hover overlay: dim + play icon + label */
+
+    /* ── Hover overlay: dim + play icon + label ── */
     .reel-side-overlay {
       position: absolute; inset: 0; z-index: 3;
       display: flex; flex-direction: column;
@@ -619,12 +604,19 @@
     .reel-side-label {
       font-family: var(--mono); font-size: .6rem; letter-spacing: .15em;
       text-transform: uppercase; color: rgba(255,255,255,.9);
+      text-align: center; padding: 0 .5rem;
+    }
+
+    /* ── Animating state (set by JS during swap) ── */
+    .reel-is-animating .reel-side-item,
+    .reel-is-animating .reel-wrap {
+      transition: transform .55s cubic-bezier(.4,0,.2,1) !important;
+      pointer-events: none;
     }
 
     @media (max-width: 768px) {
-      .reel-layout { flex-direction: column; }
-      .reel-wrap, .reel-side-item { width: 100%; flex: none; }
-      .reel-side-item { flex-basis: auto; }
+      .reel-layout { flex-direction: column; overflow: hidden; }
+      .reel-wrap, .reel-side-item { width: 100%; flex: none; aspect-ratio: 16/9; }
     }
 
     /* ─── WORK GROUPS (editorial bento) ─── */
@@ -1896,52 +1888,93 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 /* ────────────────────────────────────────────────
-   Showreel swap — click side panel → move to center
+   Showreel swap — FLIP animation on click
+   clicked side slides to center, center slides to side
 ──────────────────────────────────────────────── */
 (function () {
+  const layout     = document.getElementById('reel-layout');
   const mainEl     = document.getElementById('reel-main');
   const mainIframe = document.getElementById('reel-main-iframe');
-  if (!mainEl || !mainIframe) return;
+  if (!layout || !mainEl || !mainIframe) return;
+
+  function swapReel(sideEl) {
+    if (layout.classList.contains('reel-is-animating')) return;
+
+    const sideIframe = sideEl.querySelector('iframe');
+
+    /* ── 1. FIRST: record current positions ── */
+    const mainRect = mainEl.getBoundingClientRect();
+    const sideRect = sideEl.getBoundingClientRect();
+
+    /* ── 2. Calculate transform: main→side, side→main ── */
+    const mDx = sideRect.left + sideRect.width  / 2 - mainRect.left - mainRect.width  / 2;
+    const mDy = sideRect.top  + sideRect.height / 2 - mainRect.top  - mainRect.height / 2;
+    const mSc = sideRect.width / mainRect.width;
+
+    const sDx = mainRect.left + mainRect.width  / 2 - sideRect.left - sideRect.width  / 2;
+    const sDy = mainRect.top  + mainRect.height / 2 - sideRect.top  - sideRect.height / 2;
+    const sSc = mainRect.width / sideRect.width;
+
+    /* ── 3. Lock flex sizes so they don't animate during swap ── */
+    mainEl.style.flexGrow   = '1';
+    mainEl.style.flexShrink = '0';
+    mainEl.style.flexBasis  = mainRect.width + 'px';
+    sideEl.style.flexGrow   = '0';
+    sideEl.style.flexShrink = '0';
+    sideEl.style.flexBasis  = sideRect.width + 'px';
+
+    /* ── 4. Engage animation class (overrides transitions) ── */
+    layout.classList.add('reel-is-animating');
+    mainEl.style.zIndex = '2';
+    sideEl.style.zIndex = '3';
+
+    /* ── 5. PLAY: animate to swapped positions ── */
+    requestAnimationFrame(() => {
+      mainEl.style.transform = `translate(${mDx}px,${mDy}px) scale(${mSc})`;
+      sideEl.style.transform = `translate(${sDx}px,${sDy}px) scale(${sSc})`;
+    });
+
+    /* ── 6. After animation: swap content, reset everything ── */
+    setTimeout(() => {
+      /* swap iframe srcs */
+      const tmpSrc   = mainIframe.src;
+      const tmpTitle = mainIframe.title;
+      mainIframe.src   = sideIframe.src;
+      mainIframe.title = sideIframe.title;
+      sideIframe.src   = tmpSrc;
+      sideIframe.title = tmpTitle;
+
+      /* swap data attrs */
+      const tmpDS = mainEl.dataset.src;   const tmpDT = mainEl.dataset.title;
+      mainEl.dataset.src   = sideEl.dataset.src;   mainEl.dataset.title = sideEl.dataset.title;
+      sideEl.dataset.src   = tmpDS;                sideEl.dataset.title = tmpDT;
+
+      /* update side label */
+      const labelEl = sideEl.querySelector('.reel-side-label');
+      if (labelEl) labelEl.textContent = tmpDT || '';
+
+      /* reset transforms & flex — no transition */
+      [mainEl, sideEl].forEach(el => {
+        el.style.transition = 'none';
+        el.style.transform  = '';
+        el.style.zIndex     = '';
+        el.style.flexGrow   = '';
+        el.style.flexShrink = '';
+        el.style.flexBasis  = '';
+      });
+
+      layout.classList.remove('reel-is-animating');
+
+      /* re-enable transitions next frame */
+      requestAnimationFrame(() => {
+        mainEl.style.transition = '';
+        sideEl.style.transition = '';
+      });
+    }, 580);
+  }
 
   document.querySelectorAll('.reel-side-item').forEach(side => {
-    side.addEventListener('click', () => {
-      const sideIframe = side.querySelector('iframe');
-
-      // Store current main values
-      const prevMainSrc   = mainEl.dataset.src;
-      const prevMainTitle = mainEl.dataset.title;
-
-      // Store current side values
-      const newMainSrc   = side.dataset.src;
-      const newMainTitle = side.dataset.title;
-      const newSideLabel = side.dataset.label || side.querySelector('.reel-side-label').innerHTML;
-
-      // Fade out both
-      mainEl.style.opacity  = '0';
-      side.style.opacity    = '0';
-
-      setTimeout(() => {
-        // Swap main iframe
-        mainIframe.src        = newMainSrc;
-        mainIframe.title      = newMainTitle;
-        mainEl.dataset.src    = newMainSrc;
-        mainEl.dataset.title  = newMainTitle;
-
-        // Swap side iframe + data
-        sideIframe.src        = prevMainSrc;
-        sideIframe.title      = prevMainTitle;
-        side.dataset.src      = prevMainSrc;
-        side.dataset.title    = prevMainTitle;
-
-        // Update side overlay label
-        const labelEl = side.querySelector('.reel-side-label');
-        if (labelEl) labelEl.innerHTML = prevMainTitle;
-
-        // Fade back in
-        mainEl.style.opacity = '1';
-        side.style.opacity   = '1';
-      }, 250);
-    });
+    side.addEventListener('click', () => swapReel(side));
   });
 })();
 
