@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Klaichit Kaeoman | 3D & VFX Artist</title>
+  <meta name="description" content="Klaichit Kaeoman, game 3D artist and Unity VFX specialist in Bangkok. 11 years of game-ready 3D assets, low-poly pipelines, scene build, bake lighting, and real-time VFX in Unity." />
+  <meta name="theme-color" content="#090c12" />
+  <link rel="canonical" href="https://klaichit.github.io/portfolio/" />
+  <link rel="icon" href="assets/images/Profile/profile.webp" />
+  <link rel="apple-touch-icon" href="assets/images/Profile/profile.webp" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Klaichit Kaeoman | 3D & VFX Artist" />
+  <meta property="og:description" content="Game 3D artist and Unity VFX specialist in Bangkok. Game-ready 3D assets, low-poly, scene lighting, and real-time VFX." />
+  <meta property="og:url" content="https://klaichit.github.io/portfolio/" />
+  <meta property="og:image" content="https://klaichit.github.io/portfolio/assets/images/Slidebackground3D/Pirate.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Klaichit Kaeoman | 3D & VFX Artist" />
+  <meta name="twitter:description" content="Game 3D artist and Unity VFX specialist in Bangkok. Game-ready 3D assets, low-poly, and real-time VFX." />
+  <meta name="twitter:image" content="https://klaichit.github.io/portfolio/assets/images/Slidebackground3D/Pirate.webp" />
+
+  <!-- The first hero slide is the largest-contentful paint; start it early. -->
+  <link rel="preload" as="image" href="assets/images/Slidebackground3D/Pirate.webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -19,7 +37,9 @@
       --lavender:  #9080c0;
       --pearl:     #c8dde8;
       --text:      #e8eef4;
-      --muted:     #68788a;
+      /* Was #68788a at 4.33:1 on --bg, which fails AA for small text.
+         #7d8fa3 measures 5.90:1 and keeps the same cool grey read. */
+      --muted:     #7d8fa3;
       --card-border: rgba(122,184,212,0.1);
       --glow-blue: 0 0 20px rgba(122,184,212,0.2), 0 0 55px rgba(122,184,212,0.06);
       --font: 'Space Grotesk', sans-serif;
@@ -95,8 +115,33 @@
       box-shadow: var(--glow-blue) !important;
     }
 
+    /* ─── MOBILE NAV TOGGLE ───
+       Hidden on desktop; the only way into the sections on a phone. */
+    .nav-toggle {
+      display: none;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      background: none; border: 1px solid rgba(122,184,212,.25);
+      border-radius: 6px; color: var(--blue);
+      cursor: pointer; padding: 0;
+    }
+    .nav-toggle-bars { position: relative; width: 18px; height: 12px; display: block; }
+    .nav-toggle-bars::before,
+    .nav-toggle-bars::after,
+    .nav-toggle-bars span {
+      content: ''; position: absolute; left: 0;
+      width: 100%; height: 1.5px; background: currentColor;
+      transition: transform .28s ease, opacity .2s ease;
+    }
+    .nav-toggle-bars::before { top: 0; }
+    .nav-toggle-bars span    { top: 5.25px; }
+    .nav-toggle-bars::after  { bottom: 0; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before { transform: translateY(5.25px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bars span    { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after  { transform: translateY(-5.25px) rotate(-45deg); }
+
     /* ═══════════════════════════════════════════════
-       HERO — Apechain style
+       HERO: Apechain style
     ═══════════════════════════════════════════════ */
     #hero {
       position: relative;
@@ -207,7 +252,7 @@
     }
     .hero-title .t1 {
       display: block;
-      color: #fff;
+      color: var(--text);
       text-shadow: 0 2px 40px rgba(0,0,0,.8);
     }
     .hero-title .t2 {
@@ -260,6 +305,19 @@
     }
     .btn-s:hover { border-color: rgba(122,184,212,.4); color: var(--blue); transform: translateY(-3px); }
 
+    /* Secondary hero actions: readable, reachable, but not competing with the
+       one primary button. Three filled buttons meant no primary at all. */
+    .btn-link {
+      display: inline-flex; align-items: center;
+      min-height: 44px; padding: 0 .25rem;
+      color: var(--muted); font-family: var(--font); font-weight: 500;
+      font-size: .82rem; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(122,184,212,.25);
+      transition: color .2s, border-color .2s;
+    }
+    .btn-link:hover { color: var(--blue); border-color: var(--blue); }
+
     /* ── Artwork info (bottom-left) ── */
     .hero-artwork {
       position: absolute; bottom: 6rem; left: 3.5rem; z-index: 10;
@@ -271,7 +329,7 @@
       letter-spacing: .2em; text-transform: uppercase; margin-bottom: .3rem;
     }
     .artwork-name {
-      font-size: 1.4rem; font-weight: 700; color: #fff;
+      font-size: 1.4rem; font-weight: 700; color: var(--text);
       transition: opacity .4s, transform .4s;
     }
     .artwork-name.fading { opacity: 0; transform: translateY(8px); }
@@ -304,6 +362,25 @@
       cursor: none; transition: background .3s, height .3s;
     }
     .dot.active { background: var(--blue); height: 32px; box-shadow: 0 0 10px var(--blue); }
+
+    /* ── Swipe cue ──
+       The carousel holds 8 slides and nothing on a phone says so. Words,
+       not a hover state, because there is no hover on a phone. */
+    .hero-swipe {
+      display: none;
+      align-items: center; gap: .5rem;
+      font-family: var(--mono); font-size: .6rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-swipe-arrow {
+      display: inline-block; color: var(--blue);
+      animation: swipeHint 1.8s ease-in-out infinite;
+    }
+    @keyframes swipeHint {
+      0%, 100% { transform: translateX(0); opacity: .5; }
+      50%      { transform: translateX(6px); opacity: 1; }
+    }
 
     /* ── Profile image ── */
     .hero-profile {
@@ -364,7 +441,7 @@
     }
 
     /* ══════════════════════════════════════════
-       INFINITE TICKER — The Apechain Signature
+       INFINITE TICKER: The Apechain Signature
     ══════════════════════════════════════════ */
     .hero-ticker {
       position: relative; z-index: 10;
@@ -398,7 +475,7 @@
     }
     .ticker-item {
       font-family: var(--mono); font-size: .7rem; font-weight: 700;
-      color: rgba(232,238,244,.5); letter-spacing: .18em;
+      color: rgba(232,238,244,.72); letter-spacing: .18em;
       text-transform: uppercase; padding: 0 1.5rem;
       transition: color .2s;
     }
@@ -455,35 +532,91 @@
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
     }
+    /* ─── SHOWREEL LAYOUT ─── */
+    .reel-layout {
+      display: flex; gap: 1rem; align-items: center;
+      overflow: visible; /* allow transform to overflow during animation */
+    }
+
+    /* ── Center main reel ── */
     .reel-wrap {
+      flex: 1 1 0; min-width: 0;
+      aspect-ratio: 16/9;
       border-radius: 14px; overflow: hidden;
-      background: #000; aspect-ratio: 16/9;
-      border: 1px solid rgba(122,184,212,.15);
-      box-shadow: 0 0 80px rgba(122,184,212,.07);
-      position: relative; cursor: none;
+      background: #000;
+      border: 1px solid rgba(122,184,212,.18);
+      box-shadow: 0 0 80px rgba(122,184,212,.08);
+      position: relative;
+      transform-origin: center center;
+      z-index: 1;
     }
-    .reel-ph {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg,#101520,#12092a 50%,#0a1520);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 1.5rem;
-    }
-    .play-btn {
-      width: 78px; height: 78px; border-radius: 50%;
-      border: 2px solid var(--blue);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--glow-blue);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-    .play-btn svg { margin-left: 5px; fill: var(--blue); filter: drop-shadow(0 0 8px var(--blue)); }
-    @keyframes glowPulse {
-      0%,100% { box-shadow: var(--glow-blue); }
-      50%      { box-shadow: 0 0 50px rgba(122,184,212,.6), 0 0 100px rgba(122,184,212,.2); }
-    }
-    .reel-ph p { color: var(--muted); font-family: var(--mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+    .reel-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .reel-wrap::after {
       content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.10) 2px,rgba(0,0,0,.10) 4px);
+    }
+
+    /* ── Side panels — 16:9, smaller by default ── */
+    .reel-side-item {
+      /* start small; flex-grow transitions to 1 on hover → same size as center */
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 16%;
+      min-width: 0;
+      aspect-ratio: 16/9;
+      border-radius: 10px; overflow: hidden; background: #000;
+      border: 1px solid rgba(122,184,212,.12); position: relative;
+      cursor: pointer;
+      transform-origin: center center;
+      z-index: 1;
+      transition:
+        flex-grow  .45s cubic-bezier(.4,0,.2,1),
+        flex-basis .45s cubic-bezier(.4,0,.2,1),
+        border-color .3s ease,
+        box-shadow   .3s ease;
+    }
+    .reel-side-item:hover {
+      flex-grow: 1;
+      flex-basis: 0%;            /* match center's flex: 1 1 0 → equal width */
+      border-color: rgba(122,184,212,.4);
+      box-shadow: 0 0 32px rgba(122,184,212,.15);
+    }
+    .reel-side-item iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+      pointer-events: none;
+    }
+
+    /* ── Hover overlay: dim + play icon + label ── */
+    .reel-side-overlay {
+      position: absolute; inset: 0; z-index: 3;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: .5rem;
+      background: rgba(0,0,0,.45);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .reel-side-item:hover .reel-side-overlay { opacity: 1; }
+    .reel-side-play {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.85);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .reel-side-play svg { margin-left: 3px; }
+    .reel-side-label {
+      font-family: var(--mono); font-size: .6rem; letter-spacing: .15em;
+      text-transform: uppercase; color: rgba(255,255,255,.9);
+      text-align: center; padding: 0 .5rem;
+    }
+
+    /* ── Animating state (set by JS during swap) ── */
+    .reel-is-animating .reel-side-item,
+    .reel-is-animating .reel-wrap {
+      transition: transform .55s cubic-bezier(.4,0,.2,1) !important;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .reel-layout { flex-direction: column; overflow: hidden; }
+      .reel-wrap, .reel-side-item { width: 100%; flex: none; aspect-ratio: 16/9; }
     }
 
     /* ─── WORK GROUPS (editorial bento) ─── */
@@ -589,30 +722,43 @@
     /* Tag badge */
     .wcard-tag {
       position: absolute; top: 1rem; left: 1rem;
-      font-family: var(--mono); font-size: .5rem; font-weight: 700;
-      letter-spacing: .18em; text-transform: uppercase;
-      padding: .2rem .6rem; border-radius: 2px;
+      /* .5rem rendered at 8px, below any readable floor. */
+      font-family: var(--mono); font-size: .65rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .25rem .6rem; border-radius: 2px;
     }
-    .wtag-vfx { background: rgba(144,128,192,.18); color: var(--lavender); border: 1px solid rgba(144,128,192,.25); }
-    .wtag-3d  { background: rgba(122,184,212,.12);  color: var(--blue);     border: 1px solid rgba(122,184,212,.18); }
-    .wtag-env { background: rgba(200,221,232,.1);   color: var(--pearl);    border: 1px solid rgba(200,221,232,.18); }
+    /* These sit on photography, so a same-hue tint at low alpha let the image
+       underneath decide the contrast (measured 3.22 to 4.29 on the same tag).
+       An opaque ink backdrop makes the ratio a property of the token instead. */
+    .wtag-vfx { background: rgba(12,16,26,.92); color: #b3a6de; border: 1px solid rgba(144,128,192,.4); }
+    .wtag-3d  { background: rgba(12,16,26,.92); color: var(--blue); border: 1px solid rgba(122,184,212,.4); }
+    .wtag-env { background: rgba(12,16,26,.92); color: var(--pearl); border: 1px solid rgba(200,221,232,.35); }
 
     /* Card text */
-    .wcard-num { font-family: var(--mono); font-size: .5rem; color: rgba(122,184,212,.4); letter-spacing: .2em; margin-bottom: .3rem; }
+    /* Carries the studio and year, so it must be readable, not decorative. */
+    .wcard-num { font-family: var(--mono); font-size: .68rem; color: var(--blue); letter-spacing: .14em; margin-bottom: .4rem; }
     .wcard-title { font-size: .95rem; font-weight: 600; line-height: 1.2; color: var(--text); }
     .wcard-feat .wcard-title { font-size: 1.25rem; }
     .wcard-desc {
-      font-size: .76rem; color: rgba(232,238,244,.5); line-height: 1.55; margin-top: .45rem;
+      font-size: .76rem; color: rgba(232,238,244,.8); line-height: 1.55; margin-top: .45rem;
       max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height .4s ease, opacity .35s ease;
     }
     .wcard:hover .wcard-desc { max-height: 80px; opacity: 1; }
+
+    /* The craft numbers are the proof, so they are never hover-gated: a phone
+       has no hover and would otherwise see only the title. */
+    .wcard-stats {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .04em;
+      color: var(--blue); margin-top: .4rem; line-height: 1.5;
+    }
+
     .wcard-chips { display: flex; gap: .3rem; flex-wrap: wrap; margin-top: .55rem; }
     .wchip {
-      font-family: var(--mono); font-size: .5rem; letter-spacing: .06em;
-      padding: .15rem .5rem; border-radius: 3px;
-      background: rgba(122,184,212,.07); color: rgba(122,184,212,.6);
-      border: 1px solid rgba(122,184,212,.1);
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .05em;
+      padding: .2rem .55rem; border-radius: 3px;
+      background: rgba(122,184,212,.1); color: rgba(122,184,212,.85);
+      border: 1px solid rgba(122,184,212,.2);
     }
     .wcard-actions { display: flex; gap: .45rem; margin-top: .6rem; }
     .wcard-btn {
@@ -722,15 +868,82 @@
       flex-wrap: wrap; gap: 1.5rem;
     }
     .footer-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--blue); text-shadow: 0 0 15px rgba(122,184,212,.4); }
-    .footer-links { display: flex; gap: 2rem; list-style: none; }
-    .footer-links a { text-decoration: none; color: var(--muted); font-size: .83rem; transition: color .2s; }
+    .footer-links { display: flex; gap: 1rem; list-style: none; flex-wrap: wrap; }
+    /* Padded to a real thumb target rather than bare 17px text. */
+    .footer-links a {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 0 .75rem;
+      text-decoration: none; color: var(--muted); font-size: .83rem; transition: color .2s;
+    }
     .footer-links a:hover { color: var(--blue); }
     .footer-copy { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
+
+    /* ─── CREDENTIALS ─── */
+    #credentials {
+      background: var(--bg2);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 3.5rem 3.5rem;
+    }
+    .cred-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .cred-lead { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .cred-num {
+      font-family: var(--mono); font-size: 3.4rem; font-weight: 700;
+      line-height: 1; color: var(--blue); text-shadow: var(--glow-blue);
+    }
+    .cred-lead-txt {
+      font-size: .88rem; line-height: 1.45; color: var(--text);
+      letter-spacing: .02em;
+    }
+    .cred-list {
+      list-style: none; flex: 1;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;
+      min-width: 260px;
+    }
+    .cred-list li {
+      display: flex; flex-direction: column; gap: .3rem;
+      padding-left: 1rem; border-left: 1px solid var(--card-border);
+    }
+    .cred-studio {
+      font-size: .92rem; font-weight: 600; color: var(--text);
+    }
+    .cred-detail {
+      font-family: var(--mono); font-size: .68rem; line-height: 1.5;
+      color: var(--muted); letter-spacing: .03em;
+    }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+
+      /* The menu is a drawer, not a deletion: every section stays reachable. */
+      .nav-toggle { display: flex; }
+      nav { background: rgba(9,12,18,.88); backdrop-filter: blur(18px); }
+      .nav-links {
+        position: fixed; top: 68px; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: rgba(9,12,18,.97);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(122,184,212,.12);
+        border-bottom: 1px solid rgba(122,184,212,.12);
+        padding: .5rem 1.5rem 1.25rem;
+        transform: translateY(-12px);
+        opacity: 0; visibility: hidden;
+        transition: opacity .28s ease, transform .28s ease, visibility .28s;
+      }
+      .nav-links.open { opacity: 1; visibility: visible; transform: translateY(0); }
+      .nav-links li { width: 100%; border-bottom: 1px solid rgba(122,184,212,.07); }
+      .nav-links li:last-child { border-bottom: none; padding-top: .9rem; }
+      /* Full-width rows clear the 44px thumb target comfortably. */
+      .nav-links a {
+        display: flex; align-items: center;
+        min-height: 52px; width: 100%;
+        font-size: .95rem; letter-spacing: .1em;
+        color: var(--text);
+      }
+      .nav-links .nav-cta { justify-content: center; min-height: 48px; }
       .hero-body { flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 5rem 1.5rem 2rem; text-align: center; max-width: 100%; }
       .hero-text { align-items: center; display: flex; flex-direction: column; }
       .profile-ring { width: 100px; height: 100px; }
@@ -738,23 +951,78 @@
       .hero-eyebrow { margin-bottom: .8rem; }
       .hero-title { font-size: 2.2rem; margin-bottom: 1rem; }
       .hero-sub { font-size: .82rem; margin-bottom: 1.5rem; letter-spacing: .04em; }
-      .hero-cta { flex-direction: column; gap: .65rem; width: 100%; }
+      .hero-cta { flex-direction: column; gap: .5rem; width: 100%; align-items: center; }
       .btn-p { width: 100%; text-align: center; padding: .85rem 1.5rem; }
       .hero-cta .btn-s { width: 100%; text-align: center; }
+      .hero-cta .btn-link { justify-content: center; }
       .hero-artwork { left: 1.5rem; }
       .hero-counter { right: 1.5rem; }
-      .hero-dots { display: none; }
+      /* Dots move from a right-hand column to a row under the caption, so the
+         carousel still announces its 8 slides on a phone. */
+      .hero-dots {
+        position: absolute; right: auto; left: 1.5rem;
+        bottom: 4.5rem; top: auto; transform: none;
+        flex-direction: row; gap: .4rem;
+      }
+      .dot { width: 20px; height: 3px; }
+      .dot.active { width: 32px; height: 3px; }
+      .hero-swipe { display: flex; }
       section:not(#hero) { padding: 5rem 1.5rem; }
+      #credentials { padding: 2.5rem 1.5rem; }
+      .cred-inner { gap: 1.75rem; }
+      .cred-num { font-size: 2.8rem; }
+      .cred-list { grid-template-columns: 1fr; gap: 1rem; }
       footer { padding: 2rem 1.5rem; }
       .wgrid { grid-template-columns: 1fr; }
       .wcard-feat { grid-column: span 1; }
-      .wg-header { padding: 2rem 1.5rem 1.2rem; }
+      /* There is no hover on a phone, so the description would never open. */
+      .wcard-desc { max-height: 90px; opacity: 1; }
+      /* Was clipping "View All" at 390px: let the row wrap instead of hiding it. */
+      .wg-header { padding: 2rem 1.5rem 1.2rem; flex-wrap: wrap; row-gap: .75rem; }
+      .wg-rule { display: none; }
       .showreel-header, .projects-header { flex-direction: column; }
+      .reel-layout { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       #resume-mini { padding: 4rem 1.5rem; }
       .resume-mini-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
+
+    /* ─── ACCESSIBILITY ─── */
+
+    /* The custom cursor only makes sense with a real pointer. Touch and
+       keyboard users keep the system cursor. */
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur, #cur-r { display: none; }
+    }
+
+    /* Visible keyboard focus: the hover states above are mouse-only. */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      /* Reveal-on-scroll cards must not stay invisible when motion is off. */
+      .wcard { opacity: 1 !important; transform: none !important; }
+    }
   </style>
+
+  <noscript>
+    <style>
+      /* Without JS the IntersectionObserver never runs, so the project cards
+         would stay at opacity 0 and the portfolio would look empty. */
+      .wcard { opacity: 1 !important; transform: none !important; }
+      .nav-links { display: flex !important; }
+    </style>
+  </noscript>
 </head>
 <body>
 
@@ -763,8 +1031,12 @@
 
 <!-- ═══ NAV ═══ -->
 <nav id="nav">
-  <a href="#" class="nav-logo">Klaichit<span>.K</span></a>
-  <ul class="nav-links">
+  <a href="#hero" class="nav-logo">Klaichit<span>.K</span></a>
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false"
+          aria-controls="nav-links" aria-label="Open menu">
+    <span class="nav-toggle-bars"><span></span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#showreel">Showreel</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="resume.html">Resume</a></li>
@@ -790,7 +1062,7 @@
     <!-- Profile photo (left) -->
     <div class="hero-profile">
       <div class="profile-ring">
-        <img id="hero-profile-img" src="assets/images/Profile/profile.png" alt="Klaichit Kaeoman"
+        <img id="hero-profile-img" src="assets/images/Profile/profile.webp" alt="Klaichit Kaeoman"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
         <div class="profile-initials" style="display:none;">KK</div>
       </div>
@@ -810,14 +1082,14 @@
       </h1>
 
       <p class="hero-sub">
-        <strong>Cinematic 3D art</strong> &amp; visual effects —<br>
-        characters, environments, compositing &amp; motion.
+        <strong>Game-ready 3D &amp; real-time VFX</strong> — open to any studio or team.<br>
+        Characters, environments, Unity VFX, and performance-first art.
       </p>
 
       <div class="hero-cta">
         <a href="#showreel" class="btn-p">Watch Showreel</a>
-        <a href="#projects" class="btn-s">View Projects</a>
-        <a href="resume.html" class="btn-s">Resume</a>
+        <a href="#projects" class="btn-link">View 12 projects</a>
+        <a href="resume.html" class="btn-link">Resume</a>
       </div>
     </div>
   </div>
@@ -826,6 +1098,10 @@
   <div class="hero-artwork">
     <div class="artwork-cat" id="art-cat">CHARACTER</div>
     <div class="artwork-name" id="art-name">Pirate</div>
+    <div class="hero-swipe">
+      <span class="hero-swipe-arrow">&rsaquo;&rsaquo;</span>
+      <span>Swipe for 8 works</span>
+    </div>
   </div>
 
   <!-- Slide counter -->
@@ -853,6 +1129,32 @@
 
 </section>
 
+<!-- ═══ CREDENTIALS ═══
+     Arma III and DayZ are the strongest proof on this site and were buried in
+     a 13px resume row near the footer. A scanner gets 20 seconds; put it here. -->
+<section id="credentials">
+  <div class="cred-inner">
+    <div class="cred-lead">
+      <span class="cred-num">11</span>
+      <span class="cred-lead-txt">years shipping 3D<br>across 4 studios</span>
+    </div>
+    <ul class="cred-list">
+      <li>
+        <span class="cred-studio">Bohemia Interactive</span>
+        <span class="cred-detail">Arma III, DayZ &middot; environment art &middot; 2014 to 2015</span>
+      </li>
+      <li>
+        <span class="cred-studio">Jumbo Jumps</span>
+        <span class="cred-detail">Senior 3D Artist &amp; VFX &middot; 2019–2026</span>
+      </li>
+      <li>
+        <span class="cred-studio">True Axion Interactive</span>
+        <span class="cred-detail">3D assets for interactive titles &middot; 2017 to 2018</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- ═══ SHOWREEL ═══ -->
 <section id="showreel">
   <div class="showreel-inner">
@@ -861,17 +1163,55 @@
         <div class="section-label">Showreel</div>
         <h2 class="section-title">The <span class="accent">Reel</span></h2>
       </div>
-      <p class="section-desc">Real-time VFX and particle systems crafted in Unity VFX Graph — from concept to in-engine effect.</p>
+      <p class="section-desc">Real-time VFX and game-ready 3D — built for performance inside Unity.</p>
     </div>
-    <div class="reel-wrap">
-      <div style="padding:56.25% 0 0 0;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(122,184,212,.15);box-shadow:0 0 80px rgba(122,184,212,.08);">
-        <iframe src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                frameborder="0"
+    <div class="reel-layout" id="reel-layout">
+
+      <!-- Left side: Mushroom Forest -->
+      <div class="reel-side-item"
+           data-src="https://player.vimeo.com/video/376626204?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+           data-title="Mushroom Forest"
+           data-label="Mushroom Forest &nbsp;·&nbsp; 3D">
+        <iframe src="https://player.vimeo.com/video/376626204?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                title="Mushroom Forest"></iframe>
+        <div class="reel-side-overlay">
+          <div class="reel-side-play">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg>
+          </div>
+          <div class="reel-side-label">Mushroom Forest &nbsp;·&nbsp; 3D</div>
+        </div>
+      </div>
+
+      <!-- Center: VFX Show Reel (main) -->
+      <div class="reel-wrap" id="reel-main"
+           data-src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+           data-title="Klaichit VFX SHOW REEL">
+        <iframe id="reel-main-iframe"
+                src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
                 title="Klaichit VFX SHOW REEL"></iframe>
       </div>
+
+      <!-- Right side: Mystery Temple -->
+      <div class="reel-side-item"
+           data-src="https://player.vimeo.com/video/351195532?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+           data-title="Mystery Temple"
+           data-label="Mystery Temple &nbsp;·&nbsp; 3D Short">
+        <iframe src="https://player.vimeo.com/video/351195532?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Mystery Temple"></iframe>
+        <div class="reel-side-overlay">
+          <div class="reel-side-play">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg>
+          </div>
+          <div class="reel-side-label">Mystery Temple &nbsp;·&nbsp; 3D Short</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -884,7 +1224,7 @@
         <div class="section-label">Work</div>
         <h2 class="section-title">Selected <span class="accent">Projects</span></h2>
       </div>
-      <p class="section-desc">From stylized renders to live-action VFX compositing — each project is a new world.</p>
+      <p class="section-desc">From stylized renders to live-action VFX compositing, each project is a new world.</p>
     </div>
   </div>
 
@@ -906,9 +1246,10 @@
         <span class="wcard-tag wtag-vfx">VFX</span>
         <div class="wcard-fallback">08</div>
         <div class="wcard-overlay">
-          <div class="wcard-num">Project 08</div>
-          <div class="wcard-title">Father, Son &amp; Holy Guns — VFX</div>
-          <div class="wcard-desc">Real-time VFX — particle systems, custom shaders, environmental effects for action game pipeline.</div>
+          <div class="wcard-num" data-meta="holy-guns"></div>
+          <div class="wcard-title">Father, Son &amp; Holy Guns: VFX</div>
+          <div class="wcard-desc">Real-time VFX for an action game pipeline: particle systems, custom shaders, and environmental effects.</div>
+          <div class="wcard-stats"></div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">Particle System</span></div>
         </div>
       </div>
@@ -919,9 +1260,10 @@
         <span class="wcard-tag wtag-vfx">VFX</span>
         <div class="wcard-fallback">09</div>
         <div class="wcard-overlay">
-          <div class="wcard-num">Project 09</div>
-          <div class="wcard-title">Regulus — The Advent VFX</div>
-          <div class="wcard-desc">Unity VFX production for action RPG — skill effects, ambient atmosphere, and character FX.</div>
+          <div class="wcard-num" data-meta="regulus"></div>
+          <div class="wcard-title">Regulus: The Advent VFX</div>
+          <div class="wcard-desc">Unity VFX production for an action RPG: skill effects, ambient atmosphere, and character FX.</div>
+          <div class="wcard-stats"></div>
           <div class="wcard-chips"><span class="wchip">Unity</span><span class="wchip">VFX Graph</span><span class="wchip">Shader Graph</span></div>
         </div>
       </div>
@@ -951,12 +1293,12 @@
     <!-- Profile strip -->
     <div class="rm-profile-strip">
       <div class="rm-avatar-wrap">
-        <img class="rm-avatar" src="assets/images/Profile/profile.png" alt="Klaichit Kaeoman" />
+        <img class="rm-avatar" src="assets/images/Profile/profile.webp" alt="Klaichit Kaeoman" />
       </div>
       <div class="rm-profile-text">
         <div class="section-label" style="margin-bottom:.6rem;">About</div>
         <h2 class="rm-big-name">Klaichit<br><span>Kaeoman</span></h2>
-        <p class="rm-tagline">Senior 3D Artist &amp; VFX Specialist · Bangkok</p>
+        <p class="rm-tagline">Game 3D Artist &amp; Unity VFX · Bangkok</p>
       </div>
       <a href="resume.html" class="resume-full-btn" style="align-self:flex-start;margin-top:.5rem;">Full Resume ↗</a>
     </div>
@@ -969,37 +1311,37 @@
 
         <div class="rm-item">
           <div class="rm-role">VFX Artist <span class="rm-company">· Jumbo Jumps</span></div>
-          <div class="rm-period">Apr 2024 — Present</div>
-          <div class="rm-desc">VFX production for interactive projects — Unity3D, real-time compositing.</div>
+          <div class="rm-period">Apr 2024 to Present</div>
+          <div class="rm-desc">Real-time VFX with Unity VFX, scene build, bake lighting, and performance-first asset management.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">Senior 3D Artist <span class="rm-company">· Jumbo Jumps</span></div>
-          <div class="rm-period">Oct 2018 — Mar 2026 · 7 yrs</div>
-          <div class="rm-desc">Led 3D art production — character modeling, environment art, visual direction.</div>
+          <div class="rm-period">Oct 2018 to Mar 2026 · 7 yrs</div>
+          <div class="rm-desc">Game-ready 3D asset production — low-poly modeling, PBR texturing, character and environment art for Unity.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· True Axion Interactive</span></div>
-          <div class="rm-period">May 2017 — Oct 2018 · 1 yr 6 mos</div>
-          <div class="rm-desc">3D asset creation for interactive and game projects.</div>
+          <div class="rm-period">May 2017 to Oct 2018 · 1 yr 6 mos</div>
+          <div class="rm-desc">Low-poly 3D asset creation and optimization for interactive game projects.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· BUMBLISS</span></div>
-          <div class="rm-period">Nov 2015 — Mar 2017 · 1 yr 5 mos</div>
-          <div class="rm-desc">3D modeling and asset production for commercial projects.</div>
+          <div class="rm-period">Nov 2015 to Mar 2017 · 1 yr 5 mos</div>
+          <div class="rm-desc">3D modeling and game-ready asset production for commercial titles.</div>
         </div>
 
         <div class="rm-item">
           <div class="rm-role">3D Artist <span class="rm-company">· Bohemia Interactive</span></div>
-          <div class="rm-period">Mar 2014 — Oct 2015 · 1 yr 8 mos</div>
-          <div class="rm-desc">Environment design for AAA titles — Arma III &amp; DayZ.</div>
+          <div class="rm-period">Mar 2014 to Oct 2015 · 1 yr 8 mos</div>
+          <div class="rm-desc">Low-poly environment art and asset optimization for AAA titles Arma III &amp; DayZ.</div>
         </div>
 
         <div class="rm-item rm-edu">
           <div class="rm-role">B.Sc. Animation &amp; Game <span class="rm-company">· Mahasarakham University</span></div>
-          <div class="rm-period">2011 — 2014 · GPA 3.14</div>
+          <div class="rm-period">2011 to 2014 · GPA 3.14</div>
         </div>
       </div>
 
@@ -1008,30 +1350,38 @@
         <div class="rm-col-label">Skills</div>
 
         <div class="rm-skill-block">
-          <div class="rm-skill-cat">3D Modeling</div>
+          <div class="rm-skill-cat">3D Asset (Game-Ready)</div>
           <div class="rm-chips">
-            <span>Blender</span><span>Maya</span><span>3DsMax</span><span>ZBrush</span>
+            <span>Blender</span><span>Maya</span><span>3DsMax</span><span>ZBrush</span><span>Low Polygon</span>
           </div>
         </div>
 
         <div class="rm-skill-block">
-          <div class="rm-skill-cat">Texture</div>
+          <div class="rm-skill-cat">Texture &amp; PBR</div>
           <div class="rm-chips rm-chips-v">
-            <span>3D Coat</span><span>Substance Painter</span><span>Photoshop</span>
+            <span>Substance Painter</span><span>3D Coat</span><span>Photoshop</span>
           </div>
         </div>
 
         <div class="rm-skill-block">
-          <div class="rm-skill-cat">Engine &amp; VFX</div>
+          <div class="rm-skill-cat">Unity — Scene &amp; VFX</div>
           <div class="rm-chips rm-chips-p">
-            <span>Unity</span><span>Unreal Engine</span><span>Animate CC</span>
+            <span>Unity VFX</span><span>Scene Build &amp; Bake Light</span><span>Performance Optimisation</span>
+          </div>
+        </div>
+
+        <div class="rm-skill-block">
+          <div class="rm-skill-cat">Other Engine</div>
+          <div class="rm-chips">
+            <span>Unreal Engine</span>
           </div>
         </div>
 
         <div class="rm-col-label" style="margin-top:0;margin-bottom:1rem;padding-top:1.8rem;border-top:1px solid rgba(122,184,212,.18);">Years of Experience</div>
         <div class="rm-glance">
-          <div class="rm-glance-item"><span class="rm-glance-num">6+</span><span class="rm-glance-lbl">3D Artist</span></div>
-          <div class="rm-glance-item"><span class="rm-glance-num">2+</span><span class="rm-glance-lbl">VFX</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">11+</span><span class="rm-glance-lbl">3D Artist</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">6+</span><span class="rm-glance-lbl">Unity</span></div>
+          <div class="rm-glance-item"><span class="rm-glance-num">4</span><span class="rm-glance-lbl">Studios</span></div>
         </div>
       </div>
 
@@ -1044,10 +1394,9 @@
   <div class="footer-inner">
     <div class="footer-logo">Klaichit Kaeoman</div>
     <ul class="footer-links">
-      <li><a href="#">ArtStation</a></li>
-
+      <li><a href="https://www.artstation.com/dxus" target="_blank" rel="noopener">ArtStation</a></li>
       <li><a href="https://www.linkedin.com/in/klachit-kaeoman-53a364b6/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="#">Email</a></li>
+      <li><a href="mailto:dk_s3d@hotmail.com">Email</a></li>
     </ul>
     <div class="footer-copy">© 2025 KLAICHIT KAEOMAN · ALL RIGHTS RESERVED</div>
   </div>
@@ -1055,7 +1404,7 @@
 
 <script>
 /* ════════════════════════════════════════════════
-   HERO IMAGES — แก้ไขภาพทั้งหมดของ Hero ที่นี่
+   HERO IMAGES: แก้ไขภาพทั้งหมดของ Hero ที่นี่
 ════════════════════════════════════════════════ */
 const HERO_IMAGES = {
 
@@ -1064,14 +1413,14 @@ const HERO_IMAGES = {
 
   /* Background slides (slideshow) */
   slides: [
-    { src: 'assets/images/Slidebackground3D/Pirate.png',        cat: 'CHARACTER',          name: 'Nice to Z You'  },
-    { src: 'assets/images/Slidebackground3D/ssr_skin_punk.png', cat: 'SSR SKIN',           name: 'Nice to Z You'  },
-    { src: 'assets/images/Slidebackground3D/Klaichit45.jpg',    cat: 'PBR REALISTIC',      name: 'Klaichit'       },
-    { src: 'assets/images/Slidebackground3D/forest03.png',      cat: 'ENVIRONMENT',        name: 'Evergleam Hill' },
-    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.png', cat: 'ENVIRONMENT',        name: 'Pet Sanctuary'  },
-    { src: 'assets/images/Slidebackground3D/forest04.png',      cat: 'STYLIZED WORLD',     name: 'Evergleam Hill' },
-    { src: 'assets/images/Slidebackground3D/Jailhead.png',      cat: 'CINEMATIC',          name: 'Invictus'       },
-    { src: 'assets/images/Slidebackground3D/Razor.png',         cat: 'STYLIZED CHARACTER', name: 'Razormetal'     },
+    { src: 'assets/images/Slidebackground3D/Pirate.webp',        cat: 'CHARACTER',          name: 'Nice to Z You'  },
+    { src: 'assets/images/Slidebackground3D/ssr_skin_punk.webp', cat: 'SSR SKIN',           name: 'Nice to Z You'  },
+    { src: 'assets/images/Slidebackground3D/Klaichit45.webp',    cat: 'PBR REALISTIC',      name: 'Klaichit'       },
+    { src: 'assets/images/Slidebackground3D/forest03.webp',      cat: 'ENVIRONMENT',        name: 'Evergleam Hill' },
+    { src: 'assets/images/Slidebackground3D/Pet_sanctuary.webp', cat: 'ENVIRONMENT',        name: 'Pet Sanctuary'  },
+    { src: 'assets/images/Slidebackground3D/forest04.webp',      cat: 'STYLIZED WORLD',     name: 'Evergleam Hill' },
+    { src: 'assets/images/Slidebackground3D/Jailhead.webp',      cat: 'CINEMATIC',          name: 'Invictus'       },
+    { src: 'assets/images/Slidebackground3D/Razor.webp',         cat: 'STYLIZED CHARACTER', name: 'Razormetal'     },
   ],
 
 };
@@ -1079,7 +1428,7 @@ const HERO_IMAGES = {
 const SLIDES = HERO_IMAGES.slides;
 
 /* ════════════════════════════════════════════════
-   PROJECT 07 — Mystery Temple
+   PROJECT 07: Mystery Temple
    แก้ไขไฟล์/ลิงก์ทั้งหมดของโปรเจคนี้ที่นี่
 ════════════════════════════════════════════════ */
 const MYSTERY_TEMPLE = {
@@ -1092,31 +1441,75 @@ const MYSTERY_TEMPLE = {
 
   /* Source images (local) */
   images: [
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(1).png',  label: 'Shot 01' },
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(2).png',  label: 'Shot 02' },
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(3).png',  label: 'Shot 03' },
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(4).png',  label: 'Shot 04' },
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(5).png',  label: 'Shot 05' },
-    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(6).png',  label: 'Shot 06' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(1).webp',  label: 'Shot 01' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(2).webp',  label: 'Shot 02' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(3).webp',  label: 'Shot 03' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(4).webp',  label: 'Shot 04' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(5).webp',  label: 'Shot 05' },
+    { src: 'assets/images/3D/MysteryTemple/MysteryTemple%20(6).webp',  label: 'Shot 06' },
   ],
 
 };
 
 /* ════════════════════════════════════════════════
-   PROJECT 06 — Exterior House (Evergleam Hill biomes)
+   PROJECT 06: Exterior House (Evergleam Hill biomes)
 ════════════════════════════════════════════════ */
 const EXTERIOR_HOUSE = {
   images: [
-    { src: 'assets/images/3D/EvergleamHillEnvironment/Pet_sanctuary.png', label: 'Pet Sanctuary' },
-    { src: 'assets/images/3D/EvergleamHillEnvironment/forest01.png',      label: 'Forest'        },
-    { src: 'assets/images/3D/EvergleamHillEnvironment/meadow01.png',      label: 'Meadow'        },
-    { src: 'assets/images/3D/EvergleamHillEnvironment/mountain01.png',    label: 'Mountain'      },
-    { src: 'assets/images/3D/EvergleamHillEnvironment/snow01.png',        label: 'Snow'          },
-    { src: 'assets/images/3D/EvergleamHillEnvironment/lake01.png',        label: 'Lake'          },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/Pet_sanctuary.webp', label: 'Pet Sanctuary' },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/forest01.webp',      label: 'Forest'        },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/meadow01.webp',      label: 'Meadow'        },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/mountain01.webp',    label: 'Mountain'      },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/snow01.webp',        label: 'Snow'          },
+    { src: 'assets/images/3D/EvergleamHillEnvironment/lake01.webp',        label: 'Lake'          },
   ],
 };
 
 /* ── 3D Grid: shuffle & render on every page load ── */
+/* ════════════════════════════════════════════════
+   ⚠️  MOCKUP DATA, แก้ตรงนี้ที่เดียว
+   ────────────────────────────────────────────────
+   ช่อง eyebrow บนการ์ดแต่ละใบ เดิมเป็น "Project 08" ซึ่งไม่บอกอะไรคนดู
+   เปลี่ยนเป็น "สตูดิโอ · ปี" เพราะเป็นข้อมูลที่ HR มองหาจริง
+
+   ค่าที่ใส่ไว้ตอนนี้เป็นการเดาจาก resume ในเว็บ ยังไม่ยืนยัน
+   กรุณาแก้ปีและชื่อสตูดิโอให้ตรงความจริง
+   ถ้าเป็นงานส่วนตัวให้ใส่ 'Personal'
+
+   stats คือตัวเลขที่พิสูจน์ฝีมือ (จำนวนตัวละคร, tris, ความละเอียด texture,
+   จำนวน props, fps) ตอนนี้เป็นตัวเลขสมมติทั้งหมด ใส่ไว้ให้เห็นหน้าตาก่อน
+   ⚠️ ต้องแก้ให้ตรงงานจริงก่อนเอาขึ้นเว็บ เพราะเป็นการอ้างผลงานของตัวเอง
+════════════════════════════════════════════════ */
+const PROJECT_META = {
+  /*  key                        studio and year            the craft numbers  */
+  'nice-to-z-you-character':   { meta:'Jumbo Jumps · 2023',  stats:'12 characters · 18k tris · 4K PBR' },
+  'nice-to-z-you-environment': { meta:'Jumbo Jumps · 2023',  stats:'8 biomes · 240 props · mobile budget' },
+  'evergleam-hill-character':  { meta:'Jumbo Jumps · 2022',  stats:'9 species · 22k tris · rig-ready' },
+  'evergleam-hill-env':        { meta:'Jumbo Jumps · 2022',  stats:'6 biomes · 180 props · baked lighting' },
+  'mystery-temple':            { meta:'Personal · 2020',     stats:'40 props · 4K PBR · Unreal' },
+  'klaichit-pbr':              { meta:'Personal · 2021',     stats:'1.2M tris · SSS skin · Arnold' },
+  'luna':                      { meta:'Jumbo Jumps · 2021',  stats:'14 scenes · baked GI · 60 fps' },
+  'mushroom-forest':           { meta:'Personal · 2019',     stats:'90 assets · 1 hero scene · Unreal' },
+  'razormetal':                { meta:'Personal · 2022',     stats:'28k tris · 4K metallic · Blender' },
+  'invictus':                  { meta:'True Axion · 2018',   stats:'35k tris · ZBrush sculpt · real-time' },
+  'holy-guns':                 { meta:'Jumbo Jumps · 2024',  stats:'24 effects · 12 shaders · 60 fps' },
+  'regulus':                   { meta:'Jumbo Jumps · 2024',  stats:'30 skill FX · VFX Graph · mobile' },
+};
+
+/* Loud on purpose: this must not reach production still saying "Personal 2019"
+   when the real year is something else. Delete this line once the numbers above
+   are the real ones. */
+console.warn('PROJECT_META still holds MOCKUP figures. Replace before shipping.');
+
+/* The two VFX cards are hand-written markup; fill their eyebrow from the same
+   source so there is only one place to edit. */
+document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
+  const m = PROJECT_META[el.dataset.meta] || {};
+  el.textContent = m.meta || '';
+  const statsEl = el.parentElement.querySelector('.wcard-stats');
+  if (statsEl) statsEl.textContent = m.stats || '';
+});
+
 (function () {
   function shuffle(arr) {
     const a = [...arr];
@@ -1127,52 +1520,52 @@ const EXTERIOR_HOUSE = {
     return a;
   }
   const FEAT = [
-    { num:'NtZY·C', title:'Nice to Z You — Character',
-      desc:'Stylized character art for Jumbo Jumps\' mobile game — pirate crew, SSR skins, and expressive silhouette design.',
-      slides:['assets/images/Slidebackground3D/Pirate.png','assets/images/Slidebackground3D/ssr_skin_punk.png'],
+    { key:'nice-to-z-you-character', title:'Nice to Z You: Character',
+      desc:'Stylized character art for Jumbo Jumps\' mobile game: pirate crew, SSR skins, and expressive silhouette design.',
+      slides:['assets/images/Slidebackground3D/Pirate.webp','assets/images/Slidebackground3D/ssr_skin_punk.webp'],
       chips:['Blender','Maya','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p1f', href:'nice-to-z-you-character.html' },
-    { num:'EH·Env', title:'Evergleam Hill — Environment',
-      desc:'Stylized exterior biomes — forest, meadow, mountain, marsh, snow, and mine. Hand-crafted lighting and painterly textures.',
-      slides:['assets/images/Slidebackground3D/forest03.png','assets/images/Slidebackground3D/meadow01.png','assets/images/Slidebackground3D/mountain01.png','assets/images/Slidebackground3D/snow01.png','assets/images/Slidebackground3D/Pet_sanctuary.png'],
+    { key:'evergleam-hill-env', title:'Evergleam Hill: Environment',
+      desc:'Six stylized exterior biomes (forest, meadow, mountain, marsh, snow, mine) with hand-crafted lighting and painterly textures.',
+      slides:['assets/images/Slidebackground3D/forest03.webp','assets/images/Slidebackground3D/meadow01.webp','assets/images/Slidebackground3D/mountain01.webp','assets/images/Slidebackground3D/snow01.webp','assets/images/Slidebackground3D/Pet_sanctuary.webp'],
       chips:['Unity','3D Coat','Blender'], tag:'Environment', tagCls:'wtag-env', bg:'p6f', href:'exterior-house.html' },
-    { num:'07', title:'Mystery Temple — Environment',
+    { key:'mystery-temple', title:'Mystery Temple: Environment',
       desc:'Realistic ancient temple environment with cinematic lighting, PBR materials, and detailed prop work.',
       slides: MYSTERY_TEMPLE.images.slice(0,4).map(x => x.src),
       chips:['Unreal Engine'], tag:'3D', tagCls:'wtag-3d', bg:'p7f', href:'mystery-temple.html',
       links:[{l:'▶ VDO',u:MYSTERY_TEMPLE.vimeo},{l:'ArtStation ↗',u:MYSTERY_TEMPLE.artstation}] },
-    { num:'05', title:'Klaichit — PBR Character',
+    { key:'klaichit-pbr', title:'Klaichit: PBR Character',
       desc:'Photorealistic character render with PBR skin, SSS, and cinematic key lighting.',
-      img: 'assets/images/Slidebackground3D/Klaichit45.jpg',
+      img: 'assets/images/Slidebackground3D/Klaichit45.webp',
       chips:['Maya','Arnold','ZBrush'], tag:'PBR', tagCls:'wtag-3d', bg:'p5f', href:'klaichit-pbr.html' },
-    { num:'Luna', title:'Luna: Episode 1 — Left Behind',
-      desc:'Stylized environment with custom lighting setup and baked light maps — built in Unity.',
+    { key:'luna', title:'Luna, Episode 1: Left Behind',
+      desc:'Stylized environment built in Unity with a custom lighting setup and baked light maps.',
       slides:['assets/images/3D/luna/luna-01.webp','assets/images/3D/luna/luna-02.webp','assets/images/3D/luna/luna-03.webp','assets/images/3D/luna/luna-04.webp','assets/images/3D/luna/luna-05.webp'],
       chips:['Unity','Light Baking'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080818,#10052a,#180828)', href:'luna.html' },
   ];
 
   const REG = [
-    { num:'NtZY·E', title:'Nice to Z You — Environment',
-      desc:'Stylized world environments for Jumbo Jumps\' mobile game — hand-crafted biomes and scenes.',
-      slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).png','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).png'],
+    { key:'nice-to-z-you-environment', title:'Nice to Z You: Environment',
+      desc:'Stylized world environments for Jumbo Jumps\' mobile game: hand-crafted biomes and scenes.',
+      slides:['assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(1).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(3).webp','assets/images/3D/NiceToZYouEnvironment/NTZ_Environment%20(5).webp'],
       chips:['Blender','Unity'], tag:'Environment', tagCls:'wtag-env', bg:'p3f', href:'nice-to-z-you-environment.html' },
-    { num:'EH·C', title:'Evergleam Hill — Character',
-      desc:'Stylized character models for Evergleam Hill — multiple species, costumes, and rig-ready designs.',
-      slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).png','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).png'],
+    { key:'evergleam-hill-character', title:'Evergleam Hill: Character',
+      desc:'Stylized character models for Evergleam Hill: multiple species, costumes, and rig-ready designs.',
+      slides:['assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(1).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(3).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(5).webp','assets/images/3D/EvergleamHillCharacter/EvergleamHill%20(8).webp'],
       chips:['Blender','Substance'], tag:'3D', tagCls:'wtag-3d', bg:'p2f', href:'evergleam-hill-character.html' },
-    { num:'11', title:'Mushroom Forest',
-      desc:'Scene setup and lighting production in Unreal Engine — cinematic mushroom forest environment.',
+    { key:'mushroom-forest', title:'Mushroom Forest',
+      desc:'Cinematic mushroom forest environment: scene setup and lighting production in Unreal Engine.',
       img:'https://vumbnail.com/376626204.jpg',
       chips:['Unreal Engine','Lighting'], tag:'Environment', tagCls:'wtag-env',
       bgStyle:'linear-gradient(135deg,#080d18,#0a1530,#060d20)', href:'unreal-scene.html' },
-    { num:'12', title:'Razormetal',
+    { key:'razormetal', title:'Razormetal',
       desc:'Stylized 3D character with high-detail metallic design and expressive silhouette.',
-      img:'assets/images/Slidebackground3D/Razor.png',
+      img:'assets/images/Slidebackground3D/Razor.webp',
       chips:['Blender','Stylized'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0a0f1a,#101828,#080d18)', href:'razormetal.html' },
-    { num:'13', title:'Invictus: Lost Soul',
-      desc:'Cinematic character art for AAA action title — dark aesthetic, real-time atmosphere.',
-      slides:['assets/images/3D/Invictus/Invictus%20(1).png','assets/images/3D/Invictus/Invictus%20(2).png','assets/images/3D/Invictus/Invictus%20(1).jpg'],
+    { key:'invictus', title:'Invictus: Lost Soul',
+      desc:'Cinematic character art for an AAA action title: dark aesthetic, real-time atmosphere.',
+      slides:['assets/images/3D/Invictus/Invictus%20(1).webp','assets/images/3D/Invictus/Invictus%20(2).webp','assets/images/3D/Invictus/Invictus%20(1).webp'],
       chips:['Maya','ZBrush'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0c1018,#101828,#0c1020)', href:'invictus.html' },
   ];
@@ -1214,16 +1607,20 @@ const EXTERIOR_HOUSE = {
     tagEl.textContent = p.tag;
     el.appendChild(tagEl);
 
+    const m = PROJECT_META[p.key] || {};
+
     const fb = document.createElement('div');
-    fb.className = 'wcard-fallback'; fb.textContent = p.num;
+    /* Shown only when the image fails, so give it the title, not an id. */
+    fb.className = 'wcard-fallback'; fb.textContent = p.title;
     el.appendChild(fb);
 
     const ov = document.createElement('div');
     ov.className = 'wcard-overlay';
     ov.innerHTML = `
-      <div class="wcard-num">Project ${p.num}</div>
+      <div class="wcard-num">${m.meta || ''}</div>
       <div class="wcard-title">${p.title}</div>
       <div class="wcard-desc">${p.desc}</div>
+      ${m.stats ? `<div class="wcard-stats">${m.stats}</div>` : ''}
       <div class="wcard-chips">${p.chips.map(c=>`<span class="wchip">${c}</span>`).join('')}</div>
       ${p.links ? `<div class="wcard-actions">${p.links.map(x=>`<a href="${x.u}" target="_blank" rel="noopener" class="wcard-btn" onclick="event.stopPropagation()">${x.l}</a>`).join('')}</div>` : ''}
     `;
@@ -1254,6 +1651,10 @@ SLIDES.forEach((s, i) => {
   img.src = s.src;
   img.alt = s.name;
   img.draggable = false;
+  /* Only the first slide is on screen at load; the rest can wait. */
+  img.loading = i === 0 ? 'eager' : 'lazy';
+  img.decoding = 'async';
+  if (i === 0) img.fetchPriority = 'high';
   /* fallback colour if image fails */
   img.onerror = () => { div.style.background = `hsl(${240 + i*30},30%,8%)`; };
   div.appendChild(img);
@@ -1295,12 +1696,45 @@ autoPlay();
 /* Click slide area to advance */
 slidesEl.addEventListener('click', () => { goTo(cur + 1); resetTimer(); });
 
+/* Swipe, so the "Swipe for 8 works" cue is telling the truth on a phone.
+   A tap still advances: the click handler above only fires when the pointer
+   did not travel far enough to count as a swipe. */
+(() => {
+  const THRESHOLD = 45; /* px of horizontal travel before it counts */
+  let startX = 0, startY = 0, tracking = false;
+
+  slidesEl.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+
+  slidesEl.addEventListener('touchend', e => {
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    /* Ignore mostly-vertical travel so page scrolling still works. */
+    if (Math.abs(dx) < THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+    goTo(cur + (dx < 0 ? 1 : -1));
+    resetTimer();
+  }, { passive: true });
+})();
+
+/* Arrow keys drive it too, for anyone on a keyboard. */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { goTo(cur + 1); resetTimer(); }
+  if (e.key === 'ArrowLeft')  { goTo(cur - 1); resetTimer(); }
+});
+
 /* ────────────────────────────────────────────────
    INFINITE TICKER
 ──────────────────────────────────────────────── */
 const ITEMS = [
-  '3D MODELING','REAL TIME VFX','UNITY VFX',
-  'TEXTURING','STYLIZED ART','PBR MATERIALS','3D ENVIRONMENT',
+  'GAME-READY 3D ASSET','LOW POLYGON','UNITY VFX',
+  'SCENE LIGHTING & BAKE','PBR TEXTURING','PERFORMANCE OPTIMISATION',
+  '3D ENVIRONMENT','REAL-TIME VFX',
 ];
 const tickerEl = document.getElementById('ticker');
 /* duplicate for seamless loop */
@@ -1403,6 +1837,40 @@ window.addEventListener('scroll', () => {
 });
 
 /* ────────────────────────────────────────────────
+   Mobile menu
+──────────────────────────────────────────────── */
+const navToggle = document.getElementById('nav-toggle');
+const navLinks  = document.getElementById('nav-links');
+
+function setMenu(open) {
+  navLinks.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
+
+navToggle.addEventListener('click', () => {
+  setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
+});
+
+/* Tapping a destination closes the drawer, so the section is actually seen. */
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => setMenu(false));
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') setMenu(false);
+});
+
+/* A tap outside the drawer dismisses it. */
+document.addEventListener('click', e => {
+  if (navLinks.classList.contains('open') &&
+      !navLinks.contains(e.target) &&
+      !navToggle.contains(e.target)) {
+    setMenu(false);
+  }
+});
+
+/* ────────────────────────────────────────────────
    Card scroll reveal
 ──────────────────────────────────────────────── */
 const obs = new IntersectionObserver(entries => {
@@ -1426,6 +1894,97 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
   });
 });
+
+/* ────────────────────────────────────────────────
+   Showreel swap — FLIP animation on click
+   clicked side slides to center, center slides to side
+──────────────────────────────────────────────── */
+(function () {
+  const layout     = document.getElementById('reel-layout');
+  const mainEl     = document.getElementById('reel-main');
+  const mainIframe = document.getElementById('reel-main-iframe');
+  if (!layout || !mainEl || !mainIframe) return;
+
+  function swapReel(sideEl) {
+    if (layout.classList.contains('reel-is-animating')) return;
+
+    const sideIframe = sideEl.querySelector('iframe');
+
+    /* ── 1. FIRST: record current positions ── */
+    const mainRect = mainEl.getBoundingClientRect();
+    const sideRect = sideEl.getBoundingClientRect();
+
+    /* ── 2. Calculate transform: main→side, side→main ── */
+    const mDx = sideRect.left + sideRect.width  / 2 - mainRect.left - mainRect.width  / 2;
+    const mDy = sideRect.top  + sideRect.height / 2 - mainRect.top  - mainRect.height / 2;
+    const mSc = sideRect.width / mainRect.width;
+
+    const sDx = mainRect.left + mainRect.width  / 2 - sideRect.left - sideRect.width  / 2;
+    const sDy = mainRect.top  + mainRect.height / 2 - sideRect.top  - sideRect.height / 2;
+    const sSc = mainRect.width / sideRect.width;
+
+    /* ── 3. Lock flex sizes so they don't animate during swap ── */
+    mainEl.style.flexGrow   = '1';
+    mainEl.style.flexShrink = '0';
+    mainEl.style.flexBasis  = mainRect.width + 'px';
+    sideEl.style.flexGrow   = '0';
+    sideEl.style.flexShrink = '0';
+    sideEl.style.flexBasis  = sideRect.width + 'px';
+
+    /* ── 4. Engage animation class (overrides transitions) ── */
+    layout.classList.add('reel-is-animating');
+    mainEl.style.zIndex = '2';
+    sideEl.style.zIndex = '3';
+
+    /* ── 5. PLAY: animate to swapped positions ── */
+    requestAnimationFrame(() => {
+      mainEl.style.transform = `translate(${mDx}px,${mDy}px) scale(${mSc})`;
+      sideEl.style.transform = `translate(${sDx}px,${sDy}px) scale(${sSc})`;
+    });
+
+    /* ── 6. After animation: swap content, reset everything ── */
+    setTimeout(() => {
+      /* swap iframe srcs */
+      const tmpSrc   = mainIframe.src;
+      const tmpTitle = mainIframe.title;
+      mainIframe.src   = sideIframe.src;
+      mainIframe.title = sideIframe.title;
+      sideIframe.src   = tmpSrc;
+      sideIframe.title = tmpTitle;
+
+      /* swap data attrs */
+      const tmpDS = mainEl.dataset.src;   const tmpDT = mainEl.dataset.title;
+      mainEl.dataset.src   = sideEl.dataset.src;   mainEl.dataset.title = sideEl.dataset.title;
+      sideEl.dataset.src   = tmpDS;                sideEl.dataset.title = tmpDT;
+
+      /* update side label */
+      const labelEl = sideEl.querySelector('.reel-side-label');
+      if (labelEl) labelEl.textContent = tmpDT || '';
+
+      /* reset transforms & flex — no transition */
+      [mainEl, sideEl].forEach(el => {
+        el.style.transition = 'none';
+        el.style.transform  = '';
+        el.style.zIndex     = '';
+        el.style.flexGrow   = '';
+        el.style.flexShrink = '';
+        el.style.flexBasis  = '';
+      });
+
+      layout.classList.remove('reel-is-animating');
+
+      /* re-enable transitions next frame */
+      requestAnimationFrame(() => {
+        mainEl.style.transition = '';
+        sideEl.style.transition = '';
+      });
+    }, 580);
+  }
+
+  document.querySelectorAll('.reel-side-item').forEach(side => {
+    side.addEventListener('click', () => swapReel(side));
+  });
+})();
 
 </script>
 <script src="https://player.vimeo.com/api/player.js"></script>
