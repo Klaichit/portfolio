@@ -446,40 +446,69 @@
       border-top: 1px solid rgba(0,245,255,.06);
       border-bottom: 1px solid rgba(0,245,255,.06);
     }
-    .showreel-inner { max-width: 1200px; margin: 0 auto; }
+    .showreel-inner { max-width: 1400px; margin: 0 auto; }
     .showreel-header {
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
     }
-    .reel-wrap {
+
+    /* ─── REEL LAYOUT: side | main | side ─── */
+    .reel-layout {
+      display: flex;
+      gap: .75rem;
+      height: 520px;
+      align-items: stretch;
+    }
+    .reel-main {
+      flex: 1 1 0;
       border-radius: 14px; overflow: hidden;
-      background: #000; aspect-ratio: 16/9;
-      border: 1px solid rgba(0,245,255,.15);
-      box-shadow: 0 0 80px rgba(0,245,255,.07);
-      position: relative; cursor: none;
+      background: #000;
+      border: 1px solid rgba(0,245,255,.18);
+      box-shadow: 0 0 80px rgba(0,245,255,.08);
+      position: relative;
     }
-    .reel-ph {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg,#0d0d1a,#12092a 50%,#0a1520);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 1.5rem;
+    .reel-main iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
     }
-    .play-btn {
-      width: 78px; height: 78px; border-radius: 50%;
-      border: 2px solid var(--cyan);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--glow-cyan);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-    .play-btn svg { margin-left: 5px; fill: var(--cyan); filter: drop-shadow(0 0 8px var(--cyan)); }
-    @keyframes glowPulse {
-      0%,100% { box-shadow: var(--glow-cyan); }
-      50%      { box-shadow: 0 0 50px rgba(0,245,255,.6), 0 0 100px rgba(0,245,255,.2); }
-    }
-    .reel-ph p { color: var(--muted); font-family: var(--mono); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
-    .reel-wrap::after {
+    .reel-main::after {
       content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.10) 2px,rgba(0,0,0,.10) 4px);
+    }
+    .reel-side {
+      flex: 0 0 160px;
+      border-radius: 12px; overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(0,245,255,.1);
+      position: relative;
+      transition: flex-basis .4s cubic-bezier(.4,0,.2,1),
+                  box-shadow .3s ease,
+                  border-color .3s ease;
+      cursor: pointer;
+    }
+    .reel-side:hover {
+      flex-basis: 300px;
+      border-color: rgba(0,245,255,.3);
+      box-shadow: 0 0 40px rgba(0,245,255,.12);
+    }
+    .reel-side iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+      pointer-events: none;
+    }
+    .reel-side:hover iframe { pointer-events: auto; }
+    .reel-side-label {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+      padding: .6rem .8rem;
+      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%);
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .15em;
+      text-transform: uppercase; color: rgba(255,255,255,.7);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .reel-side:hover .reel-side-label { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .reel-layout { flex-direction: column; height: auto; }
+      .reel-main { aspect-ratio: 16/9; }
+      .reel-side { flex-basis: auto !important; aspect-ratio: 16/9; }
     }
 
     /* ─── PROJECTS ─── */
@@ -720,15 +749,34 @@
       </div>
       <p class="section-desc">A curated collection of 3D renders, VFX breakdowns, and motion pieces — built frame by frame.</p>
     </div>
-    <div class="reel-wrap">
-      <div style="padding:56.25% 0 0 0;position:relative;">
+    <div class="reel-layout">
+
+      <!-- Left side: Mushroom Forest -->
+      <div class="reel-side">
         <iframe src="https://player.vimeo.com/video/376626204?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                frameborder="0"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;"
                 title="Mushroom Forest"></iframe>
+        <div class="reel-side-label">Mushroom Forest &nbsp;·&nbsp; 3D</div>
       </div>
+
+      <!-- Center: VFX Show Reel (main) -->
+      <div class="reel-main">
+        <iframe src="https://player.vimeo.com/video/1217889127?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Klaichit VFX SHOW REEL"></iframe>
+      </div>
+
+      <!-- Right side: Mystery Temple -->
+      <div class="reel-side">
+        <iframe src="https://player.vimeo.com/video/351195532?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Mystery Temple"></iframe>
+        <div class="reel-side-label">Mystery Temple &nbsp;·&nbsp; 3D Short</div>
+      </div>
+
     </div>
   </div>
 </section>
