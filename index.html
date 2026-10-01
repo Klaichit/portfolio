@@ -533,90 +533,99 @@
       margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
     }
     /* ─── SHOWREEL LAYOUT ─── */
-    .reel-layout {
-      display: flex; gap: 1rem; align-items: center;
-      overflow: visible; /* allow transform to overflow during animation */
-    }
-
-    /* ── Center main reel ── */
-    .reel-wrap {
-      flex: 1 1 0; min-width: 0;
-      aspect-ratio: 16/9;
-      border-radius: 14px; overflow: hidden;
-      background: #000;
+    /* ── Main reel ── */
+    .reel-main {
+      width: 100%; aspect-ratio: 16/9;
+      border-radius: 14px; overflow: hidden; background: #000;
       border: 1px solid rgba(122,184,212,.18);
       box-shadow: 0 0 80px rgba(122,184,212,.08);
-      position: relative;
-      transform-origin: center center;
-      z-index: 1;
+      position: relative; margin-bottom: .85rem;
     }
-    .reel-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .reel-wrap::after {
+    .reel-main iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .reel-main::after {
       content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
       background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.10) 2px,rgba(0,0,0,.10) 4px);
     }
 
-    /* ── Side panels — 16:9, smaller by default ── */
-    .reel-side-item {
-      /* start small; flex-grow transitions to 1 on hover → same size as center */
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 16%;
-      min-width: 0;
-      aspect-ratio: 16/9;
-      border-radius: 10px; overflow: hidden; background: #000;
-      border: 1px solid rgba(122,184,212,.12); position: relative;
-      cursor: pointer;
-      transform-origin: center center;
-      z-index: 1;
-      transition:
-        flex-grow  .45s cubic-bezier(.4,0,.2,1),
-        flex-basis .45s cubic-bezier(.4,0,.2,1),
-        border-color .3s ease,
-        box-shadow   .3s ease;
+    /* ── End-of-video popup ── */
+    .reel-end-popup {
+      position: absolute; inset: 0; z-index: 10;
+      background: rgba(9,12,18,.88); backdrop-filter: blur(14px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem;
+      opacity: 0; pointer-events: none; transition: opacity .5s ease;
     }
-    .reel-side-item:hover {
-      flex-grow: 1;
-      flex-basis: 0%;            /* match center's flex: 1 1 0 → equal width */
-      border-color: rgba(122,184,212,.4);
-      box-shadow: 0 0 32px rgba(122,184,212,.15);
+    .reel-end-popup.visible { opacity: 1; pointer-events: all; }
+    .reel-end-eyebrow {
+      font-family: var(--mono); font-size: .65rem; color: var(--muted);
+      letter-spacing: .25em; text-transform: uppercase;
+      display: flex; align-items: center; gap: .8rem;
     }
-    .reel-side-item iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-      pointer-events: none;
+    .reel-end-eyebrow::before, .reel-end-eyebrow::after {
+      content: ''; height: 1px; width: 50px; background: rgba(122,184,212,.2);
     }
+    .reel-end-cards { display: flex; gap: .75rem; }
+    .reel-end-card {
+      width: 190px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
+      background: var(--bg2); cursor: pointer; position: relative;
+      border: 1px solid rgba(122,184,212,.12);
+      transition: border-color .2s, transform .2s;
+    }
+    .reel-end-card:hover { border-color: rgba(122,184,212,.45); transform: scale(1.05); }
+    .reel-end-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .reel-end-card-lbl {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: .4rem .5rem;
+      background: linear-gradient(to top, rgba(9,12,18,.85) 0%, transparent 100%);
+      font-family: var(--mono); font-size: .52rem; color: rgba(255,255,255,.9);
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .reel-end-close {
+      position: absolute; top: 1rem; right: 1rem;
+      font-family: var(--mono); font-size: .65rem; color: var(--muted);
+      cursor: pointer; background: none; border: none; transition: color .2s;
+      letter-spacing: .12em; text-transform: uppercase; z-index: 11;
+    }
+    .reel-end-close:hover { color: var(--blue); }
 
-    /* ── Hover overlay: dim + play icon + label ── */
-    .reel-side-overlay {
-      position: absolute; inset: 0; z-index: 3;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: .5rem;
-      background: rgba(0,0,0,.45);
-      opacity: 0; transition: opacity .3s ease;
+    /* ── Playlist row ── */
+    .reel-playlist { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; }
+    .reel-pl-card {
+      aspect-ratio: 16/9; border-radius: 10px; overflow: hidden;
+      background: #000; position: relative; cursor: pointer;
+      border: 1px solid rgba(122,184,212,.1);
+      transition: border-color .25s, transform .2s;
     }
-    .reel-side-item:hover .reel-side-overlay { opacity: 1; }
-    .reel-side-play {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,.85);
-      display: flex; align-items: center; justify-content: center;
+    .reel-pl-card:hover { border-color: rgba(122,184,212,.3); transform: scale(1.02); }
+    .reel-pl-card.active { border-color: var(--blue); box-shadow: 0 0 20px rgba(122,184,212,.18); }
+    .reel-pl-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .reel-pl-card:hover img { transform: scale(1.05); }
+    .reel-pl-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(9,12,18,.85) 0%, rgba(9,12,18,.15) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: .7rem;
     }
-    .reel-side-play svg { margin-left: 3px; }
-    .reel-side-label {
-      font-family: var(--mono); font-size: .6rem; letter-spacing: .15em;
-      text-transform: uppercase; color: rgba(255,255,255,.9);
-      text-align: center; padding: 0 .5rem;
+    .reel-pl-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(9,12,18,.55); border: 2px solid rgba(122,184,212,.45);
+      display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s;
     }
-
-    /* ── Animating state (set by JS during swap) ── */
-    .reel-is-animating .reel-side-item,
-    .reel-is-animating .reel-wrap {
-      transition: transform .55s cubic-bezier(.4,0,.2,1) !important;
-      pointer-events: none;
+    .reel-pl-card:hover .reel-pl-play,
+    .reel-pl-card.active .reel-pl-play { background: rgba(122,184,212,.25); border-color: var(--blue); }
+    .reel-pl-play svg { margin-left: 2px; }
+    .reel-pl-now {
+      font-family: var(--mono); font-size: .5rem; color: var(--blue);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: .25rem; display: none;
+    }
+    .reel-pl-card.active .reel-pl-now { display: block; }
+    .reel-pl-label {
+      font-family: var(--mono); font-size: .58rem; color: rgba(255,255,255,.9);
+      letter-spacing: .12em; text-transform: uppercase;
     }
 
     @media (max-width: 768px) {
-      .reel-layout { flex-direction: column; overflow: hidden; }
-      .reel-wrap, .reel-side-item { width: 100%; flex: none; aspect-ratio: 16/9; }
+      .reel-playlist { grid-template-columns: 1fr; gap: .6rem; }
+      .reel-end-cards { flex-direction: column; align-items: center; }
+      .reel-end-card { width: 85%; }
     }
 
     /* ─── WORK GROUPS (editorial bento) ─── */
@@ -981,7 +990,7 @@
       .wg-header { padding: 2rem 1.5rem 1.2rem; flex-wrap: wrap; row-gap: .75rem; }
       .wg-rule { display: none; }
       .showreel-header, .projects-header { flex-direction: column; }
-      .reel-layout { grid-template-columns: 1fr; }
+      .reel-playlist { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
       #resume-mini { padding: 4rem 1.5rem; }
       .resume-mini-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -1165,70 +1174,47 @@
       </div>
       <p class="section-desc">Real-time VFX and game-ready 3D — built for performance inside Unity.</p>
     </div>
-    <div class="reel-layout" id="reel-layout">
+    <!-- Main video -->
+    <div class="reel-main">
+      <iframe id="reel-iframe"
+              src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              title="Klaichit VFX SHOW REEL"></iframe>
+      <!-- End-of-video popup -->
+      <div class="reel-end-popup" id="reel-end-popup">
+        <button class="reel-end-close" id="reel-end-close">✕ Close</button>
+        <div class="reel-end-eyebrow">More Videos</div>
+        <div class="reel-end-cards" id="reel-end-cards"></div>
+      </div>
+    </div>
 
-      <!-- Left side: Mushroom Forest -->
-      <div class="reel-side-item"
-           data-src="https://player.vimeo.com/video/376626204?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-           data-title="Mushroom Forest"
-           data-label="Mushroom Forest &nbsp;·&nbsp; 3D">
-        <iframe src="https://player.vimeo.com/video/376626204?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                title="Mushroom Forest"></iframe>
-        <div class="reel-side-overlay">
-          <div class="reel-side-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg>
-          </div>
-          <div class="reel-side-label">Mushroom Forest &nbsp;·&nbsp; 3D</div>
+    <!-- Playlist row -->
+    <div class="reel-playlist">
+      <div class="reel-pl-card" data-vid="376626204" data-label="Mushroom Forest · 3D">
+        <img src="https://vumbnail.com/376626204.jpg" alt="Mushroom Forest" loading="lazy" onerror="this.style.background='#101520';this.style.display='none'" />
+        <div class="reel-pl-overlay">
+          <div class="reel-pl-now">▶ Now Playing</div>
+          <div class="reel-pl-label">Mushroom Forest &nbsp;·&nbsp; 3D</div>
         </div>
+        <div class="reel-pl-play"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg></div>
       </div>
-
-      <!-- Center: VFX Show Reel (main) -->
-      <div class="reel-wrap" id="reel-main"
-           data-src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-           data-title="Klaichit VFX SHOW REEL">
-        <iframe id="reel-main-iframe"
-                src="https://player.vimeo.com/video/1217889127?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                title="Klaichit VFX SHOW REEL"></iframe>
-      </div>
-
-      <!-- Right side: Mystery Temple -->
-      <div class="reel-side-item"
-           data-src="https://player.vimeo.com/video/351195532?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-           data-title="Mystery Temple"
-           data-label="Mystery Temple &nbsp;·&nbsp; 3D Short">
-        <iframe src="https://player.vimeo.com/video/351195532?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                title="Mystery Temple"></iframe>
-        <div class="reel-side-overlay">
-          <div class="reel-side-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg>
-          </div>
-          <div class="reel-side-label">Mystery Temple &nbsp;·&nbsp; 3D Short</div>
+      <div class="reel-pl-card" data-vid="351195532" data-label="Mystery Temple · 3D Short">
+        <img src="https://vumbnail.com/351195532.jpg" alt="Mystery Temple" loading="lazy" onerror="this.style.display='none'" />
+        <div class="reel-pl-overlay">
+          <div class="reel-pl-now">▶ Now Playing</div>
+          <div class="reel-pl-label">Mystery Temple &nbsp;·&nbsp; 3D Short</div>
         </div>
+        <div class="reel-pl-play"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg></div>
       </div>
-
-      <!-- Far right: Unreal Cinematic -->
-      <div class="reel-side-item"
-           data-src="https://player.vimeo.com/video/1231912444?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-           data-title="Unreal Cinematic"
-           data-label="Unreal Cinematic &nbsp;·&nbsp; Environment">
-        <iframe src="https://player.vimeo.com/video/1231912444?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                title="Unreal Cinematic Project Sixth"></iframe>
-        <div class="reel-side-overlay">
-          <div class="reel-side-play">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg>
-          </div>
-          <div class="reel-side-label">Unreal Cinematic &nbsp;·&nbsp; Environment</div>
+      <div class="reel-pl-card" data-vid="1231912444" data-label="Unreal Cinematic · Environment">
+        <img src="https://vumbnail.com/1231912444.jpg" alt="Unreal Cinematic" loading="lazy" onerror="this.style.display='none'" />
+        <div class="reel-pl-overlay">
+          <div class="reel-pl-now">▶ Now Playing</div>
+          <div class="reel-pl-label">Unreal Cinematic &nbsp;·&nbsp; Environment</div>
         </div>
+        <div class="reel-pl-play"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="white"/></svg></div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1913,94 +1899,71 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 /* ────────────────────────────────────────────────
-   Showreel swap — FLIP animation on click
-   clicked side slides to center, center slides to side
+   Showreel — main player + playlist + end popup
 ──────────────────────────────────────────────── */
 (function () {
-  const layout     = document.getElementById('reel-layout');
-  const mainEl     = document.getElementById('reel-main');
-  const mainIframe = document.getElementById('reel-main-iframe');
-  if (!layout || !mainEl || !mainIframe) return;
+  const reelIframe = document.getElementById('reel-iframe');
+  const endPopup   = document.getElementById('reel-end-popup');
+  const endCards   = document.getElementById('reel-end-cards');
+  const endClose   = document.getElementById('reel-end-close');
+  const plCards    = document.querySelectorAll('.reel-pl-card');
+  if (!reelIframe) return;
 
-  function swapReel(sideEl) {
-    if (layout.classList.contains('reel-is-animating')) return;
+  const MAIN = { vid: '1217889127', label: 'VFX Show Reel',              thumb: 'https://vumbnail.com/1217889127.jpg' };
+  const PLAYLIST = [
+    { vid: '376626204',  label: 'Mushroom Forest · 3D',          thumb: 'https://vumbnail.com/376626204.jpg'  },
+    { vid: '351195532',  label: 'Mystery Temple · 3D Short',     thumb: 'https://vumbnail.com/351195532.jpg'  },
+    { vid: '1231912444', label: 'Unreal Cinematic · Environment', thumb: 'https://vumbnail.com/1231912444.jpg' },
+  ];
 
-    const sideIframe = sideEl.querySelector('iframe');
+  let currentVid = null;
+  let vimeoPlayer = null;
 
-    /* ── 1. FIRST: record current positions ── */
-    const mainRect = mainEl.getBoundingClientRect();
-    const sideRect = sideEl.getBoundingClientRect();
-
-    /* ── 2. Calculate transform: main→side, side→main ── */
-    const mDx = sideRect.left + sideRect.width  / 2 - mainRect.left - mainRect.width  / 2;
-    const mDy = sideRect.top  + sideRect.height / 2 - mainRect.top  - mainRect.height / 2;
-    const mSc = sideRect.width / mainRect.width;
-
-    const sDx = mainRect.left + mainRect.width  / 2 - sideRect.left - sideRect.width  / 2;
-    const sDy = mainRect.top  + mainRect.height / 2 - sideRect.top  - sideRect.height / 2;
-    const sSc = mainRect.width / sideRect.width;
-
-    /* ── 3. Lock flex sizes so they don't animate during swap ── */
-    mainEl.style.flexGrow   = '1';
-    mainEl.style.flexShrink = '0';
-    mainEl.style.flexBasis  = mainRect.width + 'px';
-    sideEl.style.flexGrow   = '0';
-    sideEl.style.flexShrink = '0';
-    sideEl.style.flexBasis  = sideRect.width + 'px';
-
-    /* ── 4. Engage animation class (overrides transitions) ── */
-    layout.classList.add('reel-is-animating');
-    mainEl.style.zIndex = '2';
-    sideEl.style.zIndex = '3';
-
-    /* ── 5. PLAY: animate to swapped positions ── */
-    requestAnimationFrame(() => {
-      mainEl.style.transform = `translate(${mDx}px,${mDy}px) scale(${mSc})`;
-      sideEl.style.transform = `translate(${sDx}px,${sDy}px) scale(${sSc})`;
-    });
-
-    /* ── 6. After animation: swap content, reset everything ── */
-    setTimeout(() => {
-      /* swap iframe srcs */
-      const tmpSrc   = mainIframe.src;
-      const tmpTitle = mainIframe.title;
-      mainIframe.src   = sideIframe.src;
-      mainIframe.title = sideIframe.title;
-      sideIframe.src   = tmpSrc;
-      sideIframe.title = tmpTitle;
-
-      /* swap data attrs */
-      const tmpDS = mainEl.dataset.src;   const tmpDT = mainEl.dataset.title;
-      mainEl.dataset.src   = sideEl.dataset.src;   mainEl.dataset.title = sideEl.dataset.title;
-      sideEl.dataset.src   = tmpDS;                sideEl.dataset.title = tmpDT;
-
-      /* update side label */
-      const labelEl = sideEl.querySelector('.reel-side-label');
-      if (labelEl) labelEl.textContent = tmpDT || '';
-
-      /* reset transforms & flex — no transition */
-      [mainEl, sideEl].forEach(el => {
-        el.style.transition = 'none';
-        el.style.transform  = '';
-        el.style.zIndex     = '';
-        el.style.flexGrow   = '';
-        el.style.flexShrink = '';
-        el.style.flexBasis  = '';
-      });
-
-      layout.classList.remove('reel-is-animating');
-
-      /* re-enable transitions next frame */
-      requestAnimationFrame(() => {
-        mainEl.style.transition = '';
-        sideEl.style.transition = '';
-      });
-    }, 580);
+  function vimeoSrc(vid) {
+    return `https://player.vimeo.com/video/${vid}?badge=0&autopause=0&player_id=0&app_id=58479`;
   }
 
-  document.querySelectorAll('.reel-side-item').forEach(side => {
-    side.addEventListener('click', () => swapReel(side));
-  });
+  function loadVideo(vid) {
+    currentVid = vid;
+    reelIframe.src = vid ? vimeoSrc(vid) : vimeoSrc(MAIN.vid);
+    hidePopup();
+    plCards.forEach(c => c.classList.toggle('active', c.dataset.vid === vid));
+    setupVimeoEnd();
+  }
+
+  function showPopup() {
+    endCards.innerHTML = '';
+    const others = currentVid
+      ? [MAIN, ...PLAYLIST.filter(v => v.vid !== currentVid)]
+      : PLAYLIST;
+    others.slice(0, 3).forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'reel-end-card';
+      card.innerHTML = `<img src="${v.thumb}" alt="${v.label}" loading="lazy" /><div class="reel-end-card-lbl">${v.label}</div>`;
+      card.addEventListener('click', () => loadVideo(v.vid === MAIN.vid ? null : v.vid));
+      endCards.appendChild(card);
+    });
+    endPopup.classList.add('visible');
+  }
+
+  function hidePopup() { endPopup.classList.remove('visible'); }
+
+  function setupVimeoEnd() {
+    if (!window.Vimeo) return;
+    try {
+      if (vimeoPlayer) { vimeoPlayer.off('ended'); }
+      vimeoPlayer = new Vimeo.Player(reelIframe);
+      vimeoPlayer.on('ended', showPopup);
+    } catch(e) {}
+  }
+
+  plCards.forEach(c => c.addEventListener('click', () => loadVideo(c.dataset.vid)));
+  if (endClose) endClose.addEventListener('click', hidePopup);
+  endPopup.addEventListener('click', e => { if (e.target === endPopup) hidePopup(); });
+
+  /* Init after Vimeo player.js loads */
+  if (document.readyState === 'complete') setupVimeoEnd();
+  else window.addEventListener('load', setupVimeoEnd);
 })();
 
 </script>
