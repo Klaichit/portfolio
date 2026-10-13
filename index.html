@@ -1493,6 +1493,7 @@ const PROJECT_META = {
   'luna':                      { meta:'Jumbo Jumps · 2021',  stats:'14 scenes · baked GI · 60 fps' },
   'mushroom-forest':           { meta:'Personal · 2019',     stats:'90 assets · 1 hero scene · Unreal' },
   'combat-mech':              { meta:'Personal · PBR',      stats:'Hard Surface · Substance · Marmoset' },
+  'arma-dayz':                 { meta:'Arma III · DayZ',     stats:'Realistic PBR · Game Assets · Substance' },
   'razormetal':                { meta:'Personal · 2022',     stats:'28k tris · 4K metallic · Blender' },
   'invictus':                  { meta:'True Axion · 2018',   stats:'35k tris · ZBrush sculpt · real-time' },
   'holy-guns':                 { meta:'Jumbo Jumps · 2024',  stats:'24 effects · 12 shaders · 60 fps' },
@@ -1572,6 +1573,11 @@ document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
       slides:['assets/images/3D/Invictus/Invictus%20(1).webp','assets/images/3D/Invictus/Invictus%20(2).webp','assets/images/3D/Invictus/Invictus%20(1).webp'],
       chips:['Maya','ZBrush'], tag:'3D', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0c1018,#101828,#0c1020)', href:'invictus.html' },
+    { key:'arma-dayz', title:'Arma III & DayZ: Realistic Props',
+      desc:'Military equipment and survival props built for Arma III and DayZ — weathered PBR game assets.',
+      slides:['assets/images/3D/ArmaDayZ/dayz-globe.jpg','assets/images/3D/ArmaDayZ/grenade-01.jpg','assets/images/3D/ArmaDayZ/arma-container.jpg'],
+      chips:['Maya','Substance','Marmoset'], tag:'Realistic', tagCls:'wtag-3d',
+      bgStyle:'linear-gradient(135deg,#0a0c0a,#111510,#0c100c)', href:'arma-dayz.html' },
   ];
 
   function buildCard(p, isFeatured) {
