@@ -1496,6 +1496,7 @@ const PROJECT_META = {
   'home-sweet-home':           { meta:'Home Sweet Home',     stats:'PBR Realistic · Maya · Substance · Unreal' },
   'nightcap':                  { meta:'FanMade · PBR',       stats:'Stylized · Substance Painter · Emissive' },
   'arma-dayz':                 { meta:'Arma III · DayZ',     stats:'Realistic PBR · Game Assets · Substance' },
+  'stylized-env':              { meta:'Stylized · Unity',    stats:'Environment · Light Baking · Substance' },
   'razormetal':                { meta:'Personal · 2022',     stats:'28k tris · 4K metallic · Blender' },
   'invictus':                  { meta:'True Axion · 2018',   stats:'35k tris · ZBrush sculpt · real-time' },
   'holy-guns':                 { meta:'Jumbo Jumps · 2024',  stats:'24 effects · 12 shaders · 60 fps' },
@@ -1590,6 +1591,11 @@ document.querySelectorAll('.wcard-num[data-meta]').forEach(el => {
       slides:['assets/images/3D/ArmaDayZ/dayz-globe.jpg','assets/images/3D/ArmaDayZ/grenade-01.jpg','assets/images/3D/ArmaDayZ/arma-container.jpg'],
       chips:['Maya','Substance','Marmoset'], tag:'Realistic', tagCls:'wtag-3d',
       bgStyle:'linear-gradient(135deg,#0a0c0a,#111510,#0c100c)', href:'arma-dayz.html' },
+    { key:'stylized-env', title:'Stylized Environments',
+      desc:'Stylized game environments with full Unity pipeline — modeling, texturing, and light baking across diverse atmospheric scenes.',
+      slides:['assets/images/3D/StylizedEnv/env-forest.webp','assets/images/3D/StylizedEnv/env-shrine.webp','assets/images/3D/StylizedEnv/env-guardian.webp'],
+      chips:['Maya','Substance','Unity'], tag:'Environment', tagCls:'wtag-env',
+      bgStyle:'linear-gradient(135deg,#080e10,#0c1a14,#081410)', href:'stylized-env.html' },
   ];
 
   function buildCard(p, isFeatured) {
