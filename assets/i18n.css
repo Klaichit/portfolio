@@ -17,7 +17,7 @@ html[lang=th] .graphic-heading h2 { letter-spacing:0; line-height:1.3; }
 :host([lang=th]) .work-intro h2 { font-size:clamp(40px,4.6vw,68px); line-height:1.25; }
 :host([lang=th]) .work-intro h2 em { font-style:normal; }
 :host([lang=th]) .editorial-caption strong { line-height:1.55; letter-spacing:0; }
-:host([lang=th]) .editorial-caption small { line-height:1.8; font-size:10px; }
+:host([lang=th]) .editorial-caption small { line-height:1.8; font-size:14px; }
 :host([lang=th]) .work-tabs button { font-size:12px; }
 html[lang=th] .resume-heading h1 { font-family:'Space Grotesk',sans-serif; }
 .resume-actions .language-switch { display:none; }
@@ -47,6 +47,42 @@ html[lang=th] body[data-mode="graphic"] .graphic-outro>a { line-height:1.4; lett
  #nav .nav-links,body[data-mode="graphic"] #nav .nav-links { display:none; position:absolute; top:100%; right:0; left:0; padding:22px 4vw; flex-direction:column; align-items:flex-start; background:#101520; border-bottom:1px solid #ffffff30; }
  #nav .nav-links.open,body[data-mode="graphic"] #nav .nav-links.open { display:flex; }
  body[data-mode="graphic"] #nav .nav-links { background:#2348ef; }
+}
+
+/* Readable secondary text throughout the Graphic portfolio. */
+body[data-mode="graphic"] #nav .nav-links a,
+body[data-mode="graphic"] #nav .mode-switch button,
+body[data-mode="graphic"] #nav .site-language-switch { font-size:14px; line-height:1.6; }
+body[data-mode="graphic"] .footer-copy { font-size:13px; line-height:1.8; }
+body[data-mode="graphic"] .footer-links a { font-size:16px; }
+body[data-mode="graphic"] .footer-inner { flex-wrap:wrap; gap:24px; }
+:host .unfurl-top { font-size:14px; line-height:1.8; letter-spacing:.02em; }
+:host .unfurl-bottom { font-size:16px; line-height:1.85; letter-spacing:0; max-width:100%; }
+:host .tunnel-meta,
+:host .tunnel-eyebrow,
+:host([lang=th]) .tunnel-eyebrow,
+:host .tunnel-footer,
+:host .work-kicker,
+:host .work-band-bottom,
+:host .work-browser-top>p,
+:host .editorial-caption small,
+:host .editorial-web-label { font-size:14px; line-height:1.7; letter-spacing:.02em; }
+:host .tunnel-description { font-size:17px; line-height:1.8; opacity:1; }
+:host .work-tabs button,:host([lang=th]) .work-tabs button { font-size:15px; line-height:1.7; color:#55564f; }
+:host .work-tabs button[aria-pressed=true],:host([lang=th]) .work-tabs button[aria-pressed=true] { color:#2348ef; }
+:host .work-tabs { flex-wrap:wrap; }
+:host .work-band-bottom button { flex-shrink:0; min-height:44px; }
+:host .tunnel-footer { flex-wrap:wrap; }
+:host .editorial-caption small { color:#55564f; }
+@media(max-width:767px) {
+ :host .tunnel-meta { font-size:12px; gap:16px; }
+ :host .tunnel-eyebrow,:host([lang=th]) .tunnel-eyebrow { font-size:13px; }
+ :host .tunnel-description { font-size:16px; }
+ :host .unfurl-top { font-size:13px; }
+ :host .unfurl-bottom { font-size:16px; }
+ :host .work-band-bottom { gap:12px; font-size:13px; }
+ :host .work-band-bottom p { max-width:55%; }
+ :host .work-tabs,:host([lang=th]) .work-tabs { gap:10px 18px; }
 }
 @media(max-width:767px) {
  #nav { grid-template-columns:1fr auto auto; row-gap:10px; padding:12px 4vw; }
