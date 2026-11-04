@@ -11,6 +11,7 @@ body[data-mode="graphic"] .mode-switch button:focus-visible {outline-color:#efee
 .graphic-landing {background:#2348ef;color:#efeee9;overflow:clip}
 #graphic-portfolio .graphic-landing {padding:0}
 #graphic-portfolio .graphic-work {padding:90px 4vw 115px}
+#graphic-portfolio .graphic-work.has-tilted-grid {padding:0;max-width:none}
 #graphic-portfolio .graphic-outro {padding:35px 4vw}
 .landing-inner {position:relative;max-width:1600px;margin:auto;padding:137px 4vw 24px;isolation:isolate}
 .landing-topline {position:relative;z-index:5;display:flex;justify-content:space-between;align-items:start;font:10px/1.6 var(--mono);letter-spacing:.035em}

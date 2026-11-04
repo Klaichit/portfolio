@@ -31,3 +31,7 @@ React, React DOM, Framer Motion, Tailwind, TypeScript and Vite are installed thr
 Golden-angle card placement, Z-axis travel, spring smoothing, pointer parallax, and depth rings are retained. Native scroll drives progress through a sticky stage instead of capturing wheel events. This supports touch, keyboard and scrolling into the gallery. The View Selected Work button skips the animation and transfers focus to the gallery heading.
 
 `images?: TunnelImage[]` supplies image/title pairs; `onExplore?: () => void` supplies navigation. The default stock assets are for the demo only; the actual portfolio uses nine local project previews. Cards in the tunnel are decorative; full project viewing is available in the gallery. Reduced-motion mode displays static images, removes the extended scroll distance and disables camera movement. It responds to preference changes while the page is open.
+
+## Curved selected-work section
+
+`components/ui/tilted-grid-hero.tsx` integrates the user-supplied cylindrical sliced-image component. `components/graphic-work.tsx` supplies local portfolio images, category filtering, a pause control and keyboard-accessible project buttons connected to the existing media viewer. The decorative band pauses offscreen and under reduced-motion preferences. `components/tilted-grid-demo.tsx` contains a standalone stock-image demo. No extra dependency or provider is required. The section mounts in its own shadow root to isolate Tailwind from the original portfolio.
