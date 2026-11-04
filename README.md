@@ -1,0 +1,33 @@
+# Portfolio / Perspective Tunnel Hero
+
+The existing HTML portfolio and resumes remain standalone pages. A React island mounts the adapted 21st.dev Perspective Tunnel Hero in Graphic mode. Its Tailwind stylesheet lives in a shadow root, so preflight does not restyle the existing pages.
+
+## Setup and development
+
+```sh
+npm install
+npm run build
+npm run dev
+```
+
+On Windows PowerShell with script execution disabled, use `npm.cmd` instead of `npm`.
+Open the printed local URL with `?mode=graphic`. After editing React or CSS, run `npm run build` and refresh: the existing HTML loads the compiled `assets/tunnel/hero.js`. This bundle is included so existing static hosting and Python HTTP servers also work without a React server. Production is served by GitHub Pages from the root of the `Portfolio-Version01` branch: https://klaichit.github.io/portfolio/
+
+## Structure
+
+- `components/ui/perspective-tunnel-hero.tsx`: reusable React/TypeScript hero, adapted from the user-supplied MIT component by Daiwiik Harihar: https://21st.dev/@daiwiikharihar/components/perspective-tunnel-hero
+- `components/demo.tsx`: standalone demo using verified Unsplash stock URLs. It is an importable component, not an additional public page.
+- `src/main.tsx`: mounts/unmounts on portfolio mode changes and supplies actual portfolio images and the gallery navigation callback.
+- `src/styles.css`: Tailwind v4 entry and scoped hero styling.
+- `components.json`, `tsconfig.json`, `lib/utils.ts`: shadcn-compatible aliases and class merging utility. `@/` resolves to the project root.
+- `assets/tunnel/hero.js`: generated static bundle; do not edit directly.
+
+`components/ui` is the configured default component location. Keeping it matches the supplied imports and lets shadcn CLI resolve future UI components consistently. This existing project has been configured manually rather than scaffolding over the HTML site. To add a component later, use `npx shadcn@latest add <component>`; no additional `init` is needed. If adding components with new theme tokens, define those in `src/styles.css`.
+
+React, React DOM, Framer Motion, Tailwind, TypeScript and Vite are installed through the lockfile. No context provider or icon dependency is required by this component.
+
+## Integration changes
+
+Golden-angle card placement, Z-axis travel, spring smoothing, pointer parallax, and depth rings are retained. Native scroll drives progress through a sticky stage instead of capturing wheel events. This supports touch, keyboard and scrolling into the gallery. The View Selected Work button skips the animation and transfers focus to the gallery heading.
+
+`images?: TunnelImage[]` supplies image/title pairs; `onExplore?: () => void` supplies navigation. The default stock assets are for the demo only; the actual portfolio uses nine local project previews. Cards in the tunnel are decorative; full project viewing is available in the gallery. Reduced-motion mode displays static images, removes the extended scroll distance and disables camera movement. It responds to preference changes while the page is open.

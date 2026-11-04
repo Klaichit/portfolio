@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@source "../components";
+@theme { --color-background: #efeee9; --color-foreground: #1c1d1b; --color-primary: #2348ef; --color-primary-foreground: #efeee9; }
+:host { display:block; --background:#efeee9; --foreground:#1c1d1b; --primary:#2348ef; font-family:'Space Grotesk',Arial,sans-serif; color:#efeee9; }
+.tunnel-scroll { height:300svh; background:#2348ef; }
+.tunnel-viewport { height:100svh; min-height:560px; background:#2348ef; }
+.tunnel-grid { opacity:.2; background-image:radial-gradient(#efeee9 1px,transparent 1px); background-size:28px 28px; mask-image:radial-gradient(ellipse at center,black,transparent 75%); }
+.tunnel-meta { z-index:20; left:4vw; right:4vw; top:110px; display:flex; justify-content:space-between; font:10px/1.6 'Space Mono',monospace; letter-spacing:.06em; }
+.tunnel-meta span:last-child { text-align:right; }
+.tunnel-space { transform-style:preserve-3d; }
+.tunnel-ring { position:absolute; top:50%; left:50%; width:48vmin; height:48vmin; border:1px solid #efeee92b; border-radius:50%; transform:translate(-50%,-50%); }
+.tunnel-ring.outer { width:76vmin; height:76vmin; border-style:dashed; opacity:.6; }
+.tunnel-title { z-index:0; padding:100px 20px; }
+.tunnel-title h1 { font-family:'Barlow Condensed',Impact,sans-serif; font-size:clamp(84px,12vw,180px); font-weight:800; letter-spacing:-.035em; line-height:.84; margin:22px 0; }
+.tunnel-title em { font-style:normal; }
+.tunnel-eyebrow { font:10px/1.6 'Space Mono',monospace; letter-spacing:.22em; }
+.tunnel-description { font-size:14px; line-height:1.6; opacity:.8; }
+.tunnel-card { will-change:transform; }
+.tunnel-card>div { background:#efeee9; border:1px solid #ffffff50; box-shadow:0 25px 65px #03164c66; }
+.card-caption { background:linear-gradient(transparent 55%,#07122bd9); color:white; font-family:'Space Mono',monospace; }
+.tunnel-footer { z-index:30; bottom:90px; left:4vw; right:4vw; gap:15px; font:10px/1.5 'Space Mono',monospace; letter-spacing:.1em; }
+.tunnel-footer button { cursor:pointer; border:1px solid #efeee980; background:#2348ef; color:#efeee9; padding:15px 20px; transition:background .2s,color .2s; }
+.tunnel-footer button:hover { background:#efeee9; color:#2348ef; }
+.tunnel-footer button:focus-visible { outline:3px solid #efeee9; outline-offset:5px; }
+.reduced { height:100svh; min-height:700px; }
+.reduced .tunnel-viewport { min-height:700px; }
+.reduced .tunnel-title { padding-bottom:220px; }
+.still-strip { position:absolute; bottom:175px; display:flex; gap:12px; max-width:94%; }
+.still-strip img { height:110px; width:min(85px,20vw); object-fit:cover; border-radius:8px; }
+@media(max-width:767px) { .tunnel-scroll:not(.reduced) { height:240svh; } .tunnel-meta { top:105px; font-size:8px; } .tunnel-eyebrow { font-size:8px; letter-spacing:.1em; } .tunnel-description { font-size:12px; } .tunnel-footer { font-size:8px; bottom:90px; } .tunnel-footer button { padding:12px; } }

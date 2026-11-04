@@ -1,0 +1,78 @@
+/* Direction 03: expressive cobalt landing, restrained ivory project gallery. */
+body[data-mode="graphic"] nav {background:#2348eff5;border-bottom-color:#efeee940;color:#efeee9}
+body[data-mode="graphic"] .nav-logo,body[data-mode="graphic"] .nav-logo span,body[data-mode="graphic"] .nav-links a {color:#efeee9}
+body[data-mode="graphic"] .nav-cta {color:#efeee9!important;border-color:#efeee9}
+body[data-mode="graphic"] .nav-cta:hover {background:#efeee920!important;box-shadow:none!important}
+body[data-mode="graphic"] .mode-switch {background:#1433cc;border-color:#ffffff50;border-radius:0;padding:4px}
+body[data-mode="graphic"] .mode-switch button {border-radius:0;color:#efeee9}
+body[data-mode="graphic"] .mode-switch button[aria-pressed="true"] {background:#efeee9;color:#2348ef}
+body[data-mode="graphic"] .nav-toggle {color:#efeee9;border-color:#efeee980}
+body[data-mode="graphic"] .mode-switch button:focus-visible {outline-color:#efeee9}
+.graphic-landing {background:#2348ef;color:#efeee9;overflow:clip}
+#graphic-portfolio .graphic-landing {padding:0}
+#graphic-portfolio .graphic-work {padding:90px 4vw 115px}
+#graphic-portfolio .graphic-outro {padding:35px 4vw}
+.landing-inner {position:relative;max-width:1600px;margin:auto;padding:137px 4vw 24px;isolation:isolate}
+.landing-topline {position:relative;z-index:5;display:flex;justify-content:space-between;align-items:start;font:10px/1.6 var(--mono);letter-spacing:.035em}
+.landing-topline>span:first-child {padding-bottom:14px;border-bottom:2px solid #efeee9}
+.landing-topline>span:last-child {writing-mode:vertical-rl;position:absolute;right:0;top:0}
+#landing-title {position:relative;z-index:2;margin:29px 0 31px;font-family:'Barlow Condensed','Arial Narrow',Impact,sans-serif;font-size:clamp(160px,23vw,350px);font-weight:800;letter-spacing:-.025em;line-height:.77;pointer-events:none}
+#landing-title>span {display:block}
+.landing-in {font-size:.28em;font-style:italic;line-height:1.05;padding:16px 0 20px}
+.landing-star {position:absolute;z-index:3;top:32%;left:30%;width:30%;height:auto;pointer-events:none;filter:drop-shadow(0 15px 15px #06156830);animation:star-hover 9s ease-in-out infinite}
+.landing-orbit {position:absolute;z-index:1;pointer-events:none;left:5%;top:23%;width:61%;height:33%;border:1.5px solid #efeee9c0;border-radius:50%;transform:rotate(-34deg)}
+.landing-film {position:absolute;z-index:4;right:5.5%;top:32%;width:28%;display:block;border:0;padding:0;background:none;color:inherit;cursor:pointer;font:10px var(--font);text-align:left}
+.landing-film-frame {position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#17252d}
+.landing-film-frame>img {width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;filter:brightness(.83)}
+.landing-film:hover img {transform:scale(1.04)}
+.landing-play {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:35px var(--font);filter:drop-shadow(0 2px 8px #0008)}
+.landing-film-index {position:absolute;left:12px;bottom:12px;padding:5px 7px;background:#101519b3;font:8px var(--mono);letter-spacing:.04em}
+.landing-film-caption {display:flex;justify-content:space-between;gap:10px;padding-top:12px;font-size:9px;letter-spacing:.03em}
+.landing-film:focus-visible,.landing-explore:focus-visible {outline:3px solid #efeee9;outline-offset:8px}
+.landing-bottom {position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:33px}
+.landing-disciplines {display:inline-block;background:#efeee9;color:#1c1d1b;padding:8px 12px;font-size:clamp(12px,1.4vw,20px);font-weight:600;letter-spacing:-.025em}
+.landing-description {margin-top:15px;font-size:12px;color:#efeee9d9}
+.landing-explore {display:flex;align-items:center;justify-content:center;width:80px;height:80px;flex-shrink:0;border-radius:50%;background:#efeee9;color:#1c1d1b;font-size:63px;line-height:1;text-decoration:none;transition:transform .2s}
+.landing-explore:hover {transform:rotate(45deg)}
+.landing-edition {display:flex;justify-content:space-between;font:8px var(--mono);letter-spacing:.04em;margin-top:37px;padding-top:20px;border-top:1px solid #ffffff55}
+.discipline-strip {display:none}
+.graphic-work {padding-top:90px}
+.graphic-heading {align-items:end;margin-bottom:42px}
+.graphic-heading h2 {font-size:clamp(52px,6vw,88px);line-height:.96;letter-spacing:-.065em}
+.graphic-heading h2 em {font-family:Georgia,'Times New Roman',serif;font-weight:400;color:#2348ef;letter-spacing:-.06em}
+.graphic-card[data-type="graphic"].featured:first-of-type {grid-column:span 7}
+.graphic-card[data-slug="bluepulse"] {grid-column:span 7}
+.graphic-card[data-slug="solplanet"] {grid-column:span 5}
+.graphic-card[data-slug="bluepulse"] .graphic-card-media,.graphic-card[data-slug="solplanet"] .graphic-card-media {height:480px;aspect-ratio:auto}
+.graphic-card[data-slug="bluepulse"] img {transform:rotate(-4deg);width:73%;height:88%}
+.graphic-card[data-slug="solplanet"] img {transform:none;width:80%;height:88%}
+.graphic-card[data-type="graphic"]:hover img {transform:scale(1.03)}
+.graphic-card h3 {font-size:17px;letter-spacing:-.025em}
+.project-divider {margin-top:50px}
+@keyframes star-hover {0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@media(min-width:1600px){.landing-inner{padding-left:64px;padding-right:64px}.landing-film{right:88px}}
+@media(max-width:1100px){#landing-title{font-size:24vw}.landing-inner{padding-top:130px}.landing-film{top:34%;width:30%}.landing-star{left:32%;top:32%;width:29%}.landing-film-caption{flex-direction:column;gap:5px}.graphic-card[data-slug="bluepulse"] .graphic-card-media,.graphic-card[data-slug="solplanet"] .graphic-card-media{height:370px}.graphic-heading{align-items:start}}
+@media(max-width:768px){
+ body[data-mode="graphic"] .nav-links{background:#2348ef;border-color:#efeee950}
+ body[data-mode="graphic"] .nav-links a{color:#efeee9}
+ body[data-mode="graphic"] .mode-switch{background:#1433cc;border-color:#ffffff60}
+ .landing-inner{padding:105px 5vw 24px}
+ .landing-topline{font-size:8px}.landing-topline>span:first-child{padding-bottom:10px}.landing-topline>span:last-child{font-size:7px}
+ #landing-title{font-size:27vw;line-height:.8;margin-top:32px;margin-bottom:24px}
+ .landing-in{font-size:.29em;padding:11px 0 17px}
+ .landing-star{left:59%;top:220px;width:34%;max-width:210px}
+ .landing-orbit{left:8%;top:170px;width:76%;height:140px;transform:rotate(-32deg)}
+ .landing-film{position:relative;right:auto;top:auto;margin:22px 0 0 auto;width:74%;max-width:420px}
+ .landing-film-caption{flex-direction:row;font-size:8px;padding-top:10px}
+ .landing-film-index{font-size:7px}.landing-play{font-size:27px}
+ .landing-bottom{margin-top:30px;gap:18px}.landing-disciplines{font-size:10px;padding:7px 9px}.landing-description{font-size:11px;line-height:1.7;max-width:230px;margin-top:10px}
+ .landing-explore{width:48px;height:48px;font-size:38px}
+ .landing-edition{font-size:7px;line-height:1.7;gap:15px;margin-top:25px}.landing-edition>span:first-child{max-width:180px}.landing-edition>span:last-child{text-align:right}
+ .graphic-work{padding-top:55px}.graphic-heading h2{font-size:57px}.graphic-heading{align-items:start}
+ #graphic-portfolio .graphic-work{padding:55px 5vw 60px}
+ #graphic-portfolio .graphic-outro{padding:25px 5vw}
+ .graphic-card[data-slug="bluepulse"],.graphic-card[data-slug="solplanet"],.graphic-card[data-type="graphic"].featured:first-of-type{grid-column:span 6}
+ .graphic-card[data-slug="bluepulse"] .graphic-card-media,.graphic-card[data-slug="solplanet"] .graphic-card-media{height:auto;aspect-ratio:4/5}
+ .graphic-card h3{font-size:13px}.project-divider{margin-top:25px}
+}
+@media(prefers-reduced-motion:reduce){.landing-star{animation:none}.landing-film-frame>img,.landing-explore{transition:none}}

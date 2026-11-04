@@ -1032,6 +1032,12 @@
       .nav-links { display: flex !important; }
     </style>
   </noscript>
+  <link rel="stylesheet" href="assets/portfolio-modes.css" />
+  <link rel="stylesheet" href="assets/graphic-editorial.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/graphic-landing.css" />
+  <script defer src="assets/graphic-projects.js"></script>
+  <script defer src="assets/portfolio-modes.js"></script>
 </head>
 <body>
 
@@ -1053,6 +1059,11 @@
   </ul>
 </nav>
 
+<div class="mode-switch" role="group" aria-label="Portfolio mode">
+  <button type="button" data-portfolio-mode="3d" aria-pressed="true" aria-controls="portfolio-3d">3D / Game</button>
+  <button type="button" data-portfolio-mode="graphic" aria-pressed="false" aria-controls="graphic-portfolio">Graphic / Digital</button>
+</div>
+<div id="portfolio-3d">
 <!-- ═══ HERO ═══ -->
 <section id="hero">
 
@@ -1391,6 +1402,42 @@
   </div>
 </section>
 
+</div>
+<div id="graphic-portfolio" hidden>
+  <section class="graphic-landing" id="graphic-top" aria-label="Graphic and multimedia portfolio">
+    <div id="perspective-tunnel-root" hidden></div>
+    <div class="landing-inner">
+      <div class="landing-topline"><span>MULTIMEDIA DESIGNER<br>KLAICHIT KAEOMAN</span><span>BANGKOK / THAILAND</span></div>
+      <div class="landing-orbit" aria-hidden="true"></div>
+      <h1 id="landing-title"><span class="landing-ideas">IDEAS</span><span class="landing-in">IN</span><span class="landing-motion">MOTION.</span></h1>
+      <img class="landing-star" src="assets/graphic/chrome-star-v3.webp" alt="" width="1254" height="1254" aria-hidden="true" />
+      <button type="button" class="landing-film" data-open-project="bluespark" aria-label="Play KSTAR BlueSpark product film">
+        <span class="landing-film-frame"><img src="assets/graphic/bluespark.webp" alt="KSTAR BlueSpark product film preview" width="1280" height="720" /><span class="landing-play" aria-hidden="true">▶</span><span class="landing-film-index">SELECTED FILM / 01</span></span>
+        <span class="landing-film-caption"><span>PLAY FEATURED FILM</span><span>KSTAR BLUESPARK ↗</span></span>
+      </button>
+      <div class="landing-bottom"><div><p class="landing-disciplines">GRAPHIC + MOTION + VIDEO + WEB</p><p class="landing-description">Turning complex ideas into clear, compelling visual stories.</p></div><a href="#graphic-work" class="landing-explore" aria-label="Explore selected work">↘</a></div>
+      <div class="landing-edition"><span>INDEPENDENT PERSPECTIVE. MULTIPLE MEDIUMS.</span><span>SELECTED WORK / 2026</span></div>
+    </div>
+  </section>
+  <div class="discipline-strip" aria-label="Creative disciplines"><span>GRAPHIC DESIGN</span><b>✳</b><span>MOTION &amp; VIDEO</span><b>✳</b><span>DIGITAL EXPERIENCES</span><b>✳</b></div>
+  <section class="graphic-work" id="graphic-work" aria-labelledby="graphic-work-title">
+    <div class="graphic-heading">
+      <div><div class="graphic-kicker">THE PORTFOLIO <span id="graphic-count" aria-live="polite">Selected projects</span></div><h2 id="graphic-work-title">Good ideas.<br><em>Real work.</em></h2></div>
+      <div class="graphic-filters" role="group" aria-label="Filter selected work">
+        <button type="button" class="graphic-filter" data-filter="all" aria-pressed="true">All work</button>
+        <button type="button" class="graphic-filter" data-filter="graphic" aria-pressed="false">Graphic</button>
+        <button type="button" class="graphic-filter" data-filter="video" aria-pressed="false">Motion &amp; Video</button>
+        <button type="button" class="graphic-filter" data-filter="website" aria-pressed="false">Website</button>
+      </div>
+    </div>
+    <div class="graphic-grid" id="graphic-grid"></div>
+  </section>
+  <section class="graphic-outro" aria-labelledby="graphic-outro-title"><div class="outro-top"><span>HAVE SOMETHING IN MIND?</span><span>BANGKOK, THAILAND / AVAILABLE FOR PROJECTS</span></div><a href="mailto:dk_s3d@hotmail.com" id="graphic-outro-title">LET’S MAKE<br><em>IT HAPPEN.</em><span>↗</span></a><div class="outro-bottom"><span>DESIGN THAT LOOKS GOOD. AND DOES SOMETHING.</span><span>dk_s3d@hotmail.com</span></div></section>
+</div>
+<dialog id="work-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-header"><h2 id="viewer-title">Project</h2><button type="button" class="viewer-close" autofocus>Close ✕</button></div>
+  <div class="viewer-content"></div>
+</dialog>
 <!-- ═══ FOOTER ═══ -->
 <footer id="contact">
   <div class="footer-inner">
@@ -1995,5 +2042,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 </script>
 <script src="https://player.vimeo.com/api/player.js"></script>
+<script defer src="assets/tunnel/hero.js"></script>
 </body>
 </html>
