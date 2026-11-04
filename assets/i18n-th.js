@@ -562,5 +562,8 @@ window.PORTFOLIO_TH = {
   "Communicate clearly and work with others": "สื่อสารเข้าใจง่ายและทำงานร่วมกับผู้อื่น",
   "Plan tasks in steps and follow through": "วางงานเป็นขั้นตอนและรับผิดชอบจนจบ",
   "Contact me": "ติดต่อผม",
-  "Klaichit Kaeoman — graphic design, motion graphics, video editing and website layouts.": "Klaichit Kaeoman — ออกแบบกราฟิก โมชันกราฟิก ตัดต่อวิดีโอ และเลย์เอาต์เว็บไซต์"
+  "Klaichit Kaeoman — graphic design, motion graphics, video editing and website layouts.": "Klaichit Kaeoman — ออกแบบกราฟิก โมชันกราฟิก ตัดต่อวิดีโอ และเลย์เอาต์เว็บไซต์",
+  "Employment history": "ประวัติการทำงาน",
+  "3D ART / GAME PRODUCTION / VFX": "งาน 3D / การผลิตเกม / VFX",
+  "Graphic project dates, employment arrangements, responsibilities and software list are being confirmed.": "ช่วงเวลา รูปแบบการจ้างงาน หน้าที่ในโครงการกราฟิก และรายชื่อโปรแกรมยังอยู่ระหว่างยืนยัน"
 };
