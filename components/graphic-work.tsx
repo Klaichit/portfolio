@@ -32,7 +32,7 @@ export default function GraphicWork({ projects }: { projects: GraphicProject[] }
     <TiltedGridHero key={filter} images={images} className="work-curved-hero w-full" tileHeight={32} aspectRatio={1.05} axis={59} curve={72} gap={9} speed={5} paused={paused}>
       <div className="work-intro relative z-10 text-center">
         <p className="work-kicker">THE PORTFOLIO <span aria-live="polite">{selected.length} PROJECTS</span></p>
-        <h2 id="graphic-work-title" tabIndex={-1}>Good ideas.<br /><em>Real work.</em></h2>
+        <h2 id="graphic-work-title" tabIndex={-1}>A selection<br /><em>of my work.</em></h2>
       </div>
       <div className="work-band-bottom absolute z-10 flex items-center justify-between">
         <p>GRAPHIC / MOTION / DIGITAL EXPERIENCES</p>
@@ -40,6 +40,11 @@ export default function GraphicWork({ projects }: { projects: GraphicProject[] }
       </div>
     </TiltedGridHero>
     <div className="work-browser">
+      <div className="graphic-profile-copy">
+        <h3>About my work</h3>
+        <p>I work on product graphics, social media visuals, motion graphics, video editing and website layouts. I enjoy finding ways to turn a brief into something clear and easy to understand.</p>
+        <p>I adapt ideas and tools to suit the work, including AI where it helps the process. I think through tasks in steps, communicate directly and take responsibility for my part. I enjoy working with others and exchanging ideas.</p>
+      </div>
       <div className="work-browser-top flex items-center justify-between">
         <p>EXPLORE THE WORK</p>
         <div className="work-tabs flex" role="group" aria-label="Filter selected work">{categories.map(c => <button type="button" key={c.key} aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>{c.label}</button>)}</div>

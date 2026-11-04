@@ -110,8 +110,8 @@ export default function PerspectiveTunnelHero({ images = IMAGES, onExplore }: Pe
         <div className="tunnel-ring" /><div className="tunnel-ring outer" />
         <motion.div style={reduce ? undefined : { scale: titleScale, opacity: titleOpacity }} className="tunnel-title absolute inset-0 flex flex-col items-center justify-center text-center">
           <p className="tunnel-eyebrow">GRAPHIC · MOTION · VIDEO · WEB</p>
-          <h1>IDEAS IN<br /><em>MOTION.</em></h1>
-          <p className="tunnel-description">Turning complex ideas into<br />clear, compelling visual stories.</p>
+          <h1>GRAPHIC &amp;<br /><em>DIGITAL.</em></h1>
+          <p className="tunnel-description">I'm Klaichit. I work across graphic design,<br />motion, video and website design.</p>
         </motion.div>
         {!reduce && <div className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
           {cards.map(card => <TunnelCard key={card.item.src + card.index} card={card} progress={smoothProgress} pointer={pointer} total={cards.length} stage={stage} />)}

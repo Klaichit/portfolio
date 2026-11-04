@@ -37,9 +37,9 @@ export default function UnfurlingGalleryFooter({ images }: { images: UnfurlingIm
         </div>
         <div className="unfurl-shade" />
         <div className="unfurl-content">
-          <div className="unfurl-top"><p>HAVE SOMETHING IN MIND?</p><p>BANGKOK, THAILAND / AVAILABLE FOR PROJECTS</p></div>
-          <div className="unfurl-contact"><h2 id="unfurl-title">LET’S MAKE<br /><em>IT HAPPEN.</em></h2><a href="mailto:dk_s3d@hotmail.com">dk_s3d@hotmail.com</a></div>
-          <p className="unfurl-bottom">DESIGN THAT LOOKS GOOD. AND DOES SOMETHING.</p>
+          <div className="unfurl-top"><p>CONTACT KLAICHIT</p><p>BASED IN BANGKOK, THAILAND</p></div>
+          <div className="unfurl-contact"><h2 id="unfurl-title">GET IN<br /><em>TOUCH.</em></h2><a href="mailto:dk_s3d@hotmail.com">dk_s3d@hotmail.com</a></div>
+          <p className="unfurl-bottom">For work enquiries or a conversation about a project, email me.</p>
         </div>
       </motion.div>
     </div>

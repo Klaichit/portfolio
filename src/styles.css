@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @source "../components";
+.graphic-profile-copy { max-width:820px; margin:0 0 60px; }
+.graphic-profile-copy h3 { font-size:24px; margin-bottom:18px; }
+.graphic-profile-copy p { font-size:16px; line-height:1.85; margin:0 0 14px; color:#4e504b; }
 .unfurl-footer { height:220svh; position:relative; background:#efeee9; }
 .unfurl-sticky { position:sticky; top:0; height:100svh; min-height:600px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .unfurl-banner { position:relative; height:100%; overflow:hidden; background:#08164b; color:#efeee9; }
