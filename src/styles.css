@@ -21,6 +21,8 @@
 .unfurl-contact a { display:inline-block; font-size:clamp(16px,2vw,24px); color:#efeee9; text-decoration:none; border-bottom:1px solid #efeee980; padding:10px 0; }
 .unfurl-contact a:hover { color:#c4ed69; border-color:#c4ed69; }
 .unfurl-contact a:focus-visible { outline:3px solid #c4ed69; outline-offset:8px; }
+.unfurl-contact-links { display:flex; flex-wrap:wrap; gap:12px 32px; }
+.unfurl-contact-links a { overflow-wrap:anywhere; }
 .unfurl-bottom { border-top:1px solid #efeee940; padding-top:22px; }
 :host([lang=th]) .unfurl-contact h2 { font-family:'Noto Sans Thai',sans-serif; line-height:1.35; letter-spacing:-.02em; font-size:clamp(44px,7vw,104px); }
 .unfurl-reduced { height:100svh; min-height:650px; }
