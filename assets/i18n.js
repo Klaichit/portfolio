@@ -101,12 +101,12 @@
   }
   const switcher = document.createElement('div');
   switcher.className = 'site-language-switch'; switcher.dataset.noTranslate = ''; switcher.setAttribute('role', 'group');
-  for (const [value, label] of [['th', 'ไทย'], ['en', 'EN']]) {
+  for (const [value, label] of [['th', 'TH'], ['en', 'EN']]) {
     const button = document.createElement('button'); button.type = 'button'; button.dataset.lang = value; button.lang = value;
     button.textContent = label; button.setAttribute('aria-label', value === 'th' ? 'ใช้ภาษาไทย' : 'Use English');
     button.addEventListener('click', () => setLanguage(value)); switcher.append(button);
   }
-  document.body.append(switcher);
+  (document.querySelector('nav') || document.body).append(switcher);
   window.addEventListener('popstate', () => { const value = new URLSearchParams(location.search).get('lang'); if (valid(value)) language = value; update(); });
   if (valid(requested) || nativeThai) { try { localStorage.setItem('portfolio-language', language); } catch {} }
   update();
