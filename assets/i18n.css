@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap');
+.site-language-switch { position:fixed; right:20px; bottom:22px; z-index:240; display:flex; gap:3px; padding:4px; border:1px solid #b5b5ae; background:#efeee9; box-shadow:0 3px 15px #0002; font:12px/1.5 'Noto Sans Thai',Arial,sans-serif; }
+.site-language-switch button { appearance:none; border:0; border-radius:0; padding:7px 10px; min-width:42px; background:transparent; color:#35352f; cursor:pointer; font:inherit; }
+.site-language-switch button[aria-pressed=true] { background:#2348ef; color:#fff; }
+.site-language-switch button:focus-visible { outline:2px solid #2348ef; outline-offset:3px; }
+html[lang=th] { --font:'Noto Sans Thai','Space Grotesk',sans-serif; --mono:'Noto Sans Thai','Space Mono',monospace; }
+html[lang=th] :is(h1,h2,h3,h4,p,a,button,span,div,li,small,strong,em,dt,dd), :host([lang=th]) :is(h1,h2,h3,h4,p,a,button,span,div,li,small,strong,em) { font-family:'Noto Sans Thai','Space Grotesk',sans-serif; letter-spacing:normal; }
+html[lang=th] :is(p,li,.proj-desc,.summary,.exp-desc) { line-height:1.85; }
+html[lang=th] :is(h1,h2,h3,h4) { line-height:1.3; }
+html[lang=th] .nav-links { gap:1.4rem; }
+html[lang=th] .nav-links a { letter-spacing:0; }
+html[lang=th] .graphic-outro>a { font-size:clamp(52px,8vw,130px); line-height:1.3; }
+html[lang=th] .graphic-heading h2 { letter-spacing:0; line-height:1.3; }
+:host([lang=th]) .tunnel-title h1 { font-size:clamp(50px,7.5vw,110px); line-height:1.25; font-weight:700; }
+:host([lang=th]) .tunnel-description { max-width:38ch; line-height:1.8; }
+:host([lang=th]) .tunnel-eyebrow { letter-spacing:0; font-size:12px; }
+:host([lang=th]) .work-intro h2 { font-size:clamp(40px,4.6vw,68px); line-height:1.25; }
+:host([lang=th]) .work-intro h2 em { font-style:normal; }
+:host([lang=th]) .editorial-caption strong { line-height:1.55; letter-spacing:0; }
+:host([lang=th]) .editorial-caption small { line-height:1.8; font-size:10px; }
+:host([lang=th]) .work-tabs button { font-size:12px; }
+html[lang=th] .resume-heading h1 { font-family:'Space Grotesk',sans-serif; }
+.resume-actions .language-switch { display:none; }
+@media(max-width:767px) { .site-language-switch { right:74px; top:17px; bottom:auto; } body:has(.resume-nav) .site-language-switch { right:12px; top:auto; bottom:22px; } html[lang=th] .nav-links { gap:1rem; } :host([lang=th]) .tunnel-title h1 { font-size:clamp(38px,10vw,64px); } :host([lang=th]) .tunnel-eyebrow { font-size:9px; } :host([lang=th]) .work-tabs { gap:15px; } html[lang=th] .graphic-outro>a { font-size:44px; } }
+@media print { .site-language-switch { display:none!important; } html[lang=th] .summary { line-height:1.6; } }

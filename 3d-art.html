@@ -154,6 +154,7 @@
       footer { padding: 2rem 1.5rem; }
     }
   </style>
+<link rel="stylesheet" href="assets/i18n.css" />
 </head>
 <body>
 
@@ -522,5 +523,7 @@ document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
   setInterval(() => { idx = (idx+1)%slides.length; if(useA){imgB.src=slides[idx];imgB.onload=()=>{imgB.style.opacity='1';imgA.style.opacity='0';useA=false;}}else{imgA.src=slides[idx];imgA.onload=()=>{imgA.style.opacity='1';imgB.style.opacity='0';useA=true;}} }, 4100);
 })();
 </script>
+<script defer src="assets/i18n-th.js"></script>
+<script defer src="assets/i18n.js"></script>
 </body>
 </html>

@@ -150,6 +150,7 @@
       footer { padding: 2rem 1.5rem; }
     }
   </style>
+<link rel="stylesheet" href="assets/i18n.css" />
 </head>
 <body>
 
@@ -225,5 +226,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: .08 });
 document.querySelectorAll('.wcard').forEach(c => obs.observe(c));
 </script>
+<script defer src="assets/i18n-th.js"></script>
+<script defer src="assets/i18n.js"></script>
 </body>
 </html>
