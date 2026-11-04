@@ -12,6 +12,22 @@ export default function GraphicWork({ projects }: { projects: GraphicProject[] }
     card?.click();
     document.getElementById("work-viewer")?.addEventListener("close", () => trigger.focus({ preventScroll: true }), { once: true });
   };
+  const renderProject = (p: GraphicProject, featured = false) => (
+    <button type="button" key={p.slug} data-project={p.slug}
+      className={`editorial-card ${featured ? "editorial-lead" : ""} editorial-${p.type}`}
+      onClick={e => openProject(p.slug, e.currentTarget)}
+      aria-label={`${p.type === "video" ? "Play" : "View"} ${p.title}`}>
+      <span className="editorial-media">
+        <img src={p.image} alt={p.title} loading="lazy" decoding="async" />
+        {p.type === "video" && <span className="editorial-play" aria-hidden="true">{"\u25b6"}</span>}
+        {p.type === "website" && <span className="editorial-web-label" aria-hidden="true">WEBSITE PREVIEW</span>}
+      </span>
+      <span className="editorial-caption">
+        <strong>{p.title.replace(" / ", " \u2014 ")}</strong>
+        <small>{p.label}</small>
+      </span>
+    </button>
+  );
   return <div className="work-showcase">
     <TiltedGridHero key={filter} images={images} className="work-curved-hero w-full" tileHeight={32} aspectRatio={1.05} axis={59} curve={72} gap={9} speed={5} paused={paused}>
       <div className="work-intro relative z-10 text-center">
@@ -28,12 +44,17 @@ export default function GraphicWork({ projects }: { projects: GraphicProject[] }
         <p>EXPLORE THE WORK</p>
         <div className="work-tabs flex" role="group" aria-label="Filter selected work">{categories.map(c => <button type="button" key={c.key} aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>{c.label}</button>)}</div>
       </div>
-      <div className="work-index">{selected.map((p, i) => <button type="button" className="work-index-item" key={p.slug} onClick={e => openProject(p.slug, e.currentTarget)} aria-label={`${p.type === "video" ? "Play" : "View"} ${p.title}`}>
-        <span className="work-number">{String(i + 1).padStart(2, "0")}</span>
-        <img src={p.image} alt="" loading="lazy" />
-        <span className="work-item-copy"><strong>{p.title.replace(" / ", " — ")}</strong><small>{p.label}</small></span>
-        <span className="work-action">{p.type === "video" ? "PLAY" : "VIEW"}</span>
-      </button>)}</div>
+      <div className="editorial-gallery">
+        {filter === "all" && <div className="editorial-featured">
+          {["bluepulse", "bluespark", "website"].map(slug => {
+            const project = selected.find(p => p.slug === slug);
+            return project ? renderProject(project, slug === "bluepulse") : null;
+          })}
+        </div>}
+        <div className="editorial-grid">
+          {selected.filter(p => filter !== "all" || !["bluepulse", "bluespark", "website"].includes(p.slug)).map(p => renderProject(p))}
+        </div>
+      </div>
     </div>
   </div>;
 }

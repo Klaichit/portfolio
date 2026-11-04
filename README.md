@@ -35,3 +35,5 @@ Golden-angle card placement, Z-axis travel, spring smoothing, pointer parallax, 
 ## Curved selected-work section
 
 `components/ui/tilted-grid-hero.tsx` integrates the user-supplied cylindrical sliced-image component. `components/graphic-work.tsx` supplies local portfolio images, category filtering, a pause control and keyboard-accessible project buttons connected to the existing media viewer. The decorative band pauses offscreen and under reduced-motion preferences. `components/tilted-grid-demo.tsx` contains a standalone stock-image demo. No extra dependency or provider is required. The section mounts in its own shadow root to isolate Tailwind from the original portfolio.
+
+The work browser uses the approved Editorial Mix layout: a full-poster lead beside a video and website preview, followed by large two-column project cards. Mobile uses one column. Posters and videos preserve their aspect ratios; website cards show a top-aligned crop and open the full page capture in the viewer.
