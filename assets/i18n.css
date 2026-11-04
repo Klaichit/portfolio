@@ -40,13 +40,19 @@ body[data-mode="graphic"] .graphic-outro>a,html[lang=th] body[data-mode="graphic
 html[lang=th] body[data-mode="graphic"] .graphic-outro>a { line-height:1.4; letter-spacing:0; }
 .outro-bottom a { color:inherit; text-decoration:none; border-bottom:1px solid #ffffff80; padding-bottom:4px; }
 .outro-bottom a:hover { color:#c2e67b; }
-@media(max-width:1150px) {
+@media(max-width:1599px) {
  #nav { grid-template-columns:auto 1fr auto auto; gap:16px; padding:14px 4vw; }
  #nav .nav-toggle { display:flex; grid-column:4; }
  #nav .site-language-switch { grid-column:3; }
  #nav .nav-links,body[data-mode="graphic"] #nav .nav-links { display:none; position:absolute; top:100%; right:0; left:0; padding:22px 4vw; flex-direction:column; align-items:flex-start; background:#101520; border-bottom:1px solid #ffffff30; }
  #nav .nav-links.open,body[data-mode="graphic"] #nav .nav-links.open { display:flex; }
  body[data-mode="graphic"] #nav .nav-links { background:#2348ef; }
+}
+@media(min-width:768px) {
+ #nav .mode-switch,body[data-mode="graphic"] #nav .mode-switch {
+  position:absolute; grid-column:auto; grid-row:auto; left:50%; top:50%; right:auto; bottom:auto;
+  transform:translate(-50%,-50%);
+ }
 }
 
 /* Readable secondary text throughout the Graphic portfolio. */
