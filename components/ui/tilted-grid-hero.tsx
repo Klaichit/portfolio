@@ -65,8 +65,8 @@ export function TiltedGridHero({ images, speed = 4, tileHeight = 26, aspectRatio
           const lap = Math.round(e.elapsedTime / duration);
           setShown(prev => { const next = lap * columns + first; return prev[t] === next ? prev : { ...prev, [t]: next }; });
         }}>
-          {Array.from({ length: SLICES }, (_, k) => <div key={k} className={cn("absolute top-0 overflow-hidden bg-muted", k === 0 && "rounded-l-lg", k === SLICES - 1 && "rounded-r-lg")} style={{ left: u((aspectRatio - share) / 2), width: k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`, height: u(1), transform: turn((aspectRatio / 2 - (k + 0.5) * share) * unit) }}>
-            {img && <img src={img.src} alt={k === 0 ? img.alt ?? "" : ""} draggable={false} className="absolute top-0 max-w-none object-cover" style={{ left: u(-k * share), width: u(aspectRatio), height: u(1) }} />}
+          {Array.from({ length: SLICES }, (_, k) => <div key={k} className={cn("absolute top-0 overflow-hidden bg-muted", k === 0 && "rounded-l-lg", k === SLICES - 1 && "rounded-r-lg")} style={{ left: u((aspectRatio - share) / 2), width: k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`, height: u(1), transform: turn((aspectRatio / 2 - (k + 0.5) * share) * unit), backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}>
+            {img && <img src={img.src} alt={k === 0 ? img.alt ?? "" : ""} draggable={false} className="absolute top-0 max-w-none object-cover" style={{ left: u(-k * share), width: u(aspectRatio), height: u(1), backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }} />}
           </div>)}
         </div>;
       })}
