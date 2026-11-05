@@ -5,6 +5,16 @@
   const links = [...nav.querySelectorAll('a')];
   const originalLinks = links.map(a => ({ href: a.getAttribute('href'), text: a.textContent }));
   const originalTitle = document.title;
+  const store = {
+    get: () => { try { return localStorage.getItem('portfolio-mode'); } catch { return null; } },
+    set: v => { try { localStorage.setItem('portfolio-mode', v); } catch {} }
+  };
+  const cleanUrl = () => {
+    const url = new URL(location.href);
+    url.searchParams.delete('mode');
+    url.pathname = url.pathname.replace(/index\.html$/, '');
+    return url;
+  };
   let current = '3d';
   function setMode(mode, push = false) {
     const graphic = mode === 'graphic';
@@ -25,16 +35,20 @@
     nav.classList.remove('open');
     document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
     document.getElementById('nav-toggle').setAttribute('aria-label', 'Open menu');
+    store.set(current);
     if (push) {
-      const url = new URL(location.href); url.searchParams.set('mode', current); url.hash = '';
-      history.pushState({}, '', url);
+      const url = cleanUrl(); url.hash = '';
+      history.pushState({ mode: current }, '', url);
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
     window.dispatchEvent(new Event('resize'));
   }
   buttons.forEach(b => b.addEventListener('click', () => { if (b.dataset.portfolioMode !== current) setMode(b.dataset.portfolioMode, true); }));
-  window.addEventListener('popstate', () => setMode(new URLSearchParams(location.search).get('mode')));
-  setMode(new URLSearchParams(location.search).get('mode'));
+  window.addEventListener('popstate', e => setMode(e.state?.mode || store.get()));
+  setMode(new URLSearchParams(location.search).get('mode') || store.get());
+  // Tidy the address bar on first load (keep lang for i18n to strip), without adding history.
+  const tidy = cleanUrl();
+  if (tidy.href !== location.href) history.replaceState({ mode: current }, '', tidy);
 
   const viewer = document.getElementById('work-viewer');
   const content = viewer.querySelector('.viewer-content');

@@ -96,7 +96,7 @@
     }
     language = next;
     try { localStorage.setItem('portfolio-language', next); } catch {}
-    const url = new URL(location.href); url.searchParams.set('lang', next); history.replaceState({}, '', url);
+    const url = new URL(location.href); url.searchParams.delete('lang'); url.pathname = url.pathname.replace(/index\.html$/, ''); history.replaceState(history.state, '', url);
     update(); window.dispatchEvent(new CustomEvent('portfolio-language-change', { detail: next }));
   }
   const switcher = document.createElement('div');
@@ -110,4 +110,10 @@
   window.addEventListener('popstate', () => { const value = new URLSearchParams(location.search).get('lang'); if (valid(value)) language = value; update(); });
   if (valid(requested) || nativeThai) { try { localStorage.setItem('portfolio-language', language); } catch {} }
   update();
+  // Tidy the address bar on first load; state persists via localStorage.
+  const tidy = new URL(location.href);
+  if (tidy.searchParams.has('lang') || /index\.html$/.test(tidy.pathname)) {
+    tidy.searchParams.delete('lang'); tidy.pathname = tidy.pathname.replace(/index\.html$/, '');
+    history.replaceState(history.state, '', tidy);
+  }
 })();
