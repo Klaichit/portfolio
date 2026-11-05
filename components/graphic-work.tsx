@@ -29,7 +29,7 @@ export default function GraphicWork({ projects }: { projects: GraphicProject[] }
     </button>
   );
   return <div className="work-showcase">
-    <TiltedGridHero key={filter} images={images} className="work-curved-hero w-full" tileHeight={32} aspectRatio={1.05} axis={59} curve={72} gap={9} speed={5} paused={paused}>
+    <TiltedGridHero key={filter} images={images} className="work-curved-hero w-full" tileHeight={32} aspectRatio={1.05} axis={59} curve={60} gap={9} speed={5} paused={paused}>
       <div className="work-intro relative z-10 text-center">
         <p className="work-kicker">THE PORTFOLIO <span aria-live="polite">{selected.length} PROJECTS</span></p>
         <h2 id="graphic-work-title" tabIndex={-1}>A selection<br /><em>of my work.</em></h2>
